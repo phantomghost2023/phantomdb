@@ -15,3 +15,7 @@ set(STORAGE_HEADERS
 
 add_library(storage ${STORAGE_SOURCES} ${STORAGE_HEADERS})
 target_link_libraries(storage core ${CONAN_LIBS})
+
+# WAL test executable
+add_executable(wal_test wal_test.cpp)
+target_link_libraries(wal_test storage core ${CONAN_LIBS})

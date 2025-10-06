@@ -27,17 +27,14 @@ include_directories(src)
 # Add subdirectories
 add_subdirectory(src/core)
 add_subdirectory(src/storage)
-add_subdirectory(src/query)
-add_subdirectory(src/transaction)
-add_subdirectory(src/distributed)
-add_subdirectory(src/tools)
-add_subdirectory(src/api)
-add_subdirectory(tests)
+# TODO: Add other modules as they are implemented
+# add_subdirectory(src/query)
+# add_subdirectory(src/transaction)
+# add_subdirectory(src/distributed)
+# add_subdirectory(src/tools)
+# add_subdirectory(src/api)
+# add_subdirectory(tests)
 
 # Main executable
 add_executable(phantomdb src/main.cpp)
 target_link_libraries(phantomdb core storage ${CONAN_LIBS})
-
-# Install targets
-install(DIRECTORY src/ DESTINATION include/phantomdb FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp")
-install(TARGETS phantomdb RUNTIME DESTINATION bin)
