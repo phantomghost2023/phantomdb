@@ -7,8 +7,8 @@ This document tracks the progress of Phantom-DB development against the roadmap.
 ### Research & Design
 
 #### Comparative Analysis
-- [ ] Study failure points in existing databases (SQL/NoSQL)
-- [ ] Analyze performance bottlenecks in current systems
+- [x] Study failure points in existing databases (SQL/NoSQL)
+- [x] Analyze performance bottlenecks in current systems
 - [x] Research consensus algorithms (Raft, Paxos variants)
 - [x] Study distributed transaction patterns
 - [x] Analyze Two-Phase Commit (2PC) vs. Saga patterns for microservices
