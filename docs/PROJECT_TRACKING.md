@@ -10,7 +10,7 @@ This document tracks the progress of Phantom-DB development against the roadmap.
 - [ ] Study failure points in existing databases (SQL/NoSQL)
 - [ ] Analyze performance bottlenecks in current systems
 - [ ] Research consensus algorithms (Raft, Paxos variants)
-- [ ] Study distributed transaction patterns
+- [x] Study distributed transaction patterns
 - [x] Analyze Two-Phase Commit (2PC) vs. Saga patterns for microservices
 
 #### Core Architecture Decisions
