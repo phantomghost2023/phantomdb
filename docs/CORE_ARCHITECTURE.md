@@ -29,7 +29,7 @@ The storage engine is responsible for:
 - Write-ahead logging
 - Garbage collection and compaction
 
-We are considering a hybrid approach combining:
+We have decided to implement a hybrid approach combining:
 - LSM-tree for write-heavy workloads
 - B+tree for read-heavy workloads
 - Columnar storage for analytical queries
@@ -115,3 +115,27 @@ Phantom-DB will implement Raft as its primary consensus algorithm:
 - Raft will be used for coordinating cluster state and membership
 - Consensus on transaction logs for durability
 - Integration with both 2PC and Saga coordination mechanisms
+
+## Core Architecture Decisions Summary
+
+Based on our Phase 1 research, we have made the following core architecture decisions:
+
+### Storage Engine Design
+- **Hybrid LSM-tree and B+tree** approach for optimal performance across different workloads
+
+### Query Processing Architecture
+- **Modular, extensible pipeline** with separate parsing, planning, optimization, and execution components
+
+### Concurrency Control Model
+- **MVCC with optimistic enhancement** to reduce lock contention and improve performance
+
+### Data Serialization Format
+- **Schema-aware binary format** with JSON compatibility for efficiency and flexibility
+
+### Distributed Transaction Model
+- **Hybrid approach** using 2PC for critical operations and Saga for user-facing operations
+
+### Consensus Algorithm
+- **Raft-based consensus** for simplicity and reliability
+
+These decisions are detailed in [CORE_ARCHITECTURE_DECISIONS.md](CORE_ARCHITECTURE_DECISIONS.md).

@@ -14,12 +14,12 @@ This document tracks the progress of Phantom-DB development against the roadmap.
 - [x] Analyze Two-Phase Commit (2PC) vs. Saga patterns for microservices
 
 #### Core Architecture Decisions
-- [ ] Storage engine design (LSM-tree vs. B-tree hybrid)
-- [ ] Query processing architecture
-- [ ] Concurrency control model
-- [ ] Data serialization format
-- [ ] Distributed transaction model selection (CP vs AP trade-offs)
-- [ ] Consensus algorithm selection (Raft vs Paxos variants)
+- [x] Storage engine design (LSM-tree vs. B-tree hybrid)
+- [x] Query processing architecture
+- [x] Concurrency control model
+- [x] Data serialization format
+- [x] Distributed transaction model selection (CP vs AP trade-offs)
+- [x] Consensus algorithm selection (Raft vs Paxos variants)
 
 ### Core Development
 

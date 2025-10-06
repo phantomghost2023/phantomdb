@@ -6,20 +6,20 @@ A next-generation database system combining SQL's reliability, NoSQL's flexibili
 ## Phase 1: Foundation & Core Architecture (Months 1-6)
 
 ### Research & Design
-- [ ] **Comparative Analysis**
-  - [ ] Study failure points in existing databases (SQL/NoSQL)
-  - [ ] Analyze performance bottlenecks in current systems
+- [x] **Comparative Analysis**
+  - [x] Study failure points in existing databases (SQL/NoSQL)
+  - [x] Analyze performance bottlenecks in current systems
   - [x] Research consensus algorithms (Raft, Paxos variants)
   - [x] Study distributed transaction patterns
   - [x] Analyze Two-Phase Commit (2PC) vs. Saga patterns for microservices
 
-- [ ] **Core Architecture Decisions**
-  - [ ] Storage engine design (LSM-tree vs. B-tree hybrid)
-  - [ ] Query processing architecture
-  - [ ] Concurrency control model
-  - [ ] Data serialization format
-  - [ ] Distributed transaction model selection (CP vs AP trade-offs)
-  - [ ] Consensus algorithm selection (Raft vs Paxos variants)
+- [x] **Core Architecture Decisions**
+  - [x] Storage engine design (LSM-tree vs. B-tree hybrid)
+  - [x] Query processing architecture
+  - [x] Concurrency control model
+  - [x] Data serialization format
+  - [x] Distributed transaction model selection (CP vs AP trade-offs)
+  - [x] Consensus algorithm selection (Raft vs Paxos variants)
 
 ### Core Development
 - [ ] **Storage Engine**
@@ -183,3 +183,4 @@ A next-generation database system combining SQL's reliability, NoSQL's flexibili
 - Multi-tenant isolation for SaaS applications
 - Adaptive transaction model selection based on real-time context
 - Raft-based consensus for simplified cluster management
+- Hybrid storage engine for optimal performance across workloads
