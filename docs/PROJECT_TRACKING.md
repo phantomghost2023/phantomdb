@@ -36,7 +36,35 @@ This document tracks the progress of Phantom-DB development against the roadmap.
 
 ## Phase 2: Single-Node Implementation (Months 7-12)
 
-(To be updated as Phase 1 is completed)
+### Core Features
+
+#### SQL Compatibility Layer
+- [ ] ANSI SQL standard support
+- [ ] Extended SQL for modern use cases
+- [ ] Stored procedures and functions
+
+#### Document Model Integration
+- [ ] JSON/BSON-like document storage
+- [ ] Cross-document references
+- [ ] Document validation schemas
+
+#### Transaction System
+- [ ] ACID transaction implementation
+- [ ] Isolation levels
+- [ ] Deadlock detection and resolution
+- [ ] Support for distributed transactions (2PC and Saga patterns)
+
+### Reliability Features
+
+#### Fault Tolerance
+- [ ] Crash recovery mechanisms
+- [ ] Data corruption detection
+- [ ] Automatic repair processes
+
+#### Monitoring & Observability
+- [ ] Built-in performance metrics
+- [ ] Query performance analysis
+- [ ] Health monitoring dashboard
 
 ## Phase 3: Distributed Architecture (Months 13-18)
 
