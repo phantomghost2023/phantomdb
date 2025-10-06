@@ -11,12 +11,14 @@ This document tracks the progress of Phantom-DB development against the roadmap.
 - [ ] Analyze performance bottlenecks in current systems
 - [ ] Research consensus algorithms (Raft, Paxos variants)
 - [ ] Study distributed transaction patterns
+- [x] Analyze Two-Phase Commit (2PC) vs. Saga patterns for microservices
 
 #### Core Architecture Decisions
 - [ ] Storage engine design (LSM-tree vs. B-tree hybrid)
 - [ ] Query processing architecture
 - [ ] Concurrency control model
 - [ ] Data serialization format
+- [ ] Distributed transaction model selection (CP vs AP trade-offs)
 
 ### Core Development
 

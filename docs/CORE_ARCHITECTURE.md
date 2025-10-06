@@ -47,6 +47,7 @@ Responsible for:
 - Concurrency control
 - Isolation levels
 - Deadlock detection and resolution
+- Distributed transaction coordination (2PC and Saga patterns)
 
 ### 4. Distributed Layer
 Handles:
@@ -54,6 +55,7 @@ Handles:
 - Data partitioning (sharding)
 - Consensus protocols
 - Replication
+- Distributed transaction coordination
 
 ## Data Flow
 
@@ -71,3 +73,23 @@ Handles:
 3. **Performance**: Optimized for both OLTP and OLAP workloads
 4. **Reliability**: Built-in fault tolerance and recovery mechanisms
 5. **Scalability**: Designed to scale from single node to large clusters
+6. **Hybrid Transaction Models**: Support for both strong consistency (2PC) and eventual consistency (Saga) patterns
+
+## Distributed Transaction Approach
+
+Phantom-DB implements a hybrid transaction model that combines the strengths of both Two-Phase Commit (2PC) and Saga patterns:
+
+### Two-Phase Commit (2PC) - CP Model
+- Used for critical operations requiring strong consistency
+- Suitable for financial transactions and regulatory compliance
+- Provides automatic audit trails and built-in rollback mechanisms
+
+### Saga Pattern - AP Model
+- Used for availability-critical, user-facing operations
+- Implements compensating transactions for rollback
+- Provides better performance and scalability for non-critical operations
+
+### Adaptive Transaction Selection
+- Dynamic selection based on operation type and SLA requirements
+- Context-aware switching between transaction models
+- Machine learning-based optimization of transaction model selection

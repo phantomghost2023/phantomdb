@@ -11,12 +11,14 @@ A next-generation database system combining SQL's reliability, NoSQL's flexibili
   - [ ] Analyze performance bottlenecks in current systems
   - [ ] Research consensus algorithms (Raft, Paxos variants)
   - [ ] Study distributed transaction patterns
+  - [ ] Analyze Two-Phase Commit (2PC) vs. Saga patterns for microservices
 
 - [ ] **Core Architecture Decisions**
   - [ ] Storage engine design (LSM-tree vs. B-tree hybrid)
   - [ ] Query processing architecture
   - [ ] Concurrency control model
   - [ ] Data serialization format
+  - [ ] Distributed transaction model selection (CP vs AP trade-offs)
 
 ### Core Development
 - [ ] **Storage Engine**
@@ -47,6 +49,7 @@ A next-generation database system combining SQL's reliability, NoSQL's flexibili
   - [ ] ACID transaction implementation
   - [ ] Isolation levels
   - [ ] Deadlock detection and resolution
+  - [ ] Support for distributed transactions (2PC and Saga patterns)
 
 ### Reliability Features
 - [ ] **Fault Tolerance**
@@ -77,6 +80,8 @@ A next-generation database system combining SQL's reliability, NoSQL's flexibili
   - [ ] Two-phase commit optimization
   - [ ] Global timestamp ordering
   - [ ] Cross-shard queries
+  - [ ] Saga pattern implementation with compensating transactions
+  - [ ] Hybrid transaction strategy (2PC for critical operations, Saga for availability-critical flows)
 
 - [ ] **Elastic Scaling**
   - [ ] Dynamic node addition/removal
@@ -106,6 +111,7 @@ A next-generation database system combining SQL's reliability, NoSQL's flexibili
   - [ ] Query debugger and profiler
   - [ ] Data visualization tools
   - [ ] Testing framework integration
+  - [ ] Observability tools (Prometheus/Grafana integration)
 
 ## Phase 5: Production Ready (Months 25-30)
 
@@ -115,12 +121,14 @@ A next-generation database system combining SQL's reliability, NoSQL's flexibili
   - [ ] Encryption at rest and in transit
   - [ ] Audit logging
   - [ ] Compliance certifications
+  - [ ] Regulatory compliance support (SOX, GDPR)
 
 - [ ] **Performance Optimization**
   - [ ] Query plan caching
   - [ ] Materialized views
   - [ ] Advanced indexing strategies
   - [ ] Query parallelization
+  - [ ] Adaptive transaction model selection
 
 ### Operations
 - [ ] **Deployment & Management**
@@ -128,6 +136,7 @@ A next-generation database system combining SQL's reliability, NoSQL's flexibili
   - [ ] Cloud formation templates
   - [ ] Backup/restore automation
   - [ ] Rolling update procedures
+  - [ ] Resilience testing frameworks
 
 ## Phase 6: Innovation & Ecosystem (Months 31+)
 
@@ -162,6 +171,7 @@ A next-generation database system combining SQL's reliability, NoSQL's flexibili
 4. **Intuitive data modeling** that evolves with applications
 5. **Built-in caching** that doesn't require separate systems
 6. **Automated optimization** without manual tuning
+7. **Hybrid transaction models** that balance consistency and availability
 
 ### Technical Differentiators
 - Hybrid transactional/analytical processing from day one
@@ -169,3 +179,4 @@ A next-generation database system combining SQL's reliability, NoSQL's flexibili
 - Automatic schema evolution with backward compatibility
 - Cost-based optimizer that learns from query patterns
 - Multi-tenant isolation for SaaS applications
+- Adaptive transaction model selection based on real-time context
