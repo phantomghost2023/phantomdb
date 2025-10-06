@@ -17,10 +17,6 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     add_compile_options(/W4)
 endif()
 
-# Conan setup
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup()
-
 # Include directories
 include_directories(src)
 
@@ -37,4 +33,4 @@ add_subdirectory(src/storage)
 
 # Main executable
 add_executable(phantomdb src/main.cpp)
-target_link_libraries(phantomdb core storage ${CONAN_LIBS})
+target_link_libraries(phantomdb core storage)
