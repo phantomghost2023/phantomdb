@@ -9,9 +9,9 @@ A next-generation database system combining SQL's reliability, NoSQL's flexibili
 - [ ] **Comparative Analysis**
   - [ ] Study failure points in existing databases (SQL/NoSQL)
   - [ ] Analyze performance bottlenecks in current systems
-  - [ ] Research consensus algorithms (Raft, Paxos variants)
-  - [ ] Study distributed transaction patterns
-  - [ ] Analyze Two-Phase Commit (2PC) vs. Saga patterns for microservices
+  - [x] Research consensus algorithms (Raft, Paxos variants)
+  - [x] Study distributed transaction patterns
+  - [x] Analyze Two-Phase Commit (2PC) vs. Saga patterns for microservices
 
 - [ ] **Core Architecture Decisions**
   - [ ] Storage engine design (LSM-tree vs. B-tree hybrid)
@@ -19,6 +19,7 @@ A next-generation database system combining SQL's reliability, NoSQL's flexibili
   - [ ] Concurrency control model
   - [ ] Data serialization format
   - [ ] Distributed transaction model selection (CP vs AP trade-offs)
+  - [ ] Consensus algorithm selection (Raft vs Paxos variants)
 
 ### Core Development
 - [ ] **Storage Engine**
@@ -71,7 +72,7 @@ A next-generation database system combining SQL's reliability, NoSQL's flexibili
   - [ ] Load balancing
 
 - [ ] **Consensus & Replication**
-  - [ ] Distributed consensus protocol
+  - [ ] Distributed consensus protocol (Raft implementation)
   - [ ] Multi-region replication
   - [ ] Conflict resolution mechanisms
 
@@ -172,6 +173,7 @@ A next-generation database system combining SQL's reliability, NoSQL's flexibili
 5. **Built-in caching** that doesn't require separate systems
 6. **Automated optimization** without manual tuning
 7. **Hybrid transaction models** that balance consistency and availability
+8. **Simplified consensus mechanisms** that prioritize understandability
 
 ### Technical Differentiators
 - Hybrid transactional/analytical processing from day one
@@ -180,3 +182,4 @@ A next-generation database system combining SQL's reliability, NoSQL's flexibili
 - Cost-based optimizer that learns from query patterns
 - Multi-tenant isolation for SaaS applications
 - Adaptive transaction model selection based on real-time context
+- Raft-based consensus for simplified cluster management

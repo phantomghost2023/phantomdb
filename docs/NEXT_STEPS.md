@@ -10,7 +10,7 @@ Start with the comparative analysis to inform core architecture decisions:
 - [ ] Study failure points in existing databases (SQL/NoSQL)
   - Document findings in research documents using the [RESEARCH_TEMPLATE.md](RESEARCH_TEMPLATE.md)
 - [ ] Analyze performance bottlenecks in current systems
-- [ ] Research consensus algorithms (Raft, Paxos variants)
+- [x] Research consensus algorithms (Raft, Paxos variants)
 - [ ] Study distributed transaction patterns
 
 ### 2. Core Architecture Decisions
@@ -20,6 +20,7 @@ Begin making decisions on the fundamental architecture:
 - [ ] Define query processing architecture
 - [ ] Select concurrency control model
 - [ ] Choose data serialization format
+- [ ] Select consensus algorithm (Raft vs Paxos variants)
 
 ## Recommended Approach
 
@@ -52,6 +53,11 @@ Start implementing the foundational components:
    - Compare write performance of LSM-trees vs. B-trees
    - Analyze query optimizer effectiveness in MySQL vs. PostgreSQL
    - Study lock contention in high-concurrency scenarios
+
+3. **Consensus Algorithms**
+   - Compare Raft implementation complexity vs. Paxos variants
+   - Analyze performance characteristics of each approach
+   - Study real-world implementations in etcd, Consul, and Chubby
 
 ## Resources Needed
 

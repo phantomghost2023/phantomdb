@@ -53,7 +53,7 @@ Responsible for:
 Handles:
 - Node discovery and membership
 - Data partitioning (sharding)
-- Consensus protocols
+- Consensus protocols (Raft implementation)
 - Replication
 - Distributed transaction coordination
 
@@ -74,6 +74,7 @@ Handles:
 4. **Reliability**: Built-in fault tolerance and recovery mechanisms
 5. **Scalability**: Designed to scale from single node to large clusters
 6. **Hybrid Transaction Models**: Support for both strong consistency (2PC) and eventual consistency (Saga) patterns
+7. **Simplified Consensus**: Use of Raft for understandable and maintainable consensus
 
 ## Distributed Transaction Approach
 
@@ -93,3 +94,24 @@ Phantom-DB implements a hybrid transaction model that combines the strengths of 
 - Dynamic selection based on operation type and SLA requirements
 - Context-aware switching between transaction models
 - Machine learning-based optimization of transaction model selection
+
+## Consensus Algorithm Approach
+
+Phantom-DB will implement Raft as its primary consensus algorithm:
+
+### Why Raft?
+- **Simplicity**: Easier to understand and implement than Paxos variants
+- **Clear Separation**: Well-defined responsibilities for leader election, log replication, and safety
+- **Wide Adoption**: Proven in production systems like etcd and Consul
+- **Developer Experience**: Aligns with our goal of providing an intuitive system
+
+### Raft Implementation Details
+- Leader-based consensus for simplified cluster management
+- Log replication to ensure consistency across nodes
+- Safety mechanisms to prevent split-brain scenarios
+- Efficient leader election protocols
+
+### Integration with Distributed Transactions
+- Raft will be used for coordinating cluster state and membership
+- Consensus on transaction logs for durability
+- Integration with both 2PC and Saga coordination mechanisms

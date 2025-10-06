@@ -9,7 +9,7 @@ This document tracks the progress of Phantom-DB development against the roadmap.
 #### Comparative Analysis
 - [ ] Study failure points in existing databases (SQL/NoSQL)
 - [ ] Analyze performance bottlenecks in current systems
-- [ ] Research consensus algorithms (Raft, Paxos variants)
+- [x] Research consensus algorithms (Raft, Paxos variants)
 - [x] Study distributed transaction patterns
 - [x] Analyze Two-Phase Commit (2PC) vs. Saga patterns for microservices
 
@@ -19,6 +19,7 @@ This document tracks the progress of Phantom-DB development against the roadmap.
 - [ ] Concurrency control model
 - [ ] Data serialization format
 - [ ] Distributed transaction model selection (CP vs AP trade-offs)
+- [ ] Consensus algorithm selection (Raft vs Paxos variants)
 
 ### Core Development
 
