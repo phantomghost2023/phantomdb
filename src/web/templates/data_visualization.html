@@ -1,0 +1,134 @@
+{% extends "visualizations_base.html" %}
+
+{% block title %}Data Visualization - PhantomDB Web Console{% endblock %}
+
+{% block visualization_content %}
+<div class="card">
+    <div class="card-header">
+        <h5><i class="bi bi-graph-up"></i> Data Visualization</h5>
+    </div>
+    <div class="card-body">
+        {% if error %}
+        <div class="alert alert-danger">
+            <i class="bi bi-exclamation-triangle"></i> {{ error }}
+        </div>
+        {% endif %}
+        
+        {% if chart_data %}
+        <!-- Display the chart -->
+        <div class="mb-4">
+            <canvas id="dataChart" height="400"></canvas>
+        </div>
+        {% else %}
+        <!-- Show the form to create a chart -->
+        <form method="POST">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="database" class="form-label">Database</label>
+                        <select class="form-select" id="database" name="database" required>
+                            <option value="">Select a database</option>
+                            {% if databases %}
+                            {% for db in databases %}
+                            <option value="{{ db }}">{{ db }}</option>
+                            {% endfor %}
+                            {% endif %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="table" class="form-label">Table</label>
+                        <select class="form-select" id="table" name="table" required>
+                            <option value="">Select a table</option>
+                            <!-- This would be populated dynamically in a real implementation -->
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="x_column" class="form-label">X-Axis Column</label>
+                        <input type="text" class="form-control" id="x_column" name="x_column" placeholder="Enter column name" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="y_column" class="form-label">Y-Axis Column</label>
+                        <input type="text" class="form-control" id="y_column" name="y_column" placeholder="Enter column name" required>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="chart_type" class="form-label">Chart Type</label>
+                        <select class="form-select" id="chart_type" name="chart_type">
+                            <option value="bar">Bar Chart</option>
+                            <option value="line">Line Chart</option>
+                            <option value="pie">Pie Chart</option>
+                            <option value="scatter">Scatter Plot</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-graph-up"></i> Generate Chart
+            </button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+
+{% if chart_data %}
+<div class="card mt-4">
+    <div class="card-header">
+        <h5><i class="bi bi-info-circle"></i> Chart Data</h5>
+    </div>
+    <div class="card-body">
+        <pre>{{ chart_data }}</pre>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // If we have chart data, render the chart
+    {% if chart_data %}
+    const ctx = document.getElementById('dataChart').getContext('2d');
+    // Parse the chart data from JSON
+    const chartData = JSON.parse('{{ chart_data | safe }}');
+    
+    new Chart(ctx, {
+        type: chartData.type,
+        data: chartData.data,
+        options: chartData.options
+    });
+    {% endif %}
+    
+    // Populate tables when database is selected
+    document.getElementById('database').addEventListener('change', function() {
+        const dbName = this.value;
+        const tableSelect = document.getElementById('table');
+        
+        if (dbName) {
+            // In a real implementation, this would fetch tables from the API
+            // For now, we'll just show a placeholder
+            tableSelect.innerHTML = '<option value="">Select a table</option>' +
+                                  '<option value="users">users</option>' +
+                                  '<option value="orders">orders</option>' +
+                                  '<option value="products">products</option>';
+        } else {
+            tableSelect.innerHTML = '<option value="">Select a table</option>';
+        }
+    });
+});
+</script>
+{% endblock %}

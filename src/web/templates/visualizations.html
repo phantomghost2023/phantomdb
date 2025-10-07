@@ -1,0 +1,67 @@
+{% extends "visualizations_base.html" %}
+
+{% block title %}Visualizations Dashboard - PhantomDB Web Console{% endblock %}
+
+{% block visualization_content %}
+<div class="card">
+    <div class="card-header">
+        <h5><i class="bi bi-speedometer2"></i> Visualizations Dashboard</h5>
+    </div>
+    <div class="card-body">
+        <p>Welcome to the PhantomDB Data Visualization tools. Here you can:</p>
+        <ul>
+            <li><strong>Schema Visualization</strong> - View your database and table relationships</li>
+            <li><strong>Data Charts</strong> - Create charts and graphs from your data</li>
+            <li><strong>Statistical Analysis</strong> - Analyze data distributions and patterns</li>
+        </ul>
+        
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h1><i class="bi bi-diagram-3 text-primary"></i></h1>
+                        <h5>Schema Visualization</h5>
+                        <p class="text-muted">Visualize database structure</p>
+                        <a href="/visualizations/schema" class="btn btn-primary">View</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h1><i class="bi bi-graph-up text-success"></i></h1>
+                        <h5>Data Charts</h5>
+                        <p class="text-muted">Create visual charts</p>
+                        <a href="/visualizations/data" class="btn btn-success">Create</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h1><i class="bi bi-calculator text-info"></i></h1>
+                        <h5>Statistics</h5>
+                        <p class="text-muted">Analyze data patterns</p>
+                        <a href="/query" class="btn btn-info">Analyze</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-header">
+        <h5><i class="bi bi-info-circle"></i> About Data Visualization</h5>
+    </div>
+    <div class="card-body">
+        <p>Data visualization is a powerful tool for understanding your data. PhantomDB's visualization tools help you:</p>
+        <ul>
+            <li>Identify patterns and trends in your data</li>
+            <li>Understand data distributions and relationships</li>
+            <li>Communicate insights effectively</li>
+            <li>Make data-driven decisions</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

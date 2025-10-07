@@ -1,0 +1,28 @@
+[package]
+name = "phantomdb"
+version = "0.1.0"
+edition = "2021"
+authors = ["PhantomDB Team <info@phantomdb.com>"]
+description = "Rust client for PhantomDB - A next-generation database system"
+license = "MIT"
+repository = "https://github.com/PhantomDB/phantomdb"
+homepage = "https://github.com/PhantomDB/phantomdb"
+documentation = "https://github.com/PhantomDB/phantomdb"
+readme = "README.md"
+keywords = ["database", "client", "phantomdb", "rest", "api"]
+categories = ["database"]
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+reqwest = { version = "0.11", features = ["json"] }
+tokio = { version = "1.0", features = ["full"] }
+thiserror = "1.0"
+url = "2.0"
+
+[dev-dependencies]
+tokio-test = "0.4"
+
+[lib]
+name = "phantomdb"
+path = "src/lib.rs"

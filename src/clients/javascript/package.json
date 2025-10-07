@@ -1,0 +1,27 @@
+{
+  "name": "phantomdb-js",
+  "version": "1.0.0",
+  "description": "JavaScript client for PhantomDB - A next-generation database system",
+  "main": "phantomdb.js",
+  "scripts": {
+    "test": "node test_phantomdb.js",
+    "example": "node example.js"
+  },
+  "keywords": [
+    "database",
+    "phantomdb",
+    "client",
+    "sdk",
+    "rest",
+    "api"
+  ],
+  "author": "PhantomDB Team",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "node-fetch": "^2.6.1"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}

@@ -1,0 +1,8 @@
+# Test for observability module
+add_executable(test_observability test_observability.cpp)
+
+target_link_libraries(test_observability 
+    observability
+    # nlohmann_json::nlohmann_json  # Removed to avoid dependency
+    # spdlog::spdlog  # Removed to avoid dependency
+)

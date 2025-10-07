@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+
+{% block title %}Tables - {{ db_name }} - PhantomDB Web Console{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1><i class="bi bi-table"></i> Tables in Database: {{ db_name }}</h1>
+        <hr>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/databases">Databases</a></li>
+                <li class="breadcrumb-item"><a href="/database/{{ db_name }}">{{ db_name }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Tables</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="bi bi-list"></i> Table List</h5>
+            </div>
+            <div class="card-body">
+                {% if error %}
+                    <div class="alert alert-danger">
+                        <i class="bi bi-exclamation-triangle"></i> {{ error }}
+                    </div>
+                {% endif %}
+                
+                {% if tables %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for table in tables %}
+                                <tr>
+                                    <td>
+                                        <a href="/database/{{ db_name }}/table/{{ table }}">{{ table }}</a>
+                                    </td>
+                                    <td>
+                                        <a href="/database/{{ db_name }}/table/{{ table }}" class="btn btn-sm btn-primary">
+                                            <i class="bi bi-eye"></i> View Data
+                                        </a>
+                                        <button class="btn btn-sm btn-danger" onclick="dropTable('{{ table }}')">
+                                            <i class="bi bi-trash"></i> Drop
+                                        </button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle"></i> No tables found in this database.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="bi bi-plus-circle"></i> Create Table</h5>
+            </div>
+            <div class="card-body">
+                <form id="createTableForm">
+                    <input type="hidden" id="dbName" value="{{ db_name }}">
+                    <div class="mb-3">
+                        <label for="tableName" class="form-label">Table Name</label>
+                        <input type="text" class="form-control" id="tableName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="columns" class="form-label">Columns (name:type, one per line)</label>
+                        <textarea class="form-control" id="columns" rows="4" placeholder="id:int&#10;name:string&#10;email:string"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-plus"></i> Create Table
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Handle table creation
+    document.getElementById('createTableForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const dbName = document.getElementById('dbName').value;
+        const tableName = document.getElementById('tableName').value;
+        const columnsText = document.getElementById('columns').value;
+        
+        // Parse columns
+        const columns = [];
+        if (columnsText) {
+            const lines = columnsText.split('\n');
+            for (const line of lines) {
+                const trimmed = line.trim();
+                if (trimmed) {
+                    const parts = trimmed.split(':');
+                    if (parts.length >= 2) {
+                        columns.push({
+                            name: parts[0].trim(),
+                            type: parts[1].trim()
+                        });
+                    } else {
+                        columns.push({
+                            name: parts[0].trim(),
+                            type: 'string'  // default type
+                        });
+                    }
+                }
+            }
+        }
+        
+        if (tableName) {
+            fetch('/api/database/' + dbName + '/tables', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: tableName,
+                    columns: columns
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                } else {
+                    location.reload();
+                }
+            })
+            .catch(error => {
+                alert('Error: ' + error);
+            });
+        }
+    });
+    
+    // Handle table deletion
+    function dropTable(tableName) {
+        const dbName = document.getElementById('dbName').value;
+        if (confirm('Are you sure you want to drop table "' + tableName + '"? This action cannot be undone.')) {
+            fetch('/api/database/' + dbName + '/tables', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({name: tableName})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                } else {
+                    location.reload();
+                }
+            })
+            .catch(error => {
+                alert('Error: ' + error);
+            });
+        }
+    }
+</script>
+{% endblock %}

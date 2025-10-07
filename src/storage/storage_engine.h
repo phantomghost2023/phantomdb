@@ -21,6 +21,9 @@ public:
     // Get storage engine status
     std::string getStatus() const;
     
+    // Write data to storage
+    bool writeData(const std::string& data);
+    
 private:
     class Impl;
     std::unique_ptr<Impl> pImpl;

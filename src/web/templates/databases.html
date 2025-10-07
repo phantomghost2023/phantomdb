@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block title %}Databases - PhantomDB Web Console{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1><i class="bi bi-hdd-stack"></i> Databases</h1>
+        <hr>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="bi bi-list"></i> Database List</h5>
+            </div>
+            <div class="card-body">
+                {% if error %}
+                    <div class="alert alert-danger">
+                        <i class="bi bi-exclamation-triangle"></i> {{ error }}
+                    </div>
+                {% endif %}
+                
+                {% if databases %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for db in databases %}
+                                <tr>
+                                    <td>
+                                        <a href="/database/{{ db }}/tables">{{ db }}</a>
+                                    </td>
+                                    <td>
+                                        <a href="/database/{{ db }}/tables" class="btn btn-sm btn-primary">
+                                            <i class="bi bi-table"></i> Tables
+                                        </a>
+                                        <button class="btn btn-sm btn-danger" onclick="dropDatabase('{{ db }}')">
+                                            <i class="bi bi-trash"></i> Drop
+                                        </button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle"></i> No databases found.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="bi bi-plus-circle"></i> Create Database</h5>
+            </div>
+            <div class="card-body">
+                <form id="createDatabaseForm">
+                    <div class="mb-3">
+                        <label for="dbName" class="form-label">Database Name</label>
+                        <input type="text" class="form-control" id="dbName" required>
+                    </div>
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-plus"></i> Create Database
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Handle database creation
+    document.getElementById('createDatabaseForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const dbName = document.getElementById('dbName').value;
+        
+        if (dbName) {
+            fetch('/api/databases', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({name: dbName})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                } else {
+                    location.reload();
+                }
+            })
+            .catch(error => {
+                alert('Error: ' + error);
+            });
+        }
+    });
+    
+    // Handle database deletion
+    function dropDatabase(dbName) {
+        if (confirm('Are you sure you want to drop database "' + dbName + '"? This action cannot be undone.')) {
+            fetch('/api/databases', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({name: dbName})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                } else {
+                    location.reload();
+                }
+            })
+            .catch(error => {
+                alert('Error: ' + error);
+            });
+        }
+    }
+</script>
+{% endblock %}

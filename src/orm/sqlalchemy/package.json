@@ -1,0 +1,28 @@
+{
+  "name": "phantomdb-sqlalchemy",
+  "version": "1.0.0",
+  "description": "SQLAlchemy dialect for PhantomDB",
+  "main": "base.py",
+  "directories": {
+    "lib": "phantomdb_sqlalchemy"
+  },
+  "scripts": {
+    "test": "python -m pytest tests/",
+    "example": "python example.py"
+  },
+  "keywords": [
+    "phantomdb",
+    "sqlalchemy",
+    "orm",
+    "database"
+  ],
+  "author": "PhantomDB Team",
+  "license": "MIT",
+  "dependencies": {
+    "phantomdb-client": "^1.0.0",
+    "sqlalchemy": ">=1.4.0"
+  },
+  "devDependencies": {
+    "pytest": "^6.2.5"
+  }
+}

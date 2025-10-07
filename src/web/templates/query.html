@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% block title %}Query Database - PhantomDB Web Console{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Database Query</h3>
+        </div>
+        <div class="card-body">
+          <form id="queryForm">
+            <div class="mb-3">
+              <label for="databaseSelect" class="form-label">Database</label>
+              <select class="form-select" id="databaseSelect" required>
+                <option value="">Select a database</option>
+                <!-- Databases will be populated by JavaScript -->
+              </select>
+            </div>
+            
+            <div class="mb-3">
+              <label for="queryInput" class="form-label">SQL Query</label>
+              <textarea class="form-control" id="queryInput" rows="5" placeholder="Enter your SQL query here..." required></textarea>
+              <div class="form-text">Example: SELECT * FROM users WHERE age > 18</div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">
+              <i class="bi bi-play-circle"></i> Execute Query
+            </button>
+            <button type="button" class="btn btn-secondary" id="clearBtn">
+              <i class="bi bi-x-circle"></i> Clear
+            </button>
+          </form>
+        </div>
+      </div>
+      
+      <div class="card mt-4">
+        <div class="card-header">
+          <h3 class="card-title">Query Results</h3>
+        </div>
+        <div class="card-body">
+          <div id="queryResults">
+            <p class="text-muted">Execute a query to see results here.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Load databases for selection
+  fetch('/api/databases')
+    .then(response => response.json())
+    .then(data => {
+      const select = document.getElementById('databaseSelect');
+      data.forEach(db => {
+        const option = document.createElement('option');
+        option.value = db.name;
+        option.textContent = db.name;
+        select.appendChild(option);
+      });
+    })
+    .catch(error => {
+      console.error('Error loading databases:', error);
+      showAlert('Failed to load databases', 'danger');
+    });
+
+  // Handle form submission
+  document.getElementById('queryForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const dbName = document.getElementById('databaseSelect').value;
+    const query = document.getElementById('queryInput').value.trim();
+    
+    if (!dbName) {
+      showAlert('Please select a database', 'warning');
+      return;
+    }
+    
+    if (!query) {
+      showAlert('Please enter a query', 'warning');
+      return;
+    }
+    
+    // Execute query
+    fetch('/api/query', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        database: dbName,
+        query: query
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) {
+        showAlert('Query Error: ' + data.error, 'danger');
+        document.getElementById('queryResults').innerHTML = '<p class="text-danger">Error: ' + data.error + '</p>';
+      } else {
+        displayResults(data.results || data);
+      }
+    })
+    .catch(error => {
+      console.error('Query error:', error);
+      showAlert('Failed to execute query', 'danger');
+      document.getElementById('queryResults').innerHTML = '<p class="text-danger">Error: ' + error.message + '</p>';
+    });
+  });
+
+  // Handle clear button
+  document.getElementById('clearBtn').addEventListener('click', function() {
+    document.getElementById('queryInput').value = '';
+    document.getElementById('queryResults').innerHTML = '<p class="text-muted">Execute a query to see results here.</p>';
+  });
+
+  // Display query results in a table
+  function displayResults(results) {
+    if (!results || results.length === 0) {
+      document.getElementById('queryResults').innerHTML = '<p class="text-muted">No results found.</p>';
+      return;
+    }
+
+    let html = '<div class="table-responsive"><table class="table table-striped table-hover">';
+    
+    // Table header
+    html += '<thead><tr>';
+    const keys = Object.keys(results[0]);
+    keys.forEach(key => {
+      html += '<th>' + key + '</th>';
+    });
+    html += '</tr></thead>';
+    
+    // Table body
+    html += '<tbody>';
+    results.forEach(row => {
+      html += '<tr>';
+      keys.forEach(key => {
+        html += '<td>' + (row[key] !== null ? row[key] : 'NULL') + '</td>';
+      });
+      html += '</tr>';
+    });
+    html += '</tbody>';
+    
+    html += '</table></div>';
+    
+    document.getElementById('queryResults').innerHTML = html;
+  }
+});
+</script>
+{% endblock %}

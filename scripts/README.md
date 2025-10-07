@@ -5,7 +5,7 @@ This directory contains utility scripts for managing the Phantom-DB project.
 ## Available Scripts
 
 ### update-progress.py
-A Python script to update task progress in the [PROJECT_TRACKING.md](../docs/PROJECT_TRACKING.md) file.
+A Python script to update task progress in the [PROJECT_TRACKING.md](file:///D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/docs/PROJECT_TRACKING.md) file.
 
 **Usage:**
 ```bash
@@ -23,6 +23,38 @@ A Windows batch script wrapper for the update-progress functionality.
 **Usage:**
 ```cmd
 update-progress.bat "section" "task" "status"
+```
+
+### build_rest_api.bat
+A Windows batch script to build the PhantomDB REST API server.
+
+**Usage:**
+```cmd
+build_rest_api.bat
+```
+
+### run_rest_api.bat
+A Windows batch script to run the PhantomDB REST API server.
+
+**Usage:**
+```cmd
+run_rest_api.bat
+```
+
+### rest_api_example.sh
+A bash script demonstrating how to use the PhantomDB REST API with curl commands.
+
+**Usage:**
+```bash
+./rest_api_example.sh
+```
+
+### rest_api_example.bat
+A Windows batch script demonstrating how to use the PhantomDB REST API with curl commands.
+
+**Usage:**
+```cmd
+rest_api_example.bat
 ```
 
 ## Adding New Scripts

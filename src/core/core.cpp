@@ -1,5 +1,5 @@
 #include "core.h"
-#include <spdlog/spdlog.h>
+#include <iostream>
 
 namespace phantomdb {
 namespace core {
@@ -13,11 +13,12 @@ public:
 };
 
 Core::Core() : pImpl(std::make_unique<Impl>()) {
-    spdlog::info("PhantomDB Core initialized");
+    // Simple logging replacement
+    std::cout << "PhantomDB Core initialized" << std::endl;
 }
 
 Core::~Core() {
-    spdlog::info("PhantomDB Core shutdown");
+    std::cout << "PhantomDB Core shutdown" << std::endl;
 }
 
 std::string Core::getVersion() const {
@@ -25,13 +26,13 @@ std::string Core::getVersion() const {
 }
 
 bool Core::initialize() {
-    spdlog::info("Initializing PhantomDB Core components");
+    std::cout << "Initializing PhantomDB Core components" << std::endl;
     // TODO: Initialize core components
     return true;
 }
 
 void Core::shutdown() {
-    spdlog::info("Shutting down PhantomDB Core components");
+    std::cout << "Shutting down PhantomDB Core components" << std::endl;
     // TODO: Shutdown core components
 }
 

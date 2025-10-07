@@ -1,154 +1,290 @@
-# Distributed Transactions in Phantom-DB
+# Distributed Transactions Implementation
 
-This document outlines the approach to distributed transactions in Phantom-DB, incorporating insights from empirical analysis of 2PC, Saga Orchestration, and Saga Choreography patterns.
+## Overview
 
-## 1. Introduction
+This document describes the distributed transaction components implemented for Phantom-DB's distributed architecture. These components form the third major milestone of Phase 3 implementation, providing distributed transaction capabilities through Two-Phase Commit (2PC) and Saga patterns, along with cross-shard query processing.
 
-Phantom-DB aims to provide a next-generation database system that combines the reliability of SQL with the flexibility of NoSQL while offering superior performance. A critical component of this vision is implementing robust distributed transaction mechanisms that can handle the consistency vs. availability trade-offs inherent in distributed systems.
+## Components
 
-## 2. Consistency Models and the CAP Theorem
+### 1. Two-Phase Commit Coordinator
 
-In distributed systems, the CAP theorem states that a system can only guarantee two of the following three properties:
-- **Consistency**: All nodes see the same data at the same time
-- **Availability**: The system remains operational despite node failures
-- **Partition Tolerance**: The system continues to operate despite network failures
+The [TwoPhaseCommitCoordinator](file:///D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/src/distributed/two_phase_commit.h#L50-L153) class implements the Two-Phase Commit protocol for distributed transactions. 2PC is a fundamental protocol for ensuring atomicity across distributed systems.
 
-Phantom-DB will implement both CP and AP models to accommodate different use cases:
+#### Key Features:
+- Classic two-phase commit implementation (prepare and commit/abort phases)
+- Participant management (add/remove participants)
+- Timeout handling for both prepare and commit/abort phases
+- Callback-based participant communication
+- Transaction state tracking
 
-### 2.1 Two-Phase Commit (2PC) - CP Model
-- Ensures **strong consistency** by enforcing that all participating nodes either commit or abort entirely
-- Aligns with the **CP model**, prioritizing consistency over availability during network partitions
-- Suitable for critical financial operations requiring immediate strong consistency
+#### Public Interface:
+```cpp
+class TwoPhaseCommitCoordinator {
+public:
+    TwoPhaseCommitCoordinator();
+    ~TwoPhaseCommitCoordinator();
+    
+    bool initialize();
+    void shutdown();
+    
+    bool beginTransaction(const std::string& transactionId, const std::vector<ParticipantInfo>& participants);
+    bool addParticipant(const std::string& transactionId, const ParticipantInfo& participant);
+    bool executeTwoPhaseCommit(const std::string& transactionId);
+    
+    TransactionState getTransactionState(const std::string& transactionId) const;
+    std::vector<ParticipantInfo> getParticipants(const std::string& transactionId) const;
+    
+    void registerPrepareCallback(const PrepareCallback& callback);
+    void registerCommitCallback(const CommitCallback& callback);
+    void registerAbortCallback(const AbortCallback& callback);
+    
+    void setPrepareTimeout(const std::chrono::milliseconds& timeout);
+    void setCommitAbortTimeout(const std::chrono::milliseconds& timeout);
+    
+    std::chrono::milliseconds getPrepareTimeout() const;
+    std::chrono::milliseconds getCommitAbortTimeout() const;
+};
+```
 
-### 2.2 Saga Pattern - AP Model
-- Handles **Long-Lived Transactions (LLT)** by splitting them into a sequence of local transactions
-- Guarantees **eventual consistency**, allowing temporary inconsistencies but ensuring convergence
-- Aligns with the **AP model**, prioritizing availability and responsiveness
+### 2. Saga Coordinator
 
-## 3. Transaction Pattern Analysis
+The [SagaCoordinator](file:///D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/src/distributed/saga.h#L54-L136) class implements the Saga pattern for distributed transactions. The Saga pattern is an alternative to 2PC that provides better availability by using compensating transactions.
 
-Based on empirical analysis of e-commerce systems, we've identified key trade-offs between the patterns:
+#### Key Features:
+- Saga pattern implementation with action and compensation steps
+- Sequential step execution with compensation on failure
+- Timeout handling for saga execution
+- Callback-based participant communication
+- Saga and step state tracking
 
-### 3.1 Design Characteristics
+#### Public Interface:
+```cpp
+class SagaCoordinator {
+public:
+    SagaCoordinator();
+    ~SagaCoordinator();
+    
+    bool initialize();
+    void shutdown();
+    
+    bool beginSaga(const std::string& sagaId);
+    bool addStep(const std::string& sagaId, const SagaStep& step);
+    bool executeSaga(const std::string& sagaId);
+    
+    SagaStatus getSagaStatus(const std::string& sagaId) const;
+    std::vector<SagaStep> getSteps(const std::string& sagaId) const;
+    
+    void registerActionCallback(const SagaActionCallback& callback);
+    void registerCompensationCallback(const SagaCompensationCallback& callback);
+    
+    void setSagaTimeout(const std::chrono::milliseconds& timeout);
+    std::chrono::milliseconds getSagaTimeout() const;
+};
+```
 
-| Metric | 2PC Advantage | Saga Choreography Advantage | Saga Orchestration Weakness |
-|--------|---------------|---------------------------|---------------------------|
-| Cyclomatic Complexity | Least overall complexity | - | Highest complexity |
-| Cognitive Complexity | - | Lowest (most understandable) | - |
-| Lines of Code | Fewest total lines | - | - |
-| Code Distribution | - | Most equal distribution | - |
-| Communication Overhead | - | Least chatty | Most chatty |
+### 3. Cross-Shard Query Processor
 
-### 3.2 Performance Characteristics
+The [CrossShardQueryProcessor](file:///D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/src/distributed/cross_shard_query.h#L42-L101) class handles queries that span multiple shards in a distributed database.
 
-| Metric | Best Performer | Key Insight |
-|--------|----------------|-------------|
-| Response Time & Throughput | Saga Choreography | 34% more TPS than 2PC |
-| Resource Utilization | 2PC | Lowest CPU/memory usage |
-| Latency under Load | Saga Pattern | Non-blocking nature maintains steady performance |
-| Worst-Case Performance | Saga Orchestration | Poor performance with late-stage failures |
+#### Key Features:
+- Cross-shard query execution
+- Parallel execution across multiple shards
+- Shard management (add/remove shards)
+- Table-to-shard mapping
+- Query result merging
+- Timeout handling
 
-### 3.3 Update Scenarios
+#### Public Interface:
+```cpp
+class CrossShardQueryProcessor {
+public:
+    CrossShardQueryProcessor();
+    ~CrossShardQueryProcessor();
+    
+    bool initialize();
+    void shutdown();
+    
+    bool addShard(const ShardInfo& shard);
+    bool removeShard(const std::string& shardId);
+    
+    std::vector<QueryResult> executeCrossShardQuery(const std::string& query);
+    std::vector<QueryResult> executeQueryOnShards(const std::string& query, 
+                                                const std::vector<std::string>& shardIds);
+    
+    std::vector<ShardInfo> getShards() const;
+    std::vector<ShardInfo> getShardsForTable(const std::string& tableName) const;
+    
+    void registerQueryExecutionCallback(const QueryExecutionCallback& callback);
+    
+    void setQueryTimeout(const std::chrono::milliseconds& timeout);
+    std::chrono::milliseconds getQueryTimeout() const;
+};
+```
 
-| Scenario | 2PC/Saga Orchestration | Saga Choreography |
-|----------|------------------------|-------------------|
-| DTO Changes | Better handling | Risk of data inconsistencies |
-| New Service Addition | Easier (centralized) | Complex (decentralized) |
+### 4. Distributed Transaction Manager
 
-## 4. Operational Trade-Offs
+The [DistributedTransactionManager](file:///D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/src/distributed/distributed_transaction_manager.h#L54-L123) class integrates all distributed transaction components into a unified interface.
 
-### 4.1 Two-Phase Commit (2PC) Drawbacks
+#### Key Features:
+- Unified interface for both 2PC and Saga transactions
+- Cross-shard query integration
+- Transaction lifecycle management
+- Participant and shard management
+- Callback registration for all components
 
-Despite strong consistency guarantees, 2PC has significant operational drawbacks:
+#### Public Interface:
+```cpp
+class DistributedTransactionManager {
+public:
+    DistributedTransactionManager();
+    ~DistributedTransactionManager();
+    
+    bool initialize();
+    void shutdown();
+    
+    bool beginTransaction(const std::string& transactionId, 
+                         const DistributedTransactionConfig& config);
+    bool executeTransaction(const std::string& transactionId);
+    
+    bool addSagaStep(const std::string& transactionId, const SagaStep& step);
+    bool addParticipant(const std::string& transactionId, const ParticipantInfo& participant);
+    
+    std::vector<QueryResult> executeCrossShardQuery(const std::string& transactionId, 
+                                                   const std::string& query);
+    
+    DistributedTransactionStatus getTransactionStatus(const std::string& transactionId) const;
+    DistributedTransactionType getTransactionType(const std::string& transactionId) const;
+    
+    void registerPrepareCallback(const PrepareCallback& callback);
+    void registerCommitCallback(const CommitCallback& callback);
+    void registerAbortCallback(const AbortCallback& callback);
+    void registerActionCallback(const SagaActionCallback& callback);
+    void registerCompensationCallback(const SagaCompensationCallback& callback);
+    void registerQueryExecutionCallback(const QueryExecutionCallback& callback);
+    
+    bool addShard(const ShardInfo& shard);
+    bool removeShard(const std::string& shardId);
+};
+```
 
-1. **Blocking and Scalability Issues**: Resource locking during Prepare/Commit phases inhibits scalability
-2. **Single Point of Failure**: Coordinator crash can leave data stores in permanent locked state
-3. **Protocol Complexity**: Requires significant development effort for protocol management
+## Integration
 
-### 4.2 Saga Pattern Resilience
+These components work together to provide a complete distributed transaction solution:
 
-Sagas prioritize fault recovery but introduce consistency challenges:
+1. **TwoPhaseCommitCoordinator** handles traditional 2PC transactions with strong consistency
+2. **SagaCoordinator** handles Saga transactions with better availability and eventual consistency
+3. **CrossShardQueryProcessor** handles queries that span multiple shards
+4. **DistributedTransactionManager** orchestrates all these services through a unified interface
 
-1. **Compensation Mechanism**: Relies on explicitly designed compensating transactions
-2. **Lack of True Isolation**: Results visible before compensation, risking data anomalies
-3. **Compensating Complexity**: Complex to design, can fail, not always fully reversible
-4. **Reliable Messaging**: Requires Transactional Outbox pattern to mitigate dual-write problem
+## Usage Example
 
-## 5. Phantom-DB Implementation Strategy
+```cpp
+#include "distributed_transaction_manager.h"
 
-### 5.1 Hybrid Transaction Model
+using namespace phantomdb::distributed;
 
-Phantom-DB will implement a hybrid approach that leverages the strengths of both patterns:
+int main() {
+    // Create and initialize distributed transaction manager
+    DistributedTransactionManager dtm;
+    dtm.initialize();
+    
+    // Register callbacks
+    dtm.registerPrepareCallback(prepareCallback);
+    dtm.registerCommitCallback(commitCallback);
+    dtm.registerAbortCallback(abortCallback);
+    
+    // Add shards for cross-shard queries
+    dtm.addShard(ShardInfo("shard1", "192.168.1.101", 8001));
+    dtm.addShard(ShardInfo("shard2", "192.168.1.102", 8002));
+    
+    // Example 1: Two-Phase Commit Transaction
+    DistributedTransactionConfig config2PC;
+    config2PC.type = DistributedTransactionType::TWO_PHASE_COMMIT;
+    config2PC.participants = {
+        ParticipantInfo("participant1", "192.168.1.201", 9001),
+        ParticipantInfo("participant2", "192.168.1.202", 9002)
+    };
+    
+    std::string transactionId1 = "2pc_transaction_1";
+    dtm.beginTransaction(transactionId1, config2PC);
+    dtm.addParticipant(transactionId1, ParticipantInfo("participant3", "192.168.1.203", 9003));
+    dtm.executeTransaction(transactionId1);
+    
+    // Example 2: Saga Transaction
+    DistributedTransactionConfig configSaga;
+    configSaga.type = DistributedTransactionType::SAGA;
+    
+    std::string transactionId2 = "saga_transaction_1";
+    dtm.beginTransaction(transactionId2, configSaga);
+    dtm.addSagaStep(transactionId2, SagaStep("step1", "action1", "compensation1", "participant1"));
+    dtm.addSagaStep(transactionId2, SagaStep("step2", "action2", "compensation2", "participant2"));
+    dtm.executeTransaction(transactionId2);
+    
+    // Example 3: Cross-shard query
+    auto results = dtm.executeCrossShardQuery(transactionId1, "SELECT * FROM users");
+    
+    // Shutdown
+    dtm.shutdown();
+    
+    return 0;
+}
+```
 
-#### 5.1.1 Use 2PC for Core Operations
-- Core financial operations requiring immediate strong consistency
-- Settlements, core ledger updates, legal reporting
-- Unmatched consistency and auditability for regulatory compliance
+## Implementation Details
 
-#### 5.1.2 Use Saga for Availability-Critical Flows
-- Auxiliary, user-facing, latency-sensitive operations
-- Mobile transactions, account balance checks, notifications
-- Eventual consistency acceptable for these use cases
+### Two-Phase Commit Protocol
 
-### 5.2 Implementation Approach
+The Two-Phase Commit implementation follows the standard 2PC protocol:
 
-#### 5.2.1 Transaction Coordinator
-- Centralized transaction coordinator for 2PC operations
-- Decentralized choreography for Saga patterns
-- Orchestration layer for complex workflows
+1. **Phase 1 (Prepare)**: The coordinator asks all participants to prepare for the transaction
+2. **Phase 2 (Commit/Abort)**: Based on all participants' responses, the coordinator decides to commit or abort
 
-#### 5.2.2 Compensation Framework
-- Built-in compensating transaction framework
-- Automatic compensation triggering on failure
-- Manual intervention capabilities for complex cases
+Key aspects:
+- All participants must vote YES in the prepare phase for the transaction to commit
+- If any participant votes NO or times out, the transaction is aborted
+- The coordinator handles timeouts for both phases
 
-#### 5.2.3 Reliable Messaging
-- Transactional Outbox pattern implementation
-- Message Relay process for guaranteed delivery
-- Integration with popular message brokers
+### Saga Pattern
 
-## 6. Advanced Features
+The Saga pattern implementation provides an alternative to 2PC with better availability:
 
-### 6.1 Adaptive Orchestration
-- Dynamic selection of transaction model based on real-time context
-- SLA-driven transaction model selection
-- Machine learning-based optimization
+1. **Sequential Execution**: Saga steps are executed sequentially
+2. **Compensation**: If any step fails, previously executed steps are compensated in reverse order
+3. **Eventual Consistency**: Provides eventual consistency rather than immediate consistency
 
-### 6.2 Resilience Testing
-- Built-in chaos engineering capabilities
-- Fault injection testing framework
-- Recovery time measurement and optimization
+Key aspects:
+- Each step has an associated compensation action
+- Compensation is performed in reverse order of execution
+- Sagas can be long-running transactions
 
-### 6.3 Observability
-- Integrated metrics collection (Prometheus)
-- Real-time dashboard (Grafana)
-- Transaction tracing and monitoring
+### Cross-Shard Queries
 
-## 7. Compliance and Auditing
+The cross-shard query processor handles queries that span multiple shards:
 
-### 7.1 Regulatory Compliance
-- SOX (Section 404) compliance for financial operations
-- GDPR compliance for data protection
-- Built-in audit trails for 2PC operations
-- Custom audit mechanisms for Saga operations
+1. **Shard Determination**: Determines which shards contain the relevant data
+2. **Parallel Execution**: Executes the query on all relevant shards in parallel
+3. **Result Merging**: Merges results from different shards
 
-### 7.2 Traceability
-- End-to-end transaction tracing
-- Compensation action logging
-- Performance and error metrics
+Key aspects:
+- Supports both broadcast queries (to all shards) and targeted queries (to specific shards)
+- Parallel execution for improved performance
+- Timeout handling for query execution
 
-## 8. Future Enhancements
+## Build and Test
 
-### 8.1 Machine Learning Integration
-- Adaptive transaction model selection
-- Performance optimization based on historical data
-- Anomaly detection in transaction patterns
+To build and test the distributed transaction components:
 
-### 8.2 Advanced Orchestration
-- AI-driven workflow optimization
-- Predictive failure detection
-- Automated recovery procedures
+1. Ensure the distributed module is included in the main CMakeLists.txt
+2. Build the project with CMake
+3. Execute the distributed transaction test: `build/src/distributed/distributed_transaction_test.exe`
 
-## 9. Conclusion
+## Future Enhancements
 
-Phantom-DB's distributed transaction system will provide a sophisticated hybrid approach that balances the consistency guarantees of 2PC with the availability and performance benefits of the Saga pattern. By implementing adaptive orchestration and advanced observability features, Phantom-DB will offer developers the flexibility to choose the appropriate transaction model for their specific use cases while maintaining the reliability and performance required for modern distributed applications.
+Planned improvements for the distributed transaction system:
+
+1. **Global Timestamp Ordering**: Implement global timestamp ordering for better consistency
+2. **Advanced Compensation**: Implement more sophisticated compensation strategies
+3. **Performance Optimization**: Optimize network communication and reduce latency
+4. **Security Integration**: Add authentication and encryption for transaction coordination
+5. **Monitoring and Metrics**: Enhanced monitoring and performance metrics
+6. **Hybrid Transaction Strategy**: Implement a hybrid approach that selects between 2PC and Saga based on transaction characteristics

@@ -1,231 +1,276 @@
 # Phase 2 Implementation Plan
 
-This document outlines the detailed implementation plan for Phase 2: Single-Node Implementation of the Phantom-DB project.
+## Overview
 
-## Phase Overview
+This document outlines the implementation plan for Phase 2 of the Phantom-DB project: Single-Node Implementation. Building upon the foundation established in Phase 1, Phase 2 focuses on making Phantom-DB a fully functional single-node database system with complete SQL compatibility and enhanced features.
 
-Phase 2 focuses on implementing the core single-node functionality of Phantom-DB based on the architecture decisions made in Phase 1. This phase is planned for 6 months (Months 7-12) and will deliver a fully functional single-node database system.
+## Phase 2 Goals
 
-## Implementation Priorities
+1. **Complete SQL Compatibility**: Implement full ANSI SQL standard support
+2. **Document Model Integration**: Add JSON/BSON-like document storage capabilities
+3. **Enhanced Transaction System**: Implement deadlock detection and distributed transaction support
+4. **Reliability Features**: Add crash recovery, data corruption detection, and monitoring
+5. **Performance Optimization**: Implement query plan caching and other optimization techniques
 
-### 1. Core Storage Engine Implementation
-The storage engine is the foundation of the database and needs to be implemented first to support other components.
+## Implementation Timeline
 
-#### Write-Ahead Logging (WAL)
-- Implement log-structured storage for transaction durability
-- Design efficient log entry format with compression
-- Implement log rotation and retention policies
-- Ensure crash recovery capabilities
-- Optimize for sequential writes
+### Month 7: SQL Compatibility Layer - Part 1
 
-#### Index Management System
-- Implement B+tree index for point queries and range scans
-- Implement LSM-tree index for write-heavy workloads
-- Design index metadata management
-- Implement index creation, deletion, and maintenance
-- Optimize index operations for concurrent access
+#### ANSI SQL Standard Support
+- Implement INSERT statement support in parser, planner, and execution engine
+- Implement UPDATE statement support in parser, planner, and execution engine
+- Implement DELETE statement support in parser, planner, and execution engine
+- Implement DDL statements (CREATE TABLE, ALTER TABLE, DROP TABLE)
+- Implement DML statements (INSERT, UPDATE, DELETE) with proper transaction handling
 
-#### Garbage Collection and Compaction
-- Implement MVCC garbage collection for old versions
-- Design compaction strategies for LSM-tree components
-- Implement background compaction processes
-- Optimize compaction scheduling to minimize performance impact
-- Ensure space reclamation efficiency
+#### Extended SQL for Modern Use Cases
+- Implement batch operations
+- Implement bulk insert capabilities
+- Implement upsert (INSERT ... ON DUPLICATE KEY UPDATE) functionality
 
-#### Backup/Restore Mechanisms
-- Implement consistent backup capabilities
-- Design incremental backup support
-- Implement point-in-time recovery
-- Ensure backup performance minimally impacts normal operations
-- Design restore procedures for disaster recovery
+### Month 8: SQL Compatibility Layer - Part 2
 
-### 2. Query Processor Implementation
-The query processor will handle SQL parsing, optimization, and execution.
+#### Stored Procedures and Functions
+- Implement stored procedure creation and execution
+- Implement user-defined functions
+- Implement parameter passing and return values
+- Implement control flow statements (IF, WHILE, etc.)
 
-#### Query Parser and Planner
-- Implement SQL parser for ANSI SQL standard support
-- Design abstract syntax tree (AST) representation
-- Implement query planning for different operation types
-- Design plan enumeration for complex queries
-- Implement plan caching for repeated queries
+#### Query Enhancements
+- Implement JOIN operations (INNER JOIN, LEFT JOIN, RIGHT JOIN, FULL OUTER JOIN)
+- Implement subqueries
+- Implement aggregate functions (COUNT, SUM, AVG, MIN, MAX)
+- Implement GROUP BY and HAVING clauses
+- Implement ORDER BY clause
 
-#### Optimizer Framework
-- Implement rule-based optimization (RBO)
-- Implement cost-based optimization (CBO)
-- Design statistics collection and maintenance
-- Implement join order optimization
-- Design optimization rule framework for extensibility
+### Month 9: Document Model Integration
 
-#### Execution Engine
-- Implement vectorized execution for analytical queries
-- Design row-based execution for transactional queries
-- Implement operator framework for different operations
-- Optimize memory management during execution
-- Implement parallel execution capabilities
+#### JSON/BSON-like Document Storage
+- Implement document storage format
+- Implement document validation schemas
+- Implement document query operations
+- Implement document indexing
 
-### 3. Transaction System Implementation
-The transaction system will provide ACID guarantees and concurrency control.
+#### Cross-Document References
+- Implement reference validation
+- Implement reference resolution
+- Implement cascading operations on referenced documents
 
-#### ACID Transaction Implementation
-- Implement atomicity through WAL
-- Implement consistency through constraint checking
-- Implement isolation through MVCC
-- Implement durability through WAL and fsync
-- Design transaction state management
-
-#### Isolation Levels
-- Implement READ UNCOMMITTED
-- Implement READ COMMITTED
-- Implement REPEATABLE READ
-- Implement SERIALIZABLE
-- Implement SNAPSHOT isolation
+### Month 10: Transaction System Enhancement
 
 #### Deadlock Detection and Resolution
-- Implement wait-for graph detection
-- Design deadlock resolution strategies
-- Implement timeout-based detection
-- Optimize detection frequency for performance
-- Ensure minimal false positives
+- Implement deadlock detection algorithm
+- Implement deadlock resolution strategies
+- Implement timeout mechanisms
+- Implement deadlock prevention techniques
 
-## Implementation Approach
+#### Distributed Transaction Support
+- Implement Two-Phase Commit (2PC) protocol
+- Implement Saga pattern with compensating transactions
+- Implement transaction coordinator
+- Implement participant management
 
-### Month 7-8: Storage Engine Foundation
-Focus on implementing the core storage engine components:
-1. Write-ahead logging system
-2. Basic index management
-3. Initial garbage collection mechanisms
+### Month 11: Reliability Features - Part 1
 
-### Month 9-10: Query Processor Core
-Focus on implementing the query processing pipeline:
-1. SQL parser and basic planner
-2. Initial optimizer framework
-3. Basic execution engine
+#### Crash Recovery Mechanisms
+- Implement write-ahead log replay
+- Implement checkpointing
+- Implement transaction rollback on crash
+- Implement consistent state restoration
 
-### Month 11: Transaction System
-Focus on implementing the transaction system:
-1. ACID transaction implementation
-2. Isolation level support
-3. Deadlock detection and resolution
+#### Data Corruption Detection
+- Implement checksum validation
+- Implement data integrity checks
+- Implement automatic corruption detection
+- Implement repair mechanisms
 
-### Month 12: Integration and Testing
-Focus on integrating all components and comprehensive testing:
-1. Component integration
-2. Performance testing
-3. Correctness testing
-4. Stress testing
+### Month 12: Reliability Features - Part 2
 
-## Technical Requirements
+#### Monitoring & Observability
+- Implement built-in performance metrics
+- Implement query performance analysis
+- Implement health monitoring dashboard
+- Implement logging and tracing
 
-### Storage Engine Requirements
-- Support for hybrid LSM-tree/B+tree storage
-- Efficient memory usage (target: < 1GB for 10M records)
-- Fast point queries (< 1ms average)
-- High write throughput (target: 100K writes/sec)
-- Efficient space utilization (target: < 20% overhead)
+#### Performance Optimization
+- Implement query plan caching
+- Implement materialized views
+- Implement advanced indexing strategies
+- Implement query parallelization
 
-### Query Processor Requirements
-- ANSI SQL-92 compliance
-- Query execution time < 100ms for simple queries
-- Support for complex joins and subqueries
-- Efficient query plan generation (< 10ms)
-- Extensible optimizer framework
+## Detailed Implementation Tasks
 
-### Transaction System Requirements
-- ACID compliance
-- Support for all four isolation levels
-- Deadlock detection within 1 second
-- Transaction throughput > 50K TPS
-- Rollback time < 100ms for typical transactions
+### 1. Extended Parser Support
 
-## Development Practices
+#### INSERT Statement
+- Parser: Add INSERT statement grammar rules
+- AST: Create INSERT statement nodes
+- Planner: Generate INSERT plan nodes
+- Execution: Implement INSERT execution nodes
 
-### Code Organization
-- Modular design with clear interfaces
-- Comprehensive unit testing (target: > 90% coverage)
-- Integration testing for component interactions
-- Performance benchmarking for critical paths
-- Documentation for all public APIs
+#### UPDATE Statement
+- Parser: Add UPDATE statement grammar rules
+- AST: Create UPDATE statement nodes
+- Planner: Generate UPDATE plan nodes
+- Execution: Implement UPDATE execution nodes
 
-### Version Control
-- Feature branches for each major component
-- Regular integration to main branch
-- Code reviews for all significant changes
-- Automated testing on all commits
-- Semantic versioning for releases
+#### DELETE Statement
+- Parser: Add DELETE statement grammar rules
+- AST: Create DELETE statement nodes
+- Planner: Generate DELETE plan nodes
+- Execution: Implement DELETE execution nodes
 
-### Quality Assurance
-- Static code analysis
-- Dynamic analysis for memory issues
-- Security scanning
-- Performance profiling
-- Regression testing
+#### DDL Statements
+- Parser: Add CREATE TABLE, ALTER TABLE, DROP TABLE grammar rules
+- AST: Create DDL statement nodes
+- Planner: Generate DDL plan nodes
+- Execution: Implement DDL execution nodes
 
-## Milestones
+### 2. JOIN Operations
 
-### Month 8 End: Storage Engine Alpha
-- WAL implementation complete
-- Basic indexing working
-- Initial garbage collection
-- Basic backup/restore
+#### INNER JOIN
+- Planner: Implement INNER JOIN plan generation
+- Execution: Implement INNER JOIN execution
+- Optimization: Implement JOIN reordering
 
-### Month 10 End: Query Processor Beta
-- SQL parser complete
-- Basic optimizer working
-- Execution engine functional
-- Simple queries executing
+#### OUTER JOINs
+- Planner: Implement LEFT/RIGHT/FULL OUTER JOIN plan generation
+- Execution: Implement OUTER JOIN execution
 
-### Month 11 End: Transaction System Complete
-- ACID compliance verified
-- All isolation levels working
-- Deadlock detection operational
-- Performance targets met
+### 3. Subqueries
 
-### Month 12 End: Phase 2 Complete
-- All core features implemented
-- Comprehensive testing complete
-- Performance benchmarks achieved
-- Documentation complete
+#### Scalar Subqueries
+- Parser: Add subquery grammar rules
+- Planner: Implement subquery plan generation
+- Execution: Implement subquery execution
+
+#### Correlated Subqueries
+- Planner: Implement correlated subquery optimization
+- Execution: Implement correlated subquery execution
+
+### 4. Aggregate Functions
+
+#### Basic Aggregates
+- Planner: Implement aggregate plan nodes
+- Execution: Implement aggregate execution nodes
+- Optimization: Implement aggregate pushdown
+
+#### GROUP BY and HAVING
+- Parser: Add GROUP BY and HAVING grammar rules
+- Planner: Implement GROUP BY and HAVING plan generation
+- Execution: Implement GROUP BY and HAVING execution
+
+### 5. Document Model
+
+#### Document Storage
+- Storage: Implement document storage format
+- Index: Implement document indexing
+- Query: Implement document query operations
+
+#### Schema Validation
+- Parser: Add schema definition grammar
+- Validation: Implement schema validation engine
+- Storage: Implement schema-aware storage
+
+### 6. Deadlock Detection
+
+#### Detection Algorithm
+- Implementation: Implement wait-for graph
+- Detection: Implement cycle detection
+- Resolution: Implement victim selection
+
+### 7. Distributed Transactions
+
+#### Two-Phase Commit
+- Coordinator: Implement 2PC coordinator
+- Participant: Implement 2PC participant
+- Protocol: Implement prepare and commit phases
+
+#### Saga Pattern
+- Orchestrator: Implement saga orchestrator
+- Participant: Implement saga participant
+- Compensation: Implement compensating transactions
+
+### 8. Crash Recovery
+
+#### Log Replay
+- Implementation: Implement WAL replay mechanism
+- Consistency: Ensure transaction consistency during replay
+- Performance: Optimize replay performance
+
+#### Checkpointing
+- Implementation: Implement checkpoint creation
+- Management: Implement checkpoint management
+- Recovery: Implement checkpoint-based recovery
+
+### 9. Monitoring
+
+#### Metrics Collection
+- Implementation: Implement metrics collection framework
+- Storage: Implement metrics storage
+- Export: Implement metrics export (Prometheus format)
+
+#### Query Analysis
+- Implementation: Implement query execution tracing
+- Analysis: Implement performance analysis
+- Reporting: Implement performance reports
+
+## Testing Strategy
+
+### Unit Testing
+- Each new feature will have comprehensive unit tests
+- Edge cases and error conditions will be thoroughly tested
+- Performance benchmarks will be established
+
+### Integration Testing
+- Component integration will be tested
+- End-to-end functionality will be verified
+- Regression testing will ensure existing functionality remains intact
+
+### Stress Testing
+- High-concurrency scenarios will be tested
+- Large data volumes will be processed
+- Failure scenarios will be simulated
+
+## Documentation Updates
+
+### Technical Documentation
+- Each implemented feature will have detailed technical documentation
+- Architecture diagrams will be updated
+- API documentation will be maintained
+
+### User Documentation
+- User guides will be created for new features
+- Examples and tutorials will be provided
+- Best practices will be documented
 
 ## Risk Mitigation
 
 ### Technical Risks
-- **Performance bottlenecks**: Regular profiling and optimization
-- **Concurrency issues**: Extensive stress testing
-- **Data consistency**: Comprehensive correctness testing
-- **Integration challenges**: Incremental integration approach
+- Complex features like distributed transactions will be implemented incrementally
+- Performance bottlenecks will be identified and addressed early
+- Compatibility issues will be tested thoroughly
 
 ### Schedule Risks
-- **Feature creep**: Strict scope management
-- **Implementation complexity**: Prototyping difficult features early
-- **Resource constraints**: Regular progress assessment
-- **External dependencies**: Early identification and planning
+- Milestones will be reviewed monthly
+- Adjustments will be made based on progress
+- Critical path items will be prioritized
 
-## Success Metrics
+## Success Criteria
 
-### Performance Metrics
-- Query response time < 10ms for 95% of simple queries
-- Write throughput > 50K operations/sec
-- Read throughput > 100K operations/sec
-- Memory usage < 2GB for 100M records
+### Functional Criteria
+- All planned features implemented and tested
+- Full ANSI SQL compatibility achieved
+- Document model fully functional
+- Enhanced transaction system operational
 
-### Reliability Metrics
-- > 99.9% uptime
-- < 1 data corruption incident per 100M operations
-- < 100ms recovery time from crashes
-- Zero data loss under normal operations
+### Quality Criteria
+- Code coverage above 80%
+- Performance benchmarks met
+- No critical bugs in production code
+- Comprehensive documentation completed
 
-### Developer Experience Metrics
-- < 1 hour to set up development environment
-- < 5 minutes to run full test suite
-- Comprehensive documentation coverage
-- Intuitive APIs with clear error messages
-
-## Next Steps
-
-1. Create detailed technical specifications for each component
-2. Set up development environment and CI/CD pipeline
-3. Begin implementation of write-ahead logging system
-4. Establish testing and benchmarking frameworks
-5. Create component-specific task lists for tracking progress
-
-This plan provides a roadmap for implementing the core single-node functionality of Phantom-DB while maintaining focus on performance, reliability, and developer experience.
+### Delivery Criteria
+- All Phase 2 deliverables completed on time
+- Code merged to main branch
+- Release candidate prepared

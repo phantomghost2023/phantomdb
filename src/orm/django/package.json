@@ -1,0 +1,28 @@
+{
+  "name": "phantomdb-django",
+  "version": "1.0.0",
+  "description": "Django ORM integration for PhantomDB",
+  "main": "base.py",
+  "directories": {
+    "lib": "phantomdb_django"
+  },
+  "scripts": {
+    "test": "python -m pytest tests/",
+    "example": "python example.py"
+  },
+  "keywords": [
+    "phantomdb",
+    "django",
+    "orm",
+    "database"
+  ],
+  "author": "PhantomDB Team",
+  "license": "MIT",
+  "dependencies": {
+    "phantomdb-client": "^1.0.0",
+    "django": ">=3.2.0"
+  },
+  "devDependencies": {
+    "pytest": "^6.2.5"
+  }
+}

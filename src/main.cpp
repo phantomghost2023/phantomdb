@@ -1,29 +1,28 @@
 #include <iostream>
 #include "core/core.h"
 #include "storage/storage_engine.h"
-#include <spdlog/spdlog.h>
 
 int main() {
-    spdlog::info("Starting PhantomDB...");
+    std::cout << "Starting PhantomDB..." << std::endl;
     
     // Initialize core components
     phantomdb::core::Core core;
     if (!core.initialize()) {
-        spdlog::error("Failed to initialize core components");
+        std::cout << "Failed to initialize core components" << std::endl;
         return 1;
     }
     
     // Initialize storage engine
     phantomdb::storage::StorageEngine storage;
     if (!storage.initialize()) {
-        spdlog::error("Failed to initialize storage engine");
+        std::cout << "Failed to initialize storage engine" << std::endl;
         return 1;
     }
     
-    spdlog::info("PhantomDB version: {}", core.getVersion());
-    spdlog::info("Storage engine status: {}", storage.getStatus());
+    std::cout << "PhantomDB version: " << core.getVersion() << std::endl;
+    std::cout << "Storage engine status: " << storage.getStatus() << std::endl;
     
-    spdlog::info("PhantomDB started successfully!");
+    std::cout << "PhantomDB started successfully!" << std::endl;
     
     // Shutdown components
     storage.shutdown();

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - PhantomDB Web Console{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1><i class="bi bi-speedometer2"></i> Dashboard</h1>
+        <hr>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="bi bi-heart-pulse"></i> Server Health</h5>
+            </div>
+            <div class="card-body">
+                {% if health %}
+                    {% if health.error %}
+                        <div class="alert alert-danger">
+                            <i class="bi bi-exclamation-triangle"></i> {{ health.error }}
+                        </div>
+                    {% else %}
+                        <div class="alert alert-success">
+                            <i class="bi bi-check-circle"></i> Server is healthy
+                        </div>
+                        <pre>{{ health | tojson(indent=2) }}</pre>
+                    {% endif %}
+                {% else %}
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle"></i> Checking server health...
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="bi bi-bar-chart"></i> Quick Stats</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="text-center">
+                            <h3><i class="bi bi-hdd-stack text-primary"></i></h3>
+                            <h4>Databases</h4>
+                            <p class="text-muted">Manage your databases</p>
+                            <a href="/databases" class="btn btn-primary btn-sm">View</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-center">
+                            <h3><i class="bi bi-terminal text-success"></i></h3>
+                            <h4>Query</h4>
+                            <p class="text-muted">Execute SQL queries</p>
+                            <a href="/query" class="btn btn-success btn-sm">Execute</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="bi bi-info-circle"></i> About PhantomDB</h5>
+            </div>
+            <div class="card-body">
+                <p>PhantomDB is a next-generation database system combining SQL's reliability, NoSQL's flexibility, and new architectural innovations for unprecedented performance and developer experience.</p>
+                <p>This web console provides a user-friendly interface for managing your PhantomDB instances.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

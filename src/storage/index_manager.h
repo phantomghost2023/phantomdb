@@ -7,6 +7,12 @@
 namespace phantomdb {
 namespace storage {
 
+enum class IndexType {
+    B_TREE,
+    HASH,
+    LSM_TREE
+};
+
 class IndexManager {
 public:
     IndexManager();
@@ -19,10 +25,19 @@ public:
     void shutdown();
     
     // Create an index
-    bool createIndex(const std::string& tableName, const std::string& columnName);
+    bool createIndex(const std::string& tableName, const std::string& columnName, IndexType type = IndexType::B_TREE);
     
     // Drop an index
     bool dropIndex(const std::string& indexName);
+    
+    // Get index type
+    IndexType getIndexType(const std::string& indexName) const;
+    
+    // Insert a key-value pair into an index
+    bool insertIntoIndex(const std::string& indexName, int key, const std::string& value);
+    
+    // Search for a key in an index
+    bool searchInIndex(const std::string& indexName, int key, std::string& value) const;
     
 private:
     class Impl;

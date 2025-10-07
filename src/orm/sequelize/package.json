@@ -1,0 +1,30 @@
+{
+  "name": "phantomdb-sequelize",
+  "version": "1.0.0",
+  "description": "Sequelize ORM integration for PhantomDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js",
+    "example": "node example.js"
+  },
+  "keywords": [
+    "phantomdb",
+    "sequelize",
+    "orm",
+    "database"
+  ],
+  "author": "PhantomDB Team",
+  "license": "MIT",
+  "dependencies": {
+    "sequelize": "^6.0.0"
+  },
+  "peerDependencies": {
+    "phantomdb-js": "^1.0.0"
+  },
+  "devDependencies": {
+    "sqlite3": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}
