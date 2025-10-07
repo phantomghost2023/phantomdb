@@ -1,6 +1,8 @@
 #include "database.h"
 #include <iostream>
 #include <algorithm>
+#include <sstream>
+#include <mutex>
 
 namespace phantomdb {
 namespace core {
@@ -10,9 +12,16 @@ public:
     Impl() = default;
     ~Impl() = default;
     
+    struct Table {
+        std::vector<std::pair<std::string, std::string>> columns;
+        std::vector<std::unordered_map<std::string, std::string>> rows;
+    };
+
     // Database storage
-    std::unordered_map<std::string, std::unordered_map<std::string, 
-        std::vector<std::unordered_map<std::string, std::string>>>> databases;
+    std::unordered_map<std::string, std::unordered_map<std::string, Table>> databases;
+
+    // Concurrency control
+    mutable std::mutex db_mutex;
 };
 
 Database::Database() : pImpl(std::make_unique<Impl>()) {
@@ -24,6 +33,7 @@ Database::~Database() {
 }
 
 bool Database::createDatabase(const std::string& dbName) {
+    std::lock_guard<std::mutex> lock(pImpl->db_mutex);
     if (pImpl->databases.find(dbName) != pImpl->databases.end()) {
         std::cout << "Database " << dbName << " already exists" << std::endl;
         return false;
@@ -35,6 +45,7 @@ bool Database::createDatabase(const std::string& dbName) {
 }
 
 bool Database::dropDatabase(const std::string& dbName) {
+    std::lock_guard<std::mutex> lock(pImpl->db_mutex);
     auto it = pImpl->databases.find(dbName);
     if (it == pImpl->databases.end()) {
         std::cout << "Database " << dbName << " not found" << std::endl;
@@ -47,6 +58,7 @@ bool Database::dropDatabase(const std::string& dbName) {
 }
 
 std::vector<std::string> Database::listDatabases() const {
+    std::lock_guard<std::mutex> lock(pImpl->db_mutex);
     std::vector<std::string> result;
     result.reserve(pImpl->databases.size());
     
@@ -59,6 +71,7 @@ std::vector<std::string> Database::listDatabases() const {
 
 bool Database::createTable(const std::string& dbName, const std::string& tableName, 
                           const std::vector<std::pair<std::string, std::string>>& columns) {
+    std::lock_guard<std::mutex> lock(pImpl->db_mutex);
     auto dbIt = pImpl->databases.find(dbName);
     if (dbIt == pImpl->databases.end()) {
         std::cout << "Database " << dbName << " not found" << std::endl;
@@ -71,12 +84,13 @@ bool Database::createTable(const std::string& dbName, const std::string& tableNa
         return false;
     }
     
-    tables[tableName] = {};
+    tables[tableName] = {columns, {}};
     std::cout << "Created table " << tableName << " in database " << dbName << std::endl;
     return true;
 }
 
 bool Database::dropTable(const std::string& dbName, const std::string& tableName) {
+    std::lock_guard<std::mutex> lock(pImpl->db_mutex);
     auto dbIt = pImpl->databases.find(dbName);
     if (dbIt == pImpl->databases.end()) {
         std::cout << "Database " << dbName << " not found" << std::endl;
@@ -96,6 +110,7 @@ bool Database::dropTable(const std::string& dbName, const std::string& tableName
 }
 
 std::vector<std::string> Database::listTables(const std::string& dbName) const {
+    std::lock_guard<std::mutex> lock(pImpl->db_mutex);
     auto dbIt = pImpl->databases.find(dbName);
     if (dbIt == pImpl->databases.end()) {
         std::cout << "Database " << dbName << " not found" << std::endl;
@@ -114,6 +129,7 @@ std::vector<std::string> Database::listTables(const std::string& dbName) const {
 
 bool Database::insertData(const std::string& dbName, const std::string& tableName,
                          const std::unordered_map<std::string, std::string>& data) {
+    std::lock_guard<std::mutex> lock(pImpl->db_mutex);
     auto dbIt = pImpl->databases.find(dbName);
     if (dbIt == pImpl->databases.end()) {
         std::cout << "Database " << dbName << " not found" << std::endl;
@@ -127,14 +143,15 @@ bool Database::insertData(const std::string& dbName, const std::string& tableNam
         return false;
     }
     
-    tableIt->second.push_back(data);
+    tableIt->second.rows.push_back(data);
     std::cout << "Inserted data into table " << tableName << " in database " << dbName << std::endl;
     return true;
 }
 
 std::vector<std::unordered_map<std::string, std::string>> Database::selectData(
     const std::string& dbName, const std::string& tableName,
-    const std::string& condition) {
+    const std::unordered_map<std::string, std::string>& condition) {
+    std::lock_guard<std::mutex> lock(pImpl->db_mutex);
     
     auto dbIt = pImpl->databases.find(dbName);
     if (dbIt == pImpl->databases.end()) {
@@ -149,14 +166,32 @@ std::vector<std::unordered_map<std::string, std::string>> Database::selectData(
         return {};
     }
     
-    // For now, return all data (condition is ignored)
-    std::cout << "Selected data from table " << tableName << " in database " << dbName << std::endl;
-    return tableIt->second;
+    if (condition.empty()) {
+        return tableIt->second.rows;
+    }
+
+    std::vector<std::unordered_map<std::string, std::string>> results;
+    for (const auto& row : tableIt->second.rows) {
+        bool match = true;
+        for (const auto& cond : condition) {
+            auto it = row.find(cond.first);
+            if (it == row.end() || it->second != cond.second) {
+                match = false;
+                break;
+            }
+        }
+        if (match) {
+            results.push_back(row);
+        }
+    }
+
+    return results;
 }
 
 bool Database::updateData(const std::string& dbName, const std::string& tableName,
                          const std::unordered_map<std::string, std::string>& data,
-                         const std::string& condition) {
+                         const std::unordered_map<std::string, std::string>& condition) {
+    std::lock_guard<std::mutex> lock(pImpl->db_mutex);
     
     auto dbIt = pImpl->databases.find(dbName);
     if (dbIt == pImpl->databases.end()) {
@@ -170,14 +205,32 @@ bool Database::updateData(const std::string& dbName, const std::string& tableNam
         std::cout << "Table " << tableName << " not found in database " << dbName << std::endl;
         return false;
     }
-    
-    // For now, just return true (actual update logic would go here)
-    std::cout << "Updated data in table " << tableName << " in database " << dbName << std::endl;
+
+    for (auto& row : tableIt->second.rows) {
+        bool match = true;
+        if (!condition.empty()) {
+            for (const auto& cond : condition) {
+                auto it = row.find(cond.first);
+                if (it == row.end() || it->second != cond.second) {
+                    match = false;
+                    break;
+                }
+            }
+        }
+
+        if (match) {
+            for (const auto& updatePair : data) {
+                row[updatePair.first] = updatePair.second;
+            }
+        }
+    }
+
     return true;
 }
 
 bool Database::deleteData(const std::string& dbName, const std::string& tableName,
-                         const std::string& condition) {
+                         const std::unordered_map<std::string, std::string>& condition) {
+    std::lock_guard<std::mutex> lock(pImpl->db_mutex);
     
     auto dbIt = pImpl->databases.find(dbName);
     if (dbIt == pImpl->databases.end()) {
@@ -191,19 +244,37 @@ bool Database::deleteData(const std::string& dbName, const std::string& tableNam
         std::cout << "Table " << tableName << " not found in database " << dbName << std::endl;
         return false;
     }
-    
-    // For now, just return true (actual delete logic would go here)
-    std::cout << "Deleted data from table " << tableName << " in database " << dbName << std::endl;
+
+    if (condition.empty()) {
+        tableIt->second.rows.clear();
+        return true;
+    }
+
+    auto& rows = tableIt->second.rows;
+    rows.erase(std::remove_if(rows.begin(), rows.end(),
+        [&](const auto& row) {
+            bool match = true;
+            for (const auto& cond : condition) {
+                auto it = row.find(cond.first);
+                if (it == row.end() || it->second != cond.second) {
+                    match = false;
+                    break;
+                }
+            }
+            return match;
+        }),
+        rows.end());
+
     return true;
 }
 
 bool Database::isHealthy() const {
-    // For now, always return true
+    std::lock_guard<std::mutex> lock(pImpl->db_mutex);
     return true;
 }
 
 std::string Database::getStats() const {
-    // For now, return a simple stats string
+    std::lock_guard<std::mutex> lock(pImpl->db_mutex);
     return "Database is healthy";
 }
 
