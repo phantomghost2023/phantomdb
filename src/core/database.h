@@ -31,12 +31,12 @@ public:
                    const std::unordered_map<std::string, std::string>& data);
     std::vector<std::unordered_map<std::string, std::string>> selectData(
         const std::string& dbName, const std::string& tableName,
-        const std::string& condition = "");
+        const std::unordered_map<std::string, std::string>& condition = {});
     bool updateData(const std::string& dbName, const std::string& tableName,
                    const std::unordered_map<std::string, std::string>& data,
-                   const std::string& condition = "");
+                   const std::unordered_map<std::string, std::string>& condition = {});
     bool deleteData(const std::string& dbName, const std::string& tableName,
-                   const std::string& condition = "");
+                   const std::unordered_map<std::string, std::string>& condition = {});
     
     // Persistence operations
     bool saveToDisk(const std::string& dbName, const std::string& filename = "");
