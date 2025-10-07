@@ -13,6 +13,8 @@ A modern, distributed database system built with C++17, featuring clustering, co
 - **Storage Engine**: B+Tree, LSM-Tree, and Hash Table implementations
 - **Query Processing**: SQL parser, query planner, and execution engine
 - **Transaction Management**: MVCC, isolation levels, and locking
+- **Schema Enforcement**: Column type validation and schema compliance
+- **Condition Processing**: Advanced WHERE clause parsing and evaluation
 - **Observability**: Metrics, tracing, and monitoring
 
 ## Architecture
@@ -74,6 +76,75 @@ Or use the provided batch script:
 run_phantomdb.bat
 ```
 
+## Enhanced Features
+
+### Schema Enforcement
+
+PhantomDB now enforces schema compliance for all data operations:
+
+```cpp
+// Define table schema
+std::vector<std::pair<std::string, std::string>> columns = {
+    {"id", "integer"},
+    {"name", "string"},
+    {"email", "string"},
+    {"age", "integer"}
+};
+
+// Create table with schema
+db.createTable("testdb", "users", columns);
+
+// Valid data insertion
+std::unordered_map<std::string, std::string> validData = {
+    {"id", "1"},
+    {"name", "John Doe"},
+    {"email", "john@example.com"},
+    {"age", "30"}
+};
+db.insertData("testdb", "users", validData); // Success
+
+// Invalid data (wrong type)
+std::unordered_map<std::string, std::string> invalidData = {
+    {"id", "not_a_number"}, // Should be integer
+    {"name", "John Doe"},
+    {"email", "john@example.com"},
+    {"age", "30"}
+};
+db.insertData("testdb", "users", invalidData); // Rejected
+
+// Unknown field
+std::unordered_map<std::string, std::string> unknownFieldData = {
+    {"id", "1"},
+    {"name", "John Doe"},
+    {"email", "john@example.com"},
+    {"age", "30"},
+    {"unknown_field", "value"} // Not in schema
+};
+db.insertData("testdb", "users", unknownFieldData); // Rejected
+```
+
+### Condition Processing
+
+PhantomDB now supports advanced condition processing in SELECT, UPDATE, and DELETE operations:
+
+```cpp
+// Simple condition
+auto results = db.selectData("testdb", "users", "id = '1'");
+
+// Complex condition
+auto complexResults = db.selectData("testdb", "users", "age = '30' AND name = 'John Doe'");
+
+// Update with condition
+std::unordered_map<std::string, std::string> updateData = {
+    {"age", "31"},
+    {"email", "john.updated@example.com"}
+};
+db.updateData("testdb", "users", updateData, "id = '1'");
+
+// Delete with condition
+db.deleteData("testdb", "users", "id = '2'");
+```
+
 ## Project Structure
 
 ```
@@ -92,6 +163,12 @@ PhantomDB/
 ```
 
 ## Key Components
+
+### Core Module
+- Database management with schema enforcement
+- Storage engine with WAL for durability
+- Garbage collection for memory management
+- Basic database operations with validation
 
 ### Storage Engine
 - B+Tree implementation for indexed storage
@@ -117,8 +194,16 @@ PhantomDB/
 - Raft consensus protocol implementation
 - Data replication across nodes
 - Elastic scaling with automatic rebalancing
+- Load balancing mechanisms
 - Cross-shard query processing
+- Distributed transaction support with Two-Phase Commit
 - Saga pattern for distributed transactions
+
+### API and Observability
+- REST API implementation
+- Metrics collection and monitoring
+- Tracing capabilities
+- Health checks and status reporting
 
 ## Testing
 
@@ -126,6 +211,7 @@ The project includes comprehensive tests for all components:
 
 ```bash
 # Run specific tests
+./build/src/core/test_enhanced_database
 ./build/src/storage/btree_test
 ./build/src/transaction/simple_transaction_test
 ./build/src/distributed/performance_test

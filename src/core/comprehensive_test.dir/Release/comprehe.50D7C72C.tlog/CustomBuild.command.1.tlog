@@ -1,0 +1,10 @@
+^D:\PHANTOMGHOST\STORAGE\MEDIA\MEDIA\PROJECTS\MYPROJECTS\PHANTOMDB\SRC\CORE\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB -BD:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB --check-stamp-file D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/src/core/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

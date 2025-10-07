@@ -24,6 +24,7 @@ public:
                      const std::vector<std::pair<std::string, std::string>>& columns);
     bool dropTable(const std::string& dbName, const std::string& tableName);
     std::vector<std::string> listTables(const std::string& dbName) const;
+    std::vector<std::pair<std::string, std::string>> getTableSchema(const std::string& dbName, const std::string& tableName) const;
     
     // Data operations
     bool insertData(const std::string& dbName, const std::string& tableName,
@@ -36,6 +37,10 @@ public:
                    const std::string& condition = "");
     bool deleteData(const std::string& dbName, const std::string& tableName,
                    const std::string& condition = "");
+    
+    // Persistence operations
+    bool saveToDisk(const std::string& dbName, const std::string& filename = "");
+    bool loadFromDisk(const std::string& dbName, const std::string& filename = "");
     
     // Status and health checks
     bool isHealthy() const;
