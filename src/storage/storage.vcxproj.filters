@@ -4,10 +4,13 @@
     <ClCompile Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\storage_engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\wal_manager.cpp">
+    <ClCompile Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\index_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\index_manager.cpp">
+    <ClCompile Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\enhanced_index_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\wal_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\garbage_collector.cpp">
@@ -15,18 +18,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\storage_engine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\wal_manager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\index_manager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\garbage_collector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\btree.h">
       <Filter>Header Files</Filter>
     </ClInclude>

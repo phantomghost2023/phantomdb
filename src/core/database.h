@@ -9,6 +9,9 @@
 namespace phantomdb {
 namespace core {
 
+// Forward declaration
+class EnhancedPersistenceManager;
+
 class Database {
 public:
     Database();
@@ -41,6 +44,19 @@ public:
     // Persistence operations
     bool saveToDisk(const std::string& dbName, const std::string& filename = "");
     bool loadFromDisk(const std::string& dbName, const std::string& filename = "");
+    
+    // Enhanced persistence operations
+    bool appendTransactionLog(const std::string& dbName, const std::string& operation,
+                             const std::unordered_map<std::string, std::string>& data);
+    bool createSnapshot(const std::string& dbName);
+    
+    // Configuration
+    void setDataDirectory(const std::string& directory);
+    std::string getDataDirectory() const;
+    void setSnapshotEnabled(bool enabled);
+    bool isSnapshotEnabled() const;
+    void setSnapshotInterval(size_t interval);
+    size_t getSnapshotInterval() const;
     
     // Status and health checks
     bool isHealthy() const;

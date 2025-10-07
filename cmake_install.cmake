@@ -32,69 +32,33 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
 endif()
 
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  if(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/Debug/phantomdb.exe")
+  elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/Release/phantomdb.exe")
+  elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Mm][Ii][Nn][Ss][Ii][Zz][Ee][Rr][Ee][Ll])$")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/MinSizeRel/phantomdb.exe")
+  elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Rr][Ee][Ll][Ww][Ii][Tt][Hh][Dd][Ee][Bb][Ii][Nn][Ff][Oo])$")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/RelWithDebInfo/phantomdb.exe")
+  endif()
+endif()
+
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
+  # Include the install script for each subdirectory.
   include("D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/src/core/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
   include("D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/src/storage/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
   include("D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/src/query/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
   include("D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/src/transaction/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/src/distributed/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
   include("D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/src/api/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/src/clients/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
   include("D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/src/tools/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/src/security/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
+  include("D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/src/testing/cmake_install.cmake")
   include("D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/src/audit/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/src/error/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
+  include("D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/src/security/cmake_install.cmake")
   include("D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/src/plugin/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
   include("D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/src/import_export/cmake_install.cmake")
+  include("D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/src/distributed/cmake_install.cmake")
+
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)

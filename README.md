@@ -1,9 +1,10 @@
 # PhantomDB
 
-A modern, distributed database system built with C++17, featuring clustering, consensus protocols, replication, and distributed transactions.
+A modern, distributed database system built with C++17, featuring clustering, consensus protocols, replication, and distributed transactions. Enhanced with enterprise-grade features including persistent storage, advanced indexing, query optimization, ACID semantics, security, and developer tooling.
 
 ## Features
 
+### Core Database Features
 - **Distributed Architecture**: Multi-node clustering with automatic discovery
 - **Consensus Protocol**: Raft-based consensus for data consistency
 - **Data Replication**: Automatic data replication across cluster nodes
@@ -16,6 +17,16 @@ A modern, distributed database system built with C++17, featuring clustering, co
 - **Schema Enforcement**: Column type validation and schema compliance
 - **Condition Processing**: Advanced WHERE clause parsing and evaluation
 - **Observability**: Metrics, tracing, and monitoring
+
+### Enterprise Features
+- **Persistent Storage**: File-backed tables with snapshot/append-only files
+- **Advanced Indexing**: B-tree, Hash, and LSM-tree indexes with automatic configuration
+- **Query Optimization**: Rule-based and cost-based query optimizer with index awareness
+- **Full ACID Semantics**: MVCC implementation with snapshot isolation
+- **Security**: Role-Based Access Control (RBAC) and comprehensive audit logging
+- **Developer Tooling**: Interactive CLI/REPL, import/export utilities, and plugin interface
+- **Monitoring**: Prometheus/Grafana integration with pre-built dashboards
+- **Performance**: Benchmark suite and code coverage reporting
 
 ## Architecture
 
@@ -74,6 +85,105 @@ Or use the provided batch script:
 ```bash
 # Windows
 run_phantomdb.bat
+```
+
+## CLI Tools
+
+PhantomDB provides two command-line interfaces for database administration and interaction:
+
+### Traditional CLI
+```bash
+# Check server health
+phantomdb-cli health
+
+# List databases
+phantomdb-cli list-databases
+
+# Create a database
+phantomdb-cli create-database myapp
+
+# Execute a custom SQL query
+phantomdb-cli execute-query myapp "SELECT * FROM users"
+
+# Import data from a file
+phantomdb-cli import myapp users data.csv --format csv
+
+# Export data to a file
+phantomdb-cli export myapp users data.json --format json
+```
+
+### Interactive REPL
+```bash
+# Launch the interactive REPL
+phantomdb-repl
+
+# Within the REPL:
+phantomdb> use myapp
+phantomdb [myapp]> SELECT * FROM users;
+phantomdb [myapp]> INSERT INTO users (id, name, email) VALUES (1, 'John Doe', 'john@example.com');
+phantomdb [myapp]> help
+```
+
+The interactive REPL features:
+- Command auto-completion
+- SQL keyword auto-completion
+- Persistent command history
+- Database context management
+- Real-time query execution
+
+## Plugin Architecture
+
+PhantomDB features a flexible plugin architecture that allows extending functionality without modifying the core codebase:
+
+### Plugin Types
+1. **Function Extension Plugins** - Add custom SQL functions
+2. **Storage Backend Plugins** - Implement alternative storage engines
+3. **Query Processor Plugins** - Provide custom query optimization
+4. **Authentication Provider Plugins** - Implement custom authentication
+5. **Custom Data Type Plugins** - Add support for new data types
+
+### Creating a Plugin
+```cpp
+#include "base_plugin.h"
+
+class MyCustomPlugin : public BasePlugin {
+public:
+    MyCustomPlugin() 
+        : BasePlugin("MyCustomPlugin", "1.0.0", "My custom plugin", PluginType::FUNCTION_EXTENSION) {
+    }
+    
+    bool initialize() override {
+        // Custom initialization
+        return BasePlugin::initialize();
+    }
+    
+    void* getInterface(const std::string& interfaceName) override {
+        if (interfaceName == "MyCustomInterface") {
+            // Return interface pointer
+            return &myCustomInterface_;
+        }
+        return BasePlugin::getInterface(interfaceName);
+    }
+    
+private:
+    MyCustomInterface myCustomInterface_;
+};
+```
+
+### Loading Plugins
+```cpp
+#include "plugin_manager.h"
+
+using namespace phantomdb::plugin;
+
+// Get the plugin manager instance
+PluginManager& manager = PluginManager::getInstance();
+
+// Load a plugin from a shared library
+manager.loadPlugin("./plugins/my_custom_plugin.so");
+
+// Get a specific plugin
+Plugin* plugin = manager.getPlugin("MyCustomPlugin");
 ```
 
 ## Enhanced Features
@@ -143,6 +253,85 @@ db.updateData("testdb", "users", updateData, "id = '1'");
 
 // Delete with condition
 db.deleteData("testdb", "users", "id = '2'");
+```
+
+## Security Features
+
+PhantomDB implements enterprise-grade security features to protect data and ensure compliance:
+
+### Role-Based Access Control (RBAC)
+```cpp
+#include "rbac.h"
+
+using namespace phantomdb::security;
+
+// Create RBAC manager
+RBACManager rbac;
+
+// Initialize the RBAC system
+rbac.initialize();
+
+// Create a new user
+rbac.createUser("john_doe", "secure_password");
+
+// Assign a role to a user
+rbac.assignRole("john_doe", UserRole::WRITER);
+
+// Check if a user has a specific permission
+if (rbac.hasPermission("john_doe", Permission::INSERT)) {
+    // User can insert data
+}
+```
+
+### Audit Logging
+```cpp
+#include "audit_logger.h"
+
+using namespace phantomdb::audit;
+
+// Create audit logger
+AuditLogger logger;
+
+// Initialize the audit logger
+logger.initialize("/var/log/phantomdb/audit.log");
+
+// Log a user login
+logger.logUserLogin("john_doe", "192.168.1.100");
+
+// Log a database creation
+logger.logDatabaseCreate("john_doe", "myapp");
+
+// Log a data insert operation
+logger.logDataInsert("john_doe", "myapp", "users", "user_123");
+```
+
+### Security Configuration
+```json
+{
+    "security": {
+        "rbac": {
+            "enabled": true,
+            "default_role": "READER",
+            "roles": {
+                "ADMIN": {
+                    "permissions": ["*"]
+                },
+                "WRITER": {
+                    "permissions": ["SELECT", "INSERT", "UPDATE", "DELETE", "EXECUTE_QUERY"]
+                },
+                "READER": {
+                    "permissions": ["SELECT", "EXECUTE_QUERY"]
+                }
+            }
+        },
+        "audit": {
+            "enabled": true,
+            "log_file": "/var/log/phantomdb/audit.log",
+            "max_file_size": "100MB",
+            "max_files": 10
+        }
+    }
+}
 ```
 
 ## Project Structure

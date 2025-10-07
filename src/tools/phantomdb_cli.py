@@ -155,6 +155,37 @@ class PhantomDBCLI:
             print(f"Failed to rollback transaction: {result['error']}")
         else:
             print(f"Transaction {transaction_id} rolled back successfully")
+    
+    def import_data(self, database: str, table: str, file_path: str, format: str = "csv") -> None:
+        """Import data from a file."""
+        data = {
+            "database": database,
+            "table": table,
+            "file_path": file_path,
+            "format": format
+        }
+        result = self._make_request("POST", f"/databases/{database}/tables/{table}/import", data)
+        if "error" in result:
+            print(f"Failed to import data: {result['error']}")
+        else:
+            rows_imported = result.get("rows_imported", 0)
+            rows_failed = result.get("rows_failed", 0)
+            print(f"Data import completed. Rows imported: {rows_imported}, Rows failed: {rows_failed}")
+    
+    def export_data(self, database: str, table: str, file_path: str, format: str = "csv") -> None:
+        """Export data to a file."""
+        data = {
+            "database": database,
+            "table": table,
+            "file_path": file_path,
+            "format": format
+        }
+        result = self._make_request("POST", f"/databases/{database}/tables/{table}/export", data)
+        if "error" in result:
+            print(f"Failed to export data: {result['error']}")
+        else:
+            rows_exported = result.get("rows_exported", 0)
+            print(f"Data export completed. Rows exported: {rows_exported}")
 
 
 def main():
@@ -175,6 +206,8 @@ Examples:
   phantomdb-cli.py begin-transaction
   phantomdb-cli.py commit-transaction txn_12345
   phantomdb-cli.py rollback-transaction txn_12345
+  phantomdb-cli.py import mydb users data.csv --format csv
+  phantomdb-cli.py export mydb users data.json --format json
         """
     )
     
@@ -226,6 +259,22 @@ Examples:
     rollback_txn_parser = subparsers.add_parser("rollback-transaction", help="Rollback a transaction")
     rollback_txn_parser.add_argument("transaction_id", help="ID of the transaction to rollback")
     
+    # Import command
+    import_parser = subparsers.add_parser("import", help="Import data from a file")
+    import_parser.add_argument("database", help="Name of the database")
+    import_parser.add_argument("table", help="Name of the table")
+    import_parser.add_argument("file_path", help="Path to the file to import")
+    import_parser.add_argument("--format", choices=["csv", "json"], default="csv", 
+                              help="Format of the file to import (default: csv)")
+    
+    # Export command
+    export_parser = subparsers.add_parser("export", help="Export data to a file")
+    export_parser.add_argument("database", help="Name of the database")
+    export_parser.add_argument("table", help="Name of the table")
+    export_parser.add_argument("file_path", help="Path to the file to export")
+    export_parser.add_argument("--format", choices=["csv", "json"], default="csv", 
+                              help="Format of the file to export (default: csv)")
+    
     args = parser.parse_args()
     
     if not args.command:
@@ -257,6 +306,10 @@ Examples:
         cli.commit_transaction(args.transaction_id)
     elif args.command == "rollback-transaction":
         cli.rollback_transaction(args.transaction_id)
+    elif args.command == "import":
+        cli.import_data(args.database, args.table, args.file_path, args.format)
+    elif args.command == "export":
+        cli.export_data(args.database, args.table, args.file_path, args.format)
     else:
         parser.print_help()
 

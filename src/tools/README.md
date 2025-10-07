@@ -1,6 +1,6 @@
-# PhantomDB Command Line Interface
+# PhantomDB Command Line Tools
 
-A command line tool for administering PhantomDB instances.
+Command line tools for administering PhantomDB instances, including both a traditional CLI and an interactive REPL.
 
 ## Installation
 
@@ -16,7 +16,7 @@ pip install -e .
 
 ## Usage
 
-### Basic Usage
+### Traditional CLI
 
 ```bash
 # Check server health
@@ -51,6 +51,36 @@ phantomdb-cli commit-transaction txn_12345
 
 # Rollback a transaction
 phantomdb-cli rollback-transaction txn_12345
+```
+
+### Interactive REPL
+
+Launch the interactive REPL:
+
+```bash
+# Launch REPL with default server URL
+phantomdb-repl
+
+# Launch REPL with custom server URL
+phantomdb-repl --url http://example.com:8080
+```
+
+Once in the REPL, you can use the following commands:
+
+- `help` - Show available commands
+- `use <database>` - Select a database to work with
+- `show databases` - List all databases
+- `show tables` - List all tables in current database
+- `exit` or `quit` - Exit the REPL
+- `history` - Show command history
+
+You can also execute SQL queries directly:
+
+```sql
+SELECT * FROM users;
+INSERT INTO users (id, name, email) VALUES (1, 'John Doe', 'john@example.com');
+UPDATE users SET email = 'john.doe@example.com' WHERE id = 1;
+DELETE FROM users WHERE id = 1;
 ```
 
 ### Specifying Server URL
@@ -137,6 +167,20 @@ Rollback a transaction:
 
 ```bash
 phantomdb-cli rollback-transaction <transaction_id>
+```
+
+### Import/Export Operations
+
+Import data from a file:
+
+```bash
+phantomdb-cli import <database_name> <table_name> <file_path> --format [csv|json]
+```
+
+Export data to a file:
+
+```bash
+phantomdb-cli export <database_name> <table_name> <file_path> --format [csv|json]
 ```
 
 ## Query Debugger and Profiler

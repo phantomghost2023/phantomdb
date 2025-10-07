@@ -78,7 +78,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -87,19 +87,19 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <Optimization>Disabled</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <TreatWarningAsError>true</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;HAS_NLOHMANN_JSON=0;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;HAS_NLOHMANN_JSON=0;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -112,28 +112,28 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <Optimization>MaxSpeed</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <TreatWarningAsError>true</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;HAS_NLOHMANN_JSON=0;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;HAS_NLOHMANN_JSON=0;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -146,28 +146,28 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <Optimization>MinSpace</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <TreatWarningAsError>true</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;HAS_NLOHMANN_JSON=0;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;HAS_NLOHMANN_JSON=0;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -180,7 +180,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -188,19 +188,19 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <Optimization>MaxSpeed</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <TreatWarningAsError>true</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;HAS_NLOHMANN_JSON=0;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;HAS_NLOHMANN_JSON=0;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -269,17 +269,17 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core\core.cpp" />
     <ClCompile Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core\database.cpp" />
-    <ClCompile Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core\utils.cpp" />
     <ClCompile Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core\persistence.cpp" />
+    <ClCompile Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core\enhanced_persistence.cpp" />
+    <ClCompile Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core\utils.cpp" />
     <ClCompile Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core\query_executor.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\ZERO_CHECK.vcxproj">
-      <Project>{EE361381-B11C-3982-B314-A69F0EDE9E74}</Project>
-      <Name>ZERO_CHECK</Name>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\storage.vcxproj">
+      <Project>{60ABCF19-6935-31F4-B27F-19950C40CDC5}</Project>
+      <Name>storage</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

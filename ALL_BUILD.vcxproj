@@ -69,7 +69,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Midl>
-      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -79,7 +79,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Midl>
-      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -89,7 +89,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <Midl>
-      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -99,7 +99,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <Midl>
-      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -120,7 +120,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeCXXCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeRCCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FindGTest.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\GoogleTest.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeCCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeCXXCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeRCCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/CMakeLists.txt</Message>
@@ -133,7 +133,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeCXXCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeRCCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FindGTest.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\GoogleTest.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeCCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeCXXCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeRCCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/CMakeLists.txt</Message>
@@ -146,7 +146,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeCXXCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeRCCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FindGTest.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\GoogleTest.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeCCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeCXXCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeRCCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/CMakeLists.txt</Message>
@@ -159,7 +159,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeCXXCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeRCCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FindGTest.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\GoogleTest.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeCCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeCXXCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeRCCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
@@ -225,10 +225,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Project>{A36D35DC-0E33-32C2-813D-325942A2A846}</Project>
       <Name>delete_plan_test</Name>
     </ProjectReference>
-    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\delete_simple_test.vcxproj">
-      <Project>{904BB14F-AE73-30BC-8223-F29CFBAA4064}</Project>
-      <Name>delete_simple_test</Name>
-    </ProjectReference>
     <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\delete_test.vcxproj">
       <Project>{D0042B26-F352-3D75-8857-85D8EDEB2A95}</Project>
       <Name>delete_test</Name>
@@ -256,10 +252,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\distributed\elastic_scaling_test.vcxproj">
       <Project>{E2F104E7-5C68-3363-8685-55F437660DEF}</Project>
       <Name>elastic_scaling_test</Name>
-    </ProjectReference>
-    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\error\error.vcxproj">
-      <Project>{B07343DA-382F-392F-8B7C-0F11A22B32DE}</Project>
-      <Name>error</Name>
     </ProjectReference>
     <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\execution_engine_test.vcxproj">
       <Project>{60E703D7-FF3D-3DF0-8DD1-855A5072C120}</Project>
@@ -349,29 +341,21 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Project>{EDE1BB7D-EDA8-3AAB-AF8B-E59C4F056EB7}</Project>
       <Name>optimizer_enhancement_test</Name>
     </ProjectReference>
-    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\optimizer_test.vcxproj">
-      <Project>{2924ADC4-06A2-39CB-83B4-792A18576E12}</Project>
-      <Name>optimizer_test</Name>
-    </ProjectReference>
-    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\parser_test.vcxproj">
-      <Project>{B4DCC133-F725-39F1-97E7-1EF2375BD755}</Project>
-      <Name>parser_test</Name>
-    </ProjectReference>
     <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\phantomdb.vcxproj">
       <Project>{C0A6C964-0B33-39F7-A73C-CF44C4798724}</Project>
       <Name>phantomdb</Name>
-    </ProjectReference>
-    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\planner_test.vcxproj">
-      <Project>{E420854C-362B-353E-A4E5-B0B8B29D82BB}</Project>
-      <Name>planner_test</Name>
     </ProjectReference>
     <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\plugin\plugin.vcxproj">
       <Project>{B5CE853F-6F33-36BB-9DB0-3651644CF058}</Project>
       <Name>plugin</Name>
     </ProjectReference>
-    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\query.vcxproj">
-      <Project>{98C5C042-0125-3E5E-9386-25DF0DC94541}</Project>
-      <Name>query</Name>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\query_optimizer_test.vcxproj">
+      <Project>{B391FC59-BBF3-307B-B667-D496EF59ACA8}</Project>
+      <Name>query_optimizer_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\query_planner_test.vcxproj">
+      <Project>{1EE7E796-AF68-324D-9E1F-6BA765D61F80}</Project>
+      <Name>query_planner_test</Name>
     </ProjectReference>
     <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\query_test.vcxproj">
       <Project>{149F66DA-C0A4-31B7-8423-4CA8F455A8DB}</Project>
@@ -421,25 +405,29 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Project>{934DB8A7-0DCA-3CC7-ABEE-ADE47A404DE7}</Project>
       <Name>simple_transaction_test</Name>
     </ProjectReference>
-    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\storage.vcxproj">
-      <Project>{60ABCF19-6935-31F4-B27F-19950C40CDC5}</Project>
-      <Name>storage</Name>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\sql_parser_test.vcxproj">
+      <Project>{D6ACF933-3456-39BC-9C27-B05EE1202572}</Project>
+      <Name>sql_parser_test</Name>
     </ProjectReference>
     <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core\test_enhanced_database.vcxproj">
       <Project>{DDA29004-062F-3B1C-B8F0-3A1542A2A8C0}</Project>
       <Name>test_enhanced_database</Name>
     </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\test_enhanced_index_manager.vcxproj">
+      <Project>{F8D32809-81E8-3C81-A93B-A42CA5B223E4}</Project>
+      <Name>test_enhanced_index_manager</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core\test_enhanced_persistence.vcxproj">
+      <Project>{32A95E08-C6F8-3C1B-BA55-6E1207B2E504}</Project>
+      <Name>test_enhanced_persistence</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\test_enhanced_query_planner.vcxproj">
+      <Project>{35F794BE-57AD-345C-9571-F9A2E0FBD250}</Project>
+      <Name>test_enhanced_query_planner</Name>
+    </ProjectReference>
     <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core\test_persistence.vcxproj">
       <Project>{EC464ABF-7E3D-39CC-B882-7AB2B076581B}</Project>
       <Name>test_persistence</Name>
-    </ProjectReference>
-    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core\test_query_executor.vcxproj">
-      <Project>{9041BC21-C418-3BFC-971F-2008A957FDEC}</Project>
-      <Name>test_query_executor</Name>
-    </ProjectReference>
-    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\transaction\transaction.vcxproj">
-      <Project>{7B6964FC-5E99-3E24-A850-1830AC6A33B1}</Project>
-      <Name>transaction</Name>
     </ProjectReference>
     <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\transaction\transaction_test.vcxproj">
       <Project>{BC073240-5581-3EC6-ADE0-E0BCDE43DF13}</Project>

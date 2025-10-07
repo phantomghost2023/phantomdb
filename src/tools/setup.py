@@ -35,6 +35,7 @@ setup(
     entry_points={
         "console_scripts": [
             "phantomdb-cli=phantomdb_cli:main",
+            "phantomdb-repl=phantomdb_repl:main",
         ],
     },
     extras_require={

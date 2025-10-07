@@ -1,23 +1,33 @@
-# Core module CMakeLists.txt
+# CMakeLists.txt for PhantomDB Core Module
 
 # Define the core library
-set(CORE_SOURCES
+add_library(core
+    core.cpp
     database.cpp
-    utils.cpp
     persistence.cpp
+    enhanced_persistence.cpp
+    utils.cpp
     query_executor.cpp
 )
 
-add_library(core ${CORE_SOURCES})
-
-# Link with required libraries
-target_link_libraries(core)
+# Link dependencies
+target_link_libraries(core PRIVATE storage query transaction)
 
 # Include directories
-target_include_directories(core PUBLIC
+target_include_directories(core PUBLIC 
     ${CMAKE_CURRENT_SOURCE_DIR}
-    ${CMAKE_SOURCE_DIR}
 )
+
+# Install targets
+install(TARGETS core
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+    RUNTIME DESTINATION bin
+)
+
+# Test for enhanced persistence
+add_executable(test_enhanced_persistence test_enhanced_persistence.cpp)
+target_link_libraries(test_enhanced_persistence core)
 
 # Try to find nlohmann_json package for query executor (make it optional)
 find_package(nlohmann_json QUIET)
