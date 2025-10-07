@@ -1,6 +1,7 @@
 #include "isolation_manager.h"
 #include <iostream>
 #include <unordered_set>
+#include <algorithm>
 
 namespace phantomdb {
 namespace transaction {
@@ -52,8 +53,18 @@ public:
                 
             case IsolationLevel::SNAPSHOT:
                 // In SNAPSHOT, versions visible at transaction start are visible
-                // This would require tracking transaction start time
-                return version.isCommitted;
+                {
+                    auto snapshot = getSnapshot(transactionId);
+                    if (snapshot) {
+                        // Version is visible if it was committed before the transaction started
+                        // or if it was created by this transaction
+                        return (version.transactionId == transactionId) || 
+                               (version.isCommitted && version.timestamp <= snapshot->timestamp);
+                    } else {
+                        // Fallback to READ_COMMITTED if no snapshot
+                        return version.isCommitted;
+                    }
+                }
                 
             default:
                 return false;
@@ -72,10 +83,57 @@ public:
         return true;
     }
     
+    bool createSnapshot(int transactionId) {
+        std::lock_guard<std::mutex> lock(mutex_);
+        auto timestamp = std::chrono::high_resolution_clock::now();
+        snapshots_[transactionId] = std::make_unique<TransactionSnapshot>(transactionId, timestamp);
+        return true;
+    }
+    
+    TransactionSnapshot* getSnapshot(int transactionId) const {
+        std::lock_guard<std::mutex> lock(mutex_);
+        auto it = snapshots_.find(transactionId);
+        if (it != snapshots_.end()) {
+            return it->second.get();
+        }
+        return nullptr;
+    }
+    
+    bool hasWriteConflict(int transactionId, const std::string& key) const {
+        std::lock_guard<std::mutex> lock(mutex_);
+        // Check if another transaction has written to this key since our transaction started
+        auto it = activeWrites_.find(key);
+        if (it != activeWrites_.end()) {
+            for (const auto& writerId : it->second) {
+                if (writerId != transactionId) {
+                    return true; // Conflict detected
+                }
+            }
+        }
+        return false;
+    }
+    
+    void registerRead(int transactionId, const std::string& key) {
+        std::lock_guard<std::mutex> lock(mutex_);
+        auto snapshot = getSnapshot(transactionId);
+        if (snapshot) {
+            snapshot->readKeys.insert(key);
+        }
+    }
+    
+    void registerWrite(int transactionId, const std::string& key) {
+        std::lock_guard<std::mutex> lock(mutex_);
+        activeWrites_[key].insert(transactionId);
+    }
+    
 private:
     mutable std::mutex mutex_;
     // Track reads for SERIALIZABLE isolation to prevent phantom reads
     std::unordered_map<int, std::unordered_set<std::string>> serializableReads_;
+    // Track transaction snapshots for SNAPSHOT isolation
+    std::unordered_map<int, std::unique_ptr<TransactionSnapshot>> snapshots_;
+    // Track active writes to detect conflicts
+    std::unordered_map<std::string, std::unordered_set<int>> activeWrites_;
 };
 
 IsolationManager::IsolationManager() : pImpl(std::make_unique<Impl>()) {}
@@ -104,6 +162,26 @@ bool IsolationManager::isVisible(IsolationLevel level, int transactionId, const 
 
 bool IsolationManager::preventPhantomReads(IsolationLevel level, int transactionId, const std::string& key) {
     return pImpl->preventPhantomReads(level, transactionId, key);
+}
+
+bool IsolationManager::createSnapshot(int transactionId) {
+    return pImpl->createSnapshot(transactionId);
+}
+
+TransactionSnapshot* IsolationManager::getSnapshot(int transactionId) const {
+    return pImpl->getSnapshot(transactionId);
+}
+
+bool IsolationManager::hasWriteConflict(int transactionId, const std::string& key) const {
+    return pImpl->hasWriteConflict(transactionId, key);
+}
+
+void IsolationManager::registerRead(int transactionId, const std::string& key) {
+    pImpl->registerRead(transactionId, key);
+}
+
+void IsolationManager::registerWrite(int transactionId, const std::string& key) {
+    pImpl->registerWrite(transactionId, key);
 }
 
 } // namespace transaction

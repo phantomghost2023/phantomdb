@@ -52,6 +52,14 @@ bool validateData(const std::unordered_map<std::string, std::string>& data,
  */
 bool validateValueType(const std::string& value, const std::string& type);
 
+// Helper functions for type validation
+bool isValidInteger(const std::string& value);
+bool isValidFloat(const std::string& value);
+bool isValidBoolean(const std::string& value);
+bool isValidDate(const std::string& value);
+bool isValidTime(const std::string& value);
+bool isValidTimestamp(const std::string& value);
+
 } // namespace utils
 } // namespace core
 } // namespace phantomdb

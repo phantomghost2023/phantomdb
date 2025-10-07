@@ -54,3 +54,7 @@ target_link_libraries(lsm_tree_index_test storage core)
 # Simple LSM-tree compilation test
 add_executable(simple_lsm_test simple_lsm_test.cpp)
 target_link_libraries(simple_lsm_test storage core)
+
+# Index auto-indexing test executable
+add_executable(index_auto_test index_auto_test.cpp)
+target_link_libraries(index_auto_test storage core)

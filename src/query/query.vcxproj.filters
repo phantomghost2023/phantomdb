@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\query_processor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\sql_parser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\query_planner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\query_optimizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\execution_engine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\query_processor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\sql_parser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\query_planner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\query_optimizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\execution_engine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{DF7D31E5-818C-3CD4-90AB-B11A13841034}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{57467E33-A5A6-3716-9D66-E1D601107B28}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

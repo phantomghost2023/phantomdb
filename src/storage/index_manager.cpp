@@ -181,12 +181,72 @@ public:
                       << ") on " << pair.second.tableName 
                       << "(" << pair.second.columnName << ")" << std::endl;
         }
+        
+        std::cout << "Auto-indexing enabled for tables:" << std::endl;
+        for (const auto& pair : autoIndexConfig) {
+            std::cout << "  " << pair.first << " (" << getIndexTypeName(pair.second.type) << ")" << std::endl;
+            std::cout << "    Columns: ";
+            for (const auto& col : pair.second.columns) {
+                std::cout << col << " ";
+            }
+            std::cout << std::endl;
+        }
+    }
+    
+    void enableAutoIndexing(const std::string& tableName, const std::vector<std::string>& columns, IndexType type) {
+        autoIndexConfig[tableName] = {columns, type};
+        std::cout << "Auto-indexing enabled for table: " << tableName << std::endl;
+    }
+    
+    void disableAutoIndexing(const std::string& tableName) {
+        auto it = autoIndexConfig.find(tableName);
+        if (it != autoIndexConfig.end()) {
+            autoIndexConfig.erase(it);
+            std::cout << "Auto-indexing disabled for table: " << tableName << std::endl;
+        }
+    }
+    
+    bool isAutoIndexingEnabled(const std::string& tableName) const {
+        return autoIndexConfig.find(tableName) != autoIndexConfig.end();
+    }
+    
+    IndexType getAutoIndexType(const std::string& tableName) const {
+        auto it = autoIndexConfig.find(tableName);
+        if (it != autoIndexConfig.end()) {
+            return it->second.type;
+        }
+        return IndexType::B_TREE; // Default type
+    }
+    
+    const std::vector<std::string>& getAutoIndexColumns(const std::string& tableName) const {
+        static const std::vector<std::string> empty; // Return empty vector if not found
+        auto it = autoIndexConfig.find(tableName);
+        if (it != autoIndexConfig.end()) {
+            return it->second.columns;
+        }
+        return empty;
+    }
+    
+    // Create automatic indexes for a table based on its configuration
+    void createAutoIndexes(const std::string& tableName) {
+        auto it = autoIndexConfig.find(tableName);
+        if (it != autoIndexConfig.end()) {
+            const auto& config = it->second;
+            for (const auto& column : config.columns) {
+                createIndex(tableName, column, config.type);
+            }
+        }
     }
     
 private:
     struct IndexInfo {
         std::string tableName;
         std::string columnName;
+        IndexType type;
+    };
+    
+    struct AutoIndexConfig {
+        std::vector<std::string> columns;
         IndexType type;
     };
     
@@ -203,6 +263,9 @@ private:
     std::unordered_map<std::string, std::unique_ptr<BTree<int, std::string>>> btreeIndexes;
     std::unordered_map<std::string, std::unique_ptr<HashTable<int, std::string>>> hashIndexes;
     std::unordered_map<std::string, std::unique_ptr<LSMTREE<int, std::string>>> lsmTreeIndexes;
+    
+    // Auto-indexing configuration
+    std::unordered_map<std::string, AutoIndexConfig> autoIndexConfig;
 };
 
 IndexManager::IndexManager() : pImpl(std::make_unique<Impl>()) {
@@ -240,6 +303,30 @@ bool IndexManager::insertIntoIndex(const std::string& indexName, int key, const 
 
 bool IndexManager::searchInIndex(const std::string& indexName, int key, std::string& value) const {
     return pImpl->searchInIndex(indexName, key, value);
+}
+
+void IndexManager::listIndexes() const {
+    pImpl->listIndexes();
+}
+
+void IndexManager::enableAutoIndexing(const std::string& tableName, const std::vector<std::string>& columns, IndexType type) {
+    pImpl->enableAutoIndexing(tableName, columns, type);
+}
+
+void IndexManager::disableAutoIndexing(const std::string& tableName) {
+    pImpl->disableAutoIndexing(tableName);
+}
+
+bool IndexManager::isAutoIndexingEnabled(const std::string& tableName) const {
+    return pImpl->isAutoIndexingEnabled(tableName);
+}
+
+IndexType IndexManager::getAutoIndexType(const std::string& tableName) const {
+    return pImpl->getAutoIndexType(tableName);
+}
+
+const std::vector<std::string>& IndexManager::getAutoIndexColumns(const std::string& tableName) const {
+    return pImpl->getAutoIndexColumns(tableName);
 }
 
 } // namespace storage

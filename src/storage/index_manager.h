@@ -3,6 +3,8 @@
 
 #include <string>
 #include <memory>
+#include <vector>
+#include <unordered_map>
 
 namespace phantomdb {
 namespace storage {
@@ -38,6 +40,24 @@ public:
     
     // Search for a key in an index
     bool searchInIndex(const std::string& indexName, int key, std::string& value) const;
+    
+    // List all indexes
+    void listIndexes() const;
+    
+    // Enable automatic indexing for a table
+    void enableAutoIndexing(const std::string& tableName, const std::vector<std::string>& columns, IndexType type = IndexType::B_TREE);
+    
+    // Disable automatic indexing for a table
+    void disableAutoIndexing(const std::string& tableName);
+    
+    // Check if a table has automatic indexing enabled
+    bool isAutoIndexingEnabled(const std::string& tableName) const;
+    
+    // Get the index type for automatic indexing
+    IndexType getAutoIndexType(const std::string& tableName) const;
+    
+    // Get columns that should be automatically indexed
+    const std::vector<std::string>& getAutoIndexColumns(const std::string& tableName) const;
     
 private:
     class Impl;

@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ResolveNugetPackages>false</ResolveNugetPackages>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{EE361381-B11C-3982-B314-A69F0EDE9E74}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>ZERO_CHECK</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\043ad57c3601772b978e626a8eb14825\generate.stamp.rule">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</BuildInParallel>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Checking Build System</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB -BD:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/PhantomDB.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeCXXCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeRCCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeSystem.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\api\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\audit\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\clients\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\distributed\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\error\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\import_export\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\observability\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\plugin\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\security\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\tools\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\transaction\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\transaction\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\distributed\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\api\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\api\observability\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\clients\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\tools\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\security\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\audit\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\error\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\plugin\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\import_export\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</BuildInParallel>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Checking Build System</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB -BD:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/PhantomDB.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeCXXCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeRCCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeSystem.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\api\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\audit\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\clients\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\distributed\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\error\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\import_export\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\observability\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\plugin\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\security\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\tools\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\transaction\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\transaction\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\distributed\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\api\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\api\observability\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\clients\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\tools\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\security\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\audit\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\error\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\plugin\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\import_export\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</BuildInParallel>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Checking Build System</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB -BD:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/PhantomDB.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeCXXCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeRCCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeSystem.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\api\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\audit\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\clients\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\distributed\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\error\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\import_export\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\observability\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\plugin\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\security\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\tools\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\transaction\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\transaction\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\distributed\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\api\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\api\observability\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\clients\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\tools\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\security\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\audit\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\error\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\plugin\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\import_export\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</BuildInParallel>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Checking Build System</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB -BD:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/PhantomDB.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeCXXCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeRCCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeSystem.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\api\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\audit\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\clients\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\distributed\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\error\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\import_export\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\observability\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\plugin\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\security\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\tools\CMakeLists.txt;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\transaction\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\transaction\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\distributed\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\api\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\api\observability\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\clients\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\tools\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\security\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\audit\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\error\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\plugin\CMakeFiles\generate.stamp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\import_export\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

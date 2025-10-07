@@ -1,0 +1,468 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ResolveNugetPackages>false</ResolveNugetPackages>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B1BE45F8-60BF-397E-BBCC-41A0657B7348}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>ALL_BUILD</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB -BD:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB --check-stamp-file D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeCXXCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeRCCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB -BD:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB --check-stamp-file D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeCXXCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeRCCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB -BD:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB --check-stamp-file D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeCXXCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeRCCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB -BD:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB --check-stamp-file D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeCXXCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeRCCompiler.cmake;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\3.27.7\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\ZERO_CHECK.vcxproj">
+      <Project>{EE361381-B11C-3982-B314-A69F0EDE9E74}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\api\api.vcxproj">
+      <Project>{8E6F0C7B-303A-33E4-B97A-06E5B9ECFF15}</Project>
+      <Name>api</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\audit\audit.vcxproj">
+      <Project>{2FAE3EAB-D19C-32E5-A46A-072A1B362505}</Project>
+      <Name>audit</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\audit\audit_test.vcxproj">
+      <Project>{81F118E6-4256-3E4A-B8A4-8893E7931D97}</Project>
+      <Name>audit_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\btree_test.vcxproj">
+      <Project>{5D9A8367-DD77-376B-B648-C3457FD0A504}</Project>
+      <Name>btree_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\distributed\cluster_test.vcxproj">
+      <Project>{6C82BF3E-B725-3059-ADC4-1557F1001EC8}</Project>
+      <Name>cluster_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core\comprehensive_test.vcxproj">
+      <Project>{50D7C72C-E953-3D16-958F-8E2DAB704860}</Project>
+      <Name>comprehensive_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\distributed\consensus_test.vcxproj">
+      <Project>{6D609B4F-1E8C-33FA-A59A-4807C209DCE8}</Project>
+      <Name>consensus_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core\core.vcxproj">
+      <Project>{D54E721E-BFB2-340B-A63D-19AB6B50835D}</Project>
+      <Name>core</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core\coverage_test.vcxproj">
+      <Project>{B08404C2-5177-3078-8F2C-E9E934DBF8A1}</Project>
+      <Name>coverage_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\audit\db_audit_test.vcxproj">
+      <Project>{26B2804C-B05F-37AE-99BE-82D92E583DF7}</Project>
+      <Name>db_audit_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\security\db_rbac_test.vcxproj">
+      <Project>{EAE71F2E-549C-34EE-AABD-312B21316AEF}</Project>
+      <Name>db_rbac_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\delete_execution_test.vcxproj">
+      <Project>{141C8079-B2C1-3C06-8245-CAB8ECCE5DA8}</Project>
+      <Name>delete_execution_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\delete_plan_test.vcxproj">
+      <Project>{A36D35DC-0E33-32C2-813D-325942A2A846}</Project>
+      <Name>delete_plan_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\delete_simple_test.vcxproj">
+      <Project>{904BB14F-AE73-30BC-8223-F29CFBAA4064}</Project>
+      <Name>delete_simple_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\delete_test.vcxproj">
+      <Project>{D0042B26-F352-3D75-8857-85D8EDEB2A95}</Project>
+      <Name>delete_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\distributed\distributed.vcxproj">
+      <Project>{BC4BC619-42D5-3197-A4CA-935F31BE64A2}</Project>
+      <Name>distributed</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\distributed\distributed_comprehensive_test.vcxproj">
+      <Project>{442F344D-1982-3931-BAD0-6BD623E8D615}</Project>
+      <Name>distributed_comprehensive_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\distributed\distributed_integration_test.vcxproj">
+      <Project>{F00B7873-639A-3A90-AE61-817B3CEF7685}</Project>
+      <Name>distributed_integration_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\distributed\distributed_performance_test.vcxproj">
+      <Project>{CB35C498-AF40-3944-AD32-AB852FF788FD}</Project>
+      <Name>distributed_performance_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\distributed\distributed_transaction_test.vcxproj">
+      <Project>{41C83DBB-3B59-3EF5-8481-A06E43CB5C98}</Project>
+      <Name>distributed_transaction_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\distributed\elastic_scaling_test.vcxproj">
+      <Project>{E2F104E7-5C68-3363-8685-55F437660DEF}</Project>
+      <Name>elastic_scaling_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\error\error.vcxproj">
+      <Project>{B07343DA-382F-392F-8B7C-0F11A22B32DE}</Project>
+      <Name>error</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\execution_engine_test.vcxproj">
+      <Project>{60E703D7-FF3D-3DF0-8DD1-855A5072C120}</Project>
+      <Name>execution_engine_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\gc_test.vcxproj">
+      <Project>{C6B4E636-FA81-3A9F-B097-81A783C7FA36}</Project>
+      <Name>gc_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\hash_table_test.vcxproj">
+      <Project>{5C6F5FDF-7BE8-3EEB-8912-0E19CD674B38}</Project>
+      <Name>hash_table_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\import_export\import_export.vcxproj">
+      <Project>{1BDA7D45-421A-3134-9A87-4A871EC082C4}</Project>
+      <Name>import_export</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\index_auto_test.vcxproj">
+      <Project>{62667AFE-02BD-31D7-A86C-05389D7BBC50}</Project>
+      <Name>index_auto_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\index_test.vcxproj">
+      <Project>{C814A276-EAE8-3F49-A4DE-6D2486669550}</Project>
+      <Name>index_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\insert_execution_test.vcxproj">
+      <Project>{81FEFBD8-1B42-30D6-B1F7-6E0F809D4069}</Project>
+      <Name>insert_execution_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\insert_plan_test.vcxproj">
+      <Project>{6A5BA231-B703-3A79-B568-8DB08732387F}</Project>
+      <Name>insert_plan_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\insert_test.vcxproj">
+      <Project>{F64CB3F5-01E6-39D2-904B-5EB9995103A5}</Project>
+      <Name>insert_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\integration_test.vcxproj">
+      <Project>{4B10DDC4-C221-3682-9A1A-3A74A7C561CE}</Project>
+      <Name>integration_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\transaction\isolation_test.vcxproj">
+      <Project>{3EFB16CA-128D-3103-84B2-97E8016F431C}</Project>
+      <Name>isolation_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\join_comprehensive_test.vcxproj">
+      <Project>{332F3EA2-D9AB-33BB-A8F1-36A3C268AE7B}</Project>
+      <Name>join_comprehensive_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\join_execution_test.vcxproj">
+      <Project>{B3BB7F06-85FE-3A96-8F26-EFAE5256B247}</Project>
+      <Name>join_execution_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\join_plan_test.vcxproj">
+      <Project>{A3B10E51-8358-3B9D-B91F-777035F9E06B}</Project>
+      <Name>join_plan_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\join_test.vcxproj">
+      <Project>{1A35A7A9-5DA1-3D1D-BFE0-69F3D7FA0D49}</Project>
+      <Name>join_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\transaction\lock_test.vcxproj">
+      <Project>{F5F1E6B8-CB1B-3086-B8D4-5922843C2C7D}</Project>
+      <Name>lock_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\lsm_tree_index_test.vcxproj">
+      <Project>{A69F15C6-D401-3FB5-A263-6C8C7211229E}</Project>
+      <Name>lsm_tree_index_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\lsm_tree_test.vcxproj">
+      <Project>{CC770ADB-8BCE-34A8-B45B-5D1FE77567FD}</Project>
+      <Name>lsm_tree_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\transaction\mvcc_isolation_test.vcxproj">
+      <Project>{DDF163E1-3081-376F-A8F9-6B583997C0C4}</Project>
+      <Name>mvcc_isolation_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\transaction\mvcc_test.vcxproj">
+      <Project>{0D807AB6-AFAB-3FBD-9434-47F3D0D4DB9D}</Project>
+      <Name>mvcc_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\api\observability\observability.vcxproj">
+      <Project>{1635C1D9-BED9-3F4B-B79D-758F3B3B096B}</Project>
+      <Name>observability</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\optimizer_enhancement_test.vcxproj">
+      <Project>{EDE1BB7D-EDA8-3AAB-AF8B-E59C4F056EB7}</Project>
+      <Name>optimizer_enhancement_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\optimizer_test.vcxproj">
+      <Project>{2924ADC4-06A2-39CB-83B4-792A18576E12}</Project>
+      <Name>optimizer_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\parser_test.vcxproj">
+      <Project>{B4DCC133-F725-39F1-97E7-1EF2375BD755}</Project>
+      <Name>parser_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\phantomdb.vcxproj">
+      <Project>{C0A6C964-0B33-39F7-A73C-CF44C4798724}</Project>
+      <Name>phantomdb</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\planner_test.vcxproj">
+      <Project>{E420854C-362B-353E-A4E5-B0B8B29D82BB}</Project>
+      <Name>planner_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\plugin\plugin.vcxproj">
+      <Project>{B5CE853F-6F33-36BB-9DB0-3651644CF058}</Project>
+      <Name>plugin</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\query.vcxproj">
+      <Project>{98C5C042-0125-3E5E-9386-25DF0DC94541}</Project>
+      <Name>query</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\query_test.vcxproj">
+      <Project>{149F66DA-C0A4-31B7-8423-4CA8F455A8DB}</Project>
+      <Name>query_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\security\rbac_test.vcxproj">
+      <Project>{E7DFC31A-BB3B-396D-80F5-B6BBC128DC21}</Project>
+      <Name>rbac_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\security\security.vcxproj">
+      <Project>{E3735AB2-3ECD-3F4E-BA4E-D4BEB786B9AD}</Project>
+      <Name>security</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\transaction\simple_concurrency_test.vcxproj">
+      <Project>{BC587C05-F69C-3BAB-A7F7-F5C14C4B15F7}</Project>
+      <Name>simple_concurrency_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\simple_execution_test.vcxproj">
+      <Project>{20C2FD52-7C7F-3411-877B-841E749762FD}</Project>
+      <Name>simple_execution_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\transaction\simple_isolation_test.vcxproj">
+      <Project>{140458D3-4A9F-36DA-A50B-B236E18DE74F}</Project>
+      <Name>simple_isolation_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\simple_lsm_test.vcxproj">
+      <Project>{6F3E98A2-A82C-3EF8-87AA-1989EE30A65D}</Project>
+      <Name>simple_lsm_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\simple_optimizer_test.vcxproj">
+      <Project>{F09C66C4-96F9-35DF-B090-EC4B94E6B44F}</Project>
+      <Name>simple_optimizer_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\simple_parser_test.vcxproj">
+      <Project>{CF10BBB1-AC29-3296-937F-33CB025CD95E}</Project>
+      <Name>simple_parser_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\simple_query_test.vcxproj">
+      <Project>{954B8EEE-08FB-3279-AEC7-F106E388A1C9}</Project>
+      <Name>simple_query_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\api\simple_rest_server.vcxproj">
+      <Project>{E9120B28-F24F-3FE2-B419-BA0CEC3354D3}</Project>
+      <Name>simple_rest_server</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\transaction\simple_transaction_test.vcxproj">
+      <Project>{934DB8A7-0DCA-3CC7-ABEE-ADE47A404DE7}</Project>
+      <Name>simple_transaction_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\storage.vcxproj">
+      <Project>{60ABCF19-6935-31F4-B27F-19950C40CDC5}</Project>
+      <Name>storage</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core\test_enhanced_database.vcxproj">
+      <Project>{DDA29004-062F-3B1C-B8F0-3A1542A2A8C0}</Project>
+      <Name>test_enhanced_database</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core\test_persistence.vcxproj">
+      <Project>{EC464ABF-7E3D-39CC-B882-7AB2B076581B}</Project>
+      <Name>test_persistence</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\core\test_query_executor.vcxproj">
+      <Project>{9041BC21-C418-3BFC-971F-2008A957FDEC}</Project>
+      <Name>test_query_executor</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\transaction\transaction.vcxproj">
+      <Project>{7B6964FC-5E99-3E24-A850-1830AC6A33B1}</Project>
+      <Name>transaction</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\transaction\transaction_test.vcxproj">
+      <Project>{BC073240-5581-3EC6-ADE0-E0BCDE43DF13}</Project>
+      <Name>transaction_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\update_execution_test.vcxproj">
+      <Project>{BB4638FF-C57C-3B84-B10C-C175095FA60D}</Project>
+      <Name>update_execution_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\update_plan_test.vcxproj">
+      <Project>{42590A9A-4CFF-3449-9DB5-95CD45145FD2}</Project>
+      <Name>update_plan_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\update_test.vcxproj">
+      <Project>{400B55FD-C8E3-3F86-A4E7-3C015ECBEA03}</Project>
+      <Name>update_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\storage\wal_test.vcxproj">
+      <Project>{82FCB9EA-3586-35D3-8686-31DAE931F975}</Project>
+      <Name>wal_test</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

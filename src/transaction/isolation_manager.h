@@ -6,7 +6,9 @@
 #include <string>
 #include <memory>
 #include <unordered_map>
+#include <unordered_set>
 #include <mutex>
+#include <chrono>
 
 namespace phantomdb {
 namespace transaction {
@@ -14,6 +16,16 @@ namespace transaction {
 // Forward declarations
 class Transaction;
 enum class IsolationLevel;
+
+// Snapshot structure for SNAPSHOT isolation level
+struct TransactionSnapshot {
+    int transactionId;
+    std::chrono::time_point<std::chrono::high_resolution_clock> timestamp;
+    std::unordered_set<std::string> readKeys;
+    
+    TransactionSnapshot(int id, const std::chrono::time_point<std::chrono::high_resolution_clock>& ts)
+        : transactionId(id), timestamp(ts) {}
+};
 
 // Isolation level manager class
 class IsolationManager {
@@ -38,6 +50,21 @@ public:
     
     // Handle phantom read prevention for SERIALIZABLE isolation
     bool preventPhantomReads(IsolationLevel level, int transactionId, const std::string& key);
+    
+    // Create a snapshot for the transaction (for SNAPSHOT isolation)
+    bool createSnapshot(int transactionId);
+    
+    // Get transaction snapshot
+    TransactionSnapshot* getSnapshot(int transactionId) const;
+    
+    // Check for write conflicts
+    bool hasWriteConflict(int transactionId, const std::string& key) const;
+    
+    // Register a read operation
+    void registerRead(int transactionId, const std::string& key);
+    
+    // Register a write operation
+    void registerWrite(int transactionId, const std::string& key);
     
 private:
     class Impl;

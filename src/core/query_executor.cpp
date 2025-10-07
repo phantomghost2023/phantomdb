@@ -1,6 +1,12 @@
 #include "query_executor.h"
+#include "utils.h"
 #include <iostream>
 #include <sstream>
+
+#ifdef HAS_NLOHMANN_JSON
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
+#endif
 
 namespace phantomdb {
 namespace core {
@@ -8,140 +14,186 @@ namespace core {
 QueryExecutor::QueryExecutor(Database& db) : database_(db) {
 }
 
-nlohmann::json QueryExecutor::executeQuery(const nlohmann::json& queryJson) {
+#ifdef HAS_NLOHMANN_JSON
+json QueryExecutor::executeQuery(const json& query) {
     try {
-        // Validate required fields
-        if (!queryJson.contains("operation")) {
-            return buildErrorResponse("Missing required field: operation");
-        }
-        
-        if (!queryJson.contains("database")) {
-            return buildErrorResponse("Missing required field: database");
-        }
-        
-        if (!queryJson.contains("table")) {
-            return buildErrorResponse("Missing required field: table");
-        }
-        
-        std::string operation = queryJson["operation"];
+        std::string operation = query["operation"];
         
         if (operation == "select") {
-            return executeSelect(queryJson);
-        } else if (operation == "insert") {
-            return executeInsert(queryJson);
-        } else if (operation == "update") {
-            return executeUpdate(queryJson);
-        } else if (operation == "delete") {
-            return executeDelete(queryJson);
-        } else {
-            return buildErrorResponse("Unsupported operation: " + operation);
+            std::string database = query["database"];
+            std::string table = query["table"];
+            
+            std::unordered_map<std::string, std::string> conditions;
+            if (query.contains("conditions")) {
+                for (auto& [key, value] : query["conditions"].items()) {
+                    conditions[key] = value;
+                }
+            }
+            
+            auto results = database_.selectData(database, table, buildConditionString(conditions));
+            
+            json response;
+            response["success"] = true;
+            response["data"] = results;
+            response["count"] = results.size();
+            
+            return response;
+        }
+        else if (operation == "insert") {
+            std::string database = query["database"];
+            std::string table = query["table"];
+            
+            std::unordered_map<std::string, std::string> data;
+            for (auto& [key, value] : query["data"].items()) {
+                data[key] = value;
+            }
+            
+            bool success = database_.insertData(database, table, data);
+            
+            json response;
+            response["success"] = success;
+            response["message"] = success ? "Data inserted successfully" : "Failed to insert data";
+            
+            return response;
+        }
+        else if (operation == "update") {
+            std::string database = query["database"];
+            std::string table = query["table"];
+            
+            std::unordered_map<std::string, std::string> data;
+            for (auto& [key, value] : query["data"].items()) {
+                data[key] = value;
+            }
+            
+            std::unordered_map<std::string, std::string> conditions;
+            if (query.contains("conditions")) {
+                for (auto& [key, value] : query["conditions"].items()) {
+                    conditions[key] = value;
+                }
+            }
+            
+            bool success = database_.updateData(database, table, data, buildConditionString(conditions));
+            
+            json response;
+            response["success"] = success;
+            response["message"] = success ? "Data updated successfully" : "Failed to update data";
+            
+            return response;
+        }
+        else if (operation == "delete") {
+            std::string database = query["database"];
+            std::string table = query["table"];
+            
+            std::unordered_map<std::string, std::string> conditions;
+            if (query.contains("conditions")) {
+                for (auto& [key, value] : query["conditions"].items()) {
+                    conditions[key] = value;
+                }
+            }
+            
+            bool success = database_.deleteData(database, table, buildConditionString(conditions));
+            
+            json response;
+            response["success"] = success;
+            response["message"] = success ? "Data deleted successfully" : "Failed to delete data";
+            
+            return response;
+        }
+        else {
+            json response;
+            response["success"] = false;
+            response["error"] = "Unknown operation: " + operation;
+            return response;
         }
     } catch (const std::exception& e) {
-        return buildErrorResponse("Error executing query: " + std::string(e.what()));
+        json response;
+        response["success"] = false;
+        response["error"] = std::string("Exception: ") + e.what();
+        return response;
     }
 }
+#else
+std::string QueryExecutor::executeQuery(const std::string& query) {
+    // Simple fallback implementation without JSON support
+    return "{\"success\": true, \"message\": \"JSON support not available\"}";
+}
+#endif
 
-nlohmann::json QueryExecutor::executeSelect(const nlohmann::json& query) {
-    std::string database = query["database"];
-    std::string table = query["table"];
+#ifdef HAS_NLOHMANN_JSON
+json QueryExecutor::createSelectQuery(const std::string& database, const std::string& table,
+                                    const std::unordered_map<std::string, std::string>& conditions) {
+    json query;
+    query["operation"] = "select";
+    query["database"] = database;
+    query["table"] = table;
     
-    // Build condition string
-    std::string condition;
-    if (query.contains("conditions")) {
-        condition = conditionsToString(query["conditions"]);
-    }
-    
-    // Execute select operation
-    auto results = database_.selectData(database, table, condition);
-    
-    // Convert results to JSON
-    nlohmann::json jsonData = nlohmann::json::array();
-    for (const auto& row : results) {
-        nlohmann::json jsonRow;
-        for (const auto& field : row) {
-            jsonRow[field.first] = field.second;
+    if (!conditions.empty()) {
+        query["conditions"] = json::object();
+        for (const auto& pair : conditions) {
+            query["conditions"][pair.first] = pair.second;
         }
-        jsonData.push_back(jsonRow);
     }
     
-    return buildSuccessResponse(jsonData, static_cast<int>(results.size()));
+    return query;
 }
 
-nlohmann::json QueryExecutor::executeInsert(const nlohmann::json& query) {
-    std::string database = query["database"];
-    std::string table = query["table"];
+json QueryExecutor::createInsertQuery(const std::string& database, const std::string& table,
+                                    const std::unordered_map<std::string, std::string>& data) {
+    json query;
+    query["operation"] = "insert";
+    query["database"] = database;
+    query["table"] = table;
+    query["data"] = json::object();
     
-    if (!query.contains("data")) {
-        return buildErrorResponse("Missing required field: data");
+    for (const auto& pair : data) {
+        query["data"][pair.first] = pair.second;
     }
     
-    // Convert JSON data to unordered_map
-    std::unordered_map<std::string, std::string> data;
-    for (auto it = query["data"].begin(); it != query["data"].end(); ++it) {
-        data[it.key()] = it.value().get<std::string>();
-    }
-    
-    // Execute insert operation
-    bool success = database_.insertData(database, table, data);
-    
-    if (success) {
-        return buildSuccessResponse(nlohmann::json::array(), 1, "Data inserted successfully");
-    } else {
-        return buildErrorResponse("Failed to insert data");
-    }
+    return query;
 }
 
-nlohmann::json QueryExecutor::executeUpdate(const nlohmann::json& query) {
-    std::string database = query["database"];
-    std::string table = query["table"];
+json QueryExecutor::createUpdateQuery(const std::string& database, const std::string& table,
+                                    const std::unordered_map<std::string, std::string>& data,
+                                    const std::unordered_map<std::string, std::string>& conditions) {
+    json query;
+    query["operation"] = "update";
+    query["database"] = database;
+    query["table"] = table;
+    query["data"] = json::object();
     
-    if (!query.contains("data")) {
-        return buildErrorResponse("Missing required field: data");
+    for (const auto& pair : data) {
+        query["data"][pair.first] = pair.second;
     }
     
-    // Convert JSON data to unordered_map
-    std::unordered_map<std::string, std::string> data;
-    for (auto it = query["data"].begin(); it != query["data"].end(); ++it) {
-        data[it.key()] = it.value().get<std::string>();
+    if (!conditions.empty()) {
+        query["conditions"] = json::object();
+        for (const auto& pair : conditions) {
+            query["conditions"][pair.first] = pair.second;
+        }
     }
     
-    // Build condition string
-    std::string condition;
-    if (query.contains("conditions")) {
-        condition = conditionsToString(query["conditions"]);
-    }
-    
-    // Execute update operation
-    bool success = database_.updateData(database, table, data, condition);
-    
-    if (success) {
-        return buildSuccessResponse(nlohmann::json::array(), 1, "Data updated successfully");
-    } else {
-        return buildErrorResponse("Failed to update data");
-    }
+    return query;
 }
 
-nlohmann::json QueryExecutor::executeDelete(const nlohmann::json& query) {
-    std::string database = query["database"];
-    std::string table = query["table"];
+json QueryExecutor::createDeleteQuery(const std::string& database, const std::string& table,
+                                    const std::unordered_map<std::string, std::string>& conditions) {
+    json query;
+    query["operation"] = "delete";
+    query["database"] = database;
+    query["table"] = table;
     
-    // Build condition string
-    std::string condition;
-    if (query.contains("conditions")) {
-        condition = conditionsToString(query["conditions"]);
+    if (!conditions.empty()) {
+        query["conditions"] = json::object();
+        for (const auto& pair : conditions) {
+            query["conditions"][pair.first] = pair.second;
+        }
     }
     
-    // Execute delete operation
-    bool success = database_.deleteData(database, table, condition);
-    
-    if (success) {
-        return buildSuccessResponse(nlohmann::json::array(), 1, "Data deleted successfully");
-    } else {
-        return buildErrorResponse("Failed to delete data");
-    }
+    return query;
 }
+#endif
 
-std::string QueryExecutor::conditionsToString(const nlohmann::json& conditions) {
+std::string QueryExecutor::buildConditionString(const std::unordered_map<std::string, std::string>& conditions) {
     if (conditions.empty()) {
         return "";
     }
@@ -149,34 +201,24 @@ std::string QueryExecutor::conditionsToString(const nlohmann::json& conditions) 
     std::ostringstream oss;
     bool first = true;
     
-    for (auto it = conditions.begin(); it != conditions.end(); ++it) {
+    for (const auto& pair : conditions) {
         if (!first) {
             oss << " AND ";
         }
         
-        oss << it.key() << " = '" << it.value().get<std::string>() << "'";
+        // Escape single quotes in values
+        std::string escapedValue = pair.second;
+        size_t pos = 0;
+        while ((pos = escapedValue.find("'", pos)) != std::string::npos) {
+            escapedValue.replace(pos, 1, "''");
+            pos += 2;
+        }
+        
+        oss << pair.first << " = '" << escapedValue << "'";
         first = false;
     }
     
     return oss.str();
-}
-
-nlohmann::json QueryExecutor::buildErrorResponse(const std::string& message) {
-    nlohmann::json response;
-    response["success"] = false;
-    response["error"] = message;
-    return response;
-}
-
-nlohmann::json QueryExecutor::buildSuccessResponse(const nlohmann::json& data, 
-                                                  int count, 
-                                                  const std::string& message) {
-    nlohmann::json response;
-    response["success"] = true;
-    response["data"] = data;
-    response["count"] = count;
-    response["message"] = message;
-    return response;
 }
 
 } // namespace core

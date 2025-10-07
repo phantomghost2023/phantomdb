@@ -1,0 +1,298 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "PhantomDB Distributed",
+    "tags": ["phantomdb", "distributed", "cluster"],
+    "timezone": "browser",
+    "schemaVersion": 16,
+    "version": 0,
+    "refresh": "30s",
+    "panels": [
+      {
+        "id": 1,
+        "type": "singlestat",
+        "title": "Cluster Nodes",
+        "gridPos": {"x": 0, "y": 0, "w": 4, "h": 3},
+        "targets": [
+          {
+            "expr": "phantomdb_cluster_nodes_total",
+            "format": "time_series"
+          }
+        ],
+        "options": {
+          "fieldOptions": {
+            "calcs": ["last"]
+          },
+          "colorMode": "value",
+          "graphMode": "none"
+        }
+      },
+      {
+        "id": 2,
+        "type": "singlestat",
+        "title": "Leader Node",
+        "gridPos": {"x": 4, "y": 0, "w": 4, "h": 3},
+        "targets": [
+          {
+            "expr": "phantomdb_cluster_leader",
+            "format": "time_series"
+          }
+        ],
+        "options": {
+          "fieldOptions": {
+            "calcs": ["last"]
+          },
+          "colorMode": "value",
+          "graphMode": "none"
+        }
+      },
+      {
+        "id": 3,
+        "type": "singlestat",
+        "title": "Shards Total",
+        "gridPos": {"x": 8, "y": 0, "w": 4, "h": 3},
+        "targets": [
+          {
+            "expr": "phantomdb_cluster_shards_total",
+            "format": "time_series"
+          }
+        ],
+        "options": {
+          "fieldOptions": {
+            "calcs": ["last"]
+          },
+          "colorMode": "value",
+          "graphMode": "none"
+        }
+      },
+      {
+        "id": 4,
+        "type": "singlestat",
+        "title": "Replication Lag",
+        "gridPos": {"x": 12, "y": 0, "w": 4, "h": 3},
+        "targets": [
+          {
+            "expr": "phantomdb_replication_lag_seconds",
+            "format": "time_series"
+          }
+        ],
+        "options": {
+          "fieldOptions": {
+            "calcs": ["last"]
+          },
+          "colorMode": "value",
+          "graphMode": "none"
+        }
+      },
+      {
+        "id": 5,
+        "type": "graph",
+        "title": "Cluster Health",
+        "gridPos": {"x": 0, "y": 3, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "phantomdb_cluster_nodes_total",
+            "legendFormat": "Total Nodes",
+            "format": "time_series"
+          },
+          {
+            "expr": "phantomdb_cluster_nodes_healthy",
+            "legendFormat": "Healthy Nodes",
+            "format": "time_series"
+          }
+        ],
+        "xaxis": {
+          "mode": "time"
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "Node Count"
+          },
+          {
+            "format": "short"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "type": "graph",
+        "title": "Replication Metrics",
+        "gridPos": {"x": 12, "y": 3, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "phantomdb_replication_lag_seconds",
+            "legendFormat": "Replication Lag (seconds)",
+            "format": "time_series"
+          },
+          {
+            "expr": "rate(phantomdb_replication_bytes_total[5m])",
+            "legendFormat": "Replication Throughput",
+            "format": "time_series"
+          }
+        ],
+        "xaxis": {
+          "mode": "time"
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "Metrics"
+          },
+          {
+            "format": "short"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "type": "graph",
+        "title": "Shard Distribution",
+        "gridPos": {"x": 0, "y": 11, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "phantomdb_shard_distribution",
+            "legendFormat": "Node {{node}}",
+            "format": "time_series"
+          }
+        ],
+        "xaxis": {
+          "mode": "time"
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "Shard Count"
+          },
+          {
+            "format": "short"
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "type": "graph",
+        "title": "Cross-Shard Queries",
+        "gridPos": {"x": 12, "y": 11, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "rate(phantomdb_cross_shard_queries_total[5m])",
+            "legendFormat": "Cross-Shard Queries/sec",
+            "format": "time_series"
+          },
+          {
+            "expr": "histogram_quantile(0.95, rate(phantomdb_cross_shard_query_duration_seconds_bucket[5m]))",
+            "legendFormat": "95th Percentile Duration",
+            "format": "time_series"
+          }
+        ],
+        "xaxis": {
+          "mode": "time"
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "Metrics"
+          },
+          {
+            "format": "short"
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "type": "graph",
+        "title": "Distributed Transactions",
+        "gridPos": {"x": 0, "y": 19, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "rate(phantomdb_distributed_transactions_total[5m])",
+            "legendFormat": "Transactions/sec",
+            "format": "time_series"
+          },
+          {
+            "expr": "rate(phantomdb_distributed_transaction_commits_total[5m])",
+            "legendFormat": "Commits/sec",
+            "format": "time_series"
+          },
+          {
+            "expr": "rate(phantomdb_distributed_transaction_rollbacks_total[5m])",
+            "legendFormat": "Rollbacks/sec",
+            "format": "time_series"
+          }
+        ],
+        "xaxis": {
+          "mode": "time"
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "Rate"
+          },
+          {
+            "format": "short"
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "type": "graph",
+        "title": "Consensus Metrics",
+        "gridPos": {"x": 12, "y": 19, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "rate(phantomdb_consensus_leader_changes_total[5m])",
+            "legendFormat": "Leader Changes/sec",
+            "format": "time_series"
+          },
+          {
+            "expr": "phantomdb_consensus_term",
+            "legendFormat": "Current Term",
+            "format": "time_series"
+          }
+        ],
+        "xaxis": {
+          "mode": "time"
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "Metrics"
+          },
+          {
+            "format": "short"
+          }
+        ]
+      }
+    ],
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "timepicker": {
+      "refresh_intervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ],
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ]
+    }
+  }
+}

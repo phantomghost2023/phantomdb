@@ -1,0 +1,5 @@
+D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\query_processor.cpp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\query.dir\Release\query_processor.obj
+D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\sql_parser.cpp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\query.dir\Release\sql_parser.obj
+D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\query_planner.cpp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\query.dir\Release\query_planner.obj
+D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\query_optimizer.cpp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\query.dir\Release\query_optimizer.obj
+D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\execution_engine.cpp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\query\query.dir\Release\execution_engine.obj

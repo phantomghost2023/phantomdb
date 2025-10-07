@@ -3,10 +3,87 @@
 #include <sstream>
 #include <algorithm>
 #include <cctype>
+#include <regex>
 
 namespace phantomdb {
 namespace core {
 namespace utils {
+
+// Helper function to validate integer values
+bool isValidInteger(const std::string& value) {
+    if (value.empty()) return false;
+    
+    size_t start = 0;
+    if (value[0] == '-' || value[0] == '+') {
+        if (value.length() == 1) return false;
+        start = 1;
+    }
+    
+    for (size_t i = start; i < value.length(); ++i) {
+        if (!std::isdigit(value[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// Helper function to validate floating point values
+bool isValidFloat(const std::string& value) {
+    if (value.empty()) return false;
+    
+    // Use regex for floating point validation
+    std::regex floatRegex("^[+-]?([0-9]*\\.?[0-9]+|[0-9]+\\.?[0-9]*)([eE][+-]?[0-9]+)?$");
+    return std::regex_match(value, floatRegex);
+}
+
+// Helper function to validate boolean values
+bool isValidBoolean(const std::string& value) {
+    std::string lowerValue = value;
+    std::transform(lowerValue.begin(), lowerValue.end(), lowerValue.begin(), ::tolower);
+    
+    return (lowerValue == "true" || lowerValue == "false" || 
+            lowerValue == "1" || lowerValue == "0" ||
+            lowerValue == "yes" || lowerValue == "no" ||
+            lowerValue == "on" || lowerValue == "off");
+}
+
+// Helper function to validate date values (YYYY-MM-DD format)
+bool isValidDate(const std::string& value) {
+    std::regex dateRegex("^\\d{4}-\\d{2}-\\d{2}$");
+    if (!std::regex_match(value, dateRegex)) {
+        return false;
+    }
+    
+    // Additional validation for actual date values
+    // This is a simplified validation - in a real implementation, you would check:
+    // - Month is between 01-12
+    // - Day is valid for the given month and year (considering leap years)
+    // - Year is reasonable
+    
+    return true;
+}
+
+// Helper function to validate time values (HH:MM:SS format)
+bool isValidTime(const std::string& value) {
+    std::regex timeRegex("^\\d{2}:\\d{2}:\\d{2}$");
+    if (!std::regex_match(value, timeRegex)) {
+        return false;
+    }
+    
+    // Additional validation for actual time values
+    // This is a simplified validation - in a real implementation, you would check:
+    // - Hours are between 00-23
+    // - Minutes are between 00-59
+    // - Seconds are between 00-59
+    
+    return true;
+}
+
+// Helper function to validate timestamp values (YYYY-MM-DD HH:MM:SS format)
+bool isValidTimestamp(const std::string& value) {
+    std::regex timestampRegex("^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}$");
+    return std::regex_match(value, timestampRegex);
+}
 
 std::unordered_map<std::string, std::string> parseCondition(const std::string& condition) {
     std::unordered_map<std::string, std::string> result;
@@ -125,35 +202,49 @@ bool validateData(const std::unordered_map<std::string, std::string>& data,
 }
 
 bool validateValueType(const std::string& value, const std::string& type) {
-    // Simple type validation
-    if (type == "string" || type == "text" || type == "varchar") {
-        return true; // Everything can be a string
-    }
+    // Convert type to lowercase for case-insensitive comparison
+    std::string lowerType = type;
+    std::transform(lowerType.begin(), lowerType.end(), lowerType.begin(), ::tolower);
     
-    if (type == "integer" || type == "int") {
-        // Check if value is a valid integer
-        if (value.empty()) return false;
-        
-        size_t start = 0;
-        if (value[0] == '-' || value[0] == '+') {
-            if (value.length() == 1) return false;
-            start = 1;
-        }
-        
-        for (size_t i = start; i < value.length(); ++i) {
-            if (!std::isdigit(value[i])) {
-                return false;
-            }
-        }
+    // String types - everything can be a string
+    if (lowerType == "string" || lowerType == "text" || lowerType == "varchar" || 
+        lowerType == "char" || lowerType == "nvarchar") {
         return true;
     }
     
-    if (type == "boolean" || type == "bool") {
-        return (value == "true" || value == "false" || 
-                value == "1" || value == "0");
+    // Integer types
+    if (lowerType == "integer" || lowerType == "int" || lowerType == "bigint" || 
+        lowerType == "smallint" || lowerType == "tinyint") {
+        return isValidInteger(value);
     }
     
-    // For other types, accept any string value for now
+    // Floating point types
+    if (lowerType == "float" || lowerType == "double" || lowerType == "real" || 
+        lowerType == "decimal" || lowerType == "numeric") {
+        return isValidFloat(value);
+    }
+    
+    // Boolean types
+    if (lowerType == "boolean" || lowerType == "bool") {
+        return isValidBoolean(value);
+    }
+    
+    // Date types
+    if (lowerType == "date") {
+        return isValidDate(value);
+    }
+    
+    // Time types
+    if (lowerType == "time") {
+        return isValidTime(value);
+    }
+    
+    // Timestamp types
+    if (lowerType == "timestamp" || lowerType == "datetime") {
+        return isValidTimestamp(value);
+    }
+    
+    // For unknown types, accept any string value for now
     return true;
 }
 

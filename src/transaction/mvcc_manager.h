@@ -7,6 +7,7 @@
 #include <unordered_map>
 #include <mutex>
 #include <chrono>
+#include <shared_mutex>
 
 namespace phantomdb {
 namespace transaction {
@@ -47,6 +48,9 @@ public:
     // Read data with MVCC semantics
     bool readData(int transactionId, const std::string& key, std::string& data, IsolationLevel isolation);
     
+    // Write data with MVCC semantics
+    bool writeData(int transactionId, const std::string& key, const std::string& data, IsolationLevel isolation);
+    
     // Commit a transaction's versions
     bool commitTransaction(int transactionId);
     
@@ -55,6 +59,9 @@ public:
     
     // Get current timestamp
     Timestamp getCurrentTimestamp() const;
+    
+    // Check for conflicts before committing
+    bool hasConflicts(int transactionId, IsolationLevel isolation) const;
     
 private:
     class Impl;

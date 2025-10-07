@@ -1,0 +1,311 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "PhantomDB Transactions",
+    "tags": ["phantomdb", "transactions", "database"],
+    "timezone": "browser",
+    "schemaVersion": 16,
+    "version": 0,
+    "refresh": "30s",
+    "panels": [
+      {
+        "id": 1,
+        "type": "singlestat",
+        "title": "Active Transactions",
+        "gridPos": {"x": 0, "y": 0, "w": 4, "h": 3},
+        "targets": [
+          {
+            "expr": "phantomdb_transactions_active",
+            "format": "time_series"
+          }
+        ],
+        "options": {
+          "fieldOptions": {
+            "calcs": ["last"]
+          },
+          "colorMode": "value",
+          "graphMode": "none"
+        }
+      },
+      {
+        "id": 2,
+        "type": "singlestat",
+        "title": "Transaction Throughput",
+        "gridPos": {"x": 4, "y": 0, "w": 4, "h": 3},
+        "targets": [
+          {
+            "expr": "rate(phantomdb_transactions_committed_total[5m])",
+            "format": "time_series"
+          }
+        ],
+        "options": {
+          "fieldOptions": {
+            "calcs": ["last"]
+          },
+          "colorMode": "value",
+          "graphMode": "area"
+        }
+      },
+      {
+        "id": 3,
+        "type": "singlestat",
+        "title": "Commit Rate %",
+        "gridPos": {"x": 8, "y": 0, "w": 4, "h": 3},
+        "targets": [
+          {
+            "expr": "(rate(phantomdb_transactions_committed_total[5m]) / (rate(phantomdb_transactions_committed_total[5m]) + rate(phantomdb_transactions_rolled_back_total[5m]))) * 100",
+            "format": "time_series"
+          }
+        ],
+        "options": {
+          "fieldOptions": {
+            "calcs": ["last"]
+          },
+          "colorMode": "value",
+          "graphMode": "none"
+        }
+      },
+      {
+        "id": 4,
+        "type": "singlestat",
+        "title": "Lock Waits",
+        "gridPos": {"x": 12, "y": 0, "w": 4, "h": 3},
+        "targets": [
+          {
+            "expr": "phantomdb_lock_waits_active",
+            "format": "time_series"
+          }
+        ],
+        "options": {
+          "fieldOptions": {
+            "calcs": ["last"]
+          },
+          "colorMode": "value",
+          "graphMode": "none"
+        }
+      },
+      {
+        "id": 5,
+        "type": "graph",
+        "title": "Transaction Rates",
+        "gridPos": {"x": 0, "y": 3, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "rate(phantomdb_transactions_committed_total[5m])",
+            "legendFormat": "Committed/sec",
+            "format": "time_series"
+          },
+          {
+            "expr": "rate(phantomdb_transactions_rolled_back_total[5m])",
+            "legendFormat": "Rolled Back/sec",
+            "format": "time_series"
+          },
+          {
+            "expr": "rate(phantomdb_transactions_started_total[5m])",
+            "legendFormat": "Started/sec",
+            "format": "time_series"
+          }
+        ],
+        "xaxis": {
+          "mode": "time"
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "Transactions/sec"
+          },
+          {
+            "format": "short"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "type": "graph",
+        "title": "Transaction Duration",
+        "gridPos": {"x": 12, "y": 3, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.50, rate(phantomdb_transaction_duration_seconds_bucket[5m]))",
+            "legendFormat": "Median",
+            "format": "time_series"
+          },
+          {
+            "expr": "histogram_quantile(0.95, rate(phantomdb_transaction_duration_seconds_bucket[5m]))",
+            "legendFormat": "95th Percentile",
+            "format": "time_series"
+          },
+          {
+            "expr": "histogram_quantile(0.99, rate(phantomdb_transaction_duration_seconds_bucket[5m]))",
+            "legendFormat": "99th Percentile",
+            "format": "time_series"
+          }
+        ],
+        "xaxis": {
+          "mode": "time"
+        },
+        "yaxes": [
+          {
+            "format": "s",
+            "label": "Duration"
+          },
+          {
+            "format": "short"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "type": "graph",
+        "title": "Lock Metrics",
+        "gridPos": {"x": 0, "y": 11, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "phantomdb_locks_held",
+            "legendFormat": "Locks Held",
+            "format": "time_series"
+          },
+          {
+            "expr": "phantomdb_lock_waits_active",
+            "legendFormat": "Active Lock Waits",
+            "format": "time_series"
+          },
+          {
+            "expr": "rate(phantomdb_deadlocks_detected_total[5m])",
+            "legendFormat": "Deadlocks/sec",
+            "format": "time_series"
+          }
+        ],
+        "xaxis": {
+          "mode": "time"
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "Count"
+          },
+          {
+            "format": "short"
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "type": "graph",
+        "title": "Isolation Level Usage",
+        "gridPos": {"x": 12, "y": 11, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "phantomdb_transactions_isolation_level{level=\"read_committed\"}",
+            "legendFormat": "Read Committed",
+            "format": "time_series"
+          },
+          {
+            "expr": "phantomdb_transactions_isolation_level{level=\"repeatable_read\"}",
+            "legendFormat": "Repeatable Read",
+            "format": "time_series"
+          },
+          {
+            "expr": "phantomdb_transactions_isolation_level{level=\"serializable\"}",
+            "legendFormat": "Serializable",
+            "format": "time_series"
+          }
+        ],
+        "xaxis": {
+          "mode": "time"
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "Transaction Count"
+          },
+          {
+            "format": "short"
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "type": "heatmap",
+        "title": "Transaction Duration Heatmap",
+        "gridPos": {"x": 0, "y": 19, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "rate(phantomdb_transaction_duration_seconds_bucket[5m])",
+            "format": "heatmap",
+            "legendFormat": "{{le}}"
+          }
+        ],
+        "xaxis": {
+          "mode": "time"
+        },
+        "yaxis": {
+          "format": "s",
+          "label": "Transaction Duration"
+        },
+        "color": {
+          "mode": "opacity"
+        }
+      },
+      {
+        "id": 10,
+        "type": "graph",
+        "title": "MVCC Metrics",
+        "gridPos": {"x": 12, "y": 19, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "phantomdb_mvcc_versions_total",
+            "legendFormat": "Total Versions",
+            "format": "time_series"
+          },
+          {
+            "expr": "rate(phantomdb_mvcc_garbage_collected_total[5m])",
+            "legendFormat": "Garbage Collected/sec",
+            "format": "time_series"
+          }
+        ],
+        "xaxis": {
+          "mode": "time"
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "Count"
+          },
+          {
+            "format": "short"
+          }
+        ]
+      }
+    ],
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "timepicker": {
+      "refresh_intervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ],
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ]
+    }
+  }
+}

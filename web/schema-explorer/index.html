@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhantomDB Schema Explorer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>PhantomDB Schema Explorer</h1>
+            <p>Visualize your database schema and relationships</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="database-list">
+                    <h2>Databases</h2>
+                    <ul id="database-list">
+                        <!-- Databases will be populated here -->
+                    </ul>
+                </div>
+                
+                <div class="table-list">
+                    <h2>Tables</h2>
+                    <ul id="table-list">
+                        <!-- Tables will be populated here -->
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="content">
+                <div class="schema-diagram">
+                    <h2>Schema Diagram</h2>
+                    <div id="diagram-container">
+                        <canvas id="schema-diagram" width="800" height="600"></canvas>
+                    </div>
+                </div>
+                
+                <div class="table-details">
+                    <h2>Table Details</h2>
+                    <div id="table-details-content">
+                        <p>Select a table to view details</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>PhantomDB Schema Explorer v1.0</p>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

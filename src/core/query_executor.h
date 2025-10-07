@@ -4,8 +4,11 @@
 #include "database.h"
 #include <string>
 #include <unordered_map>
-#include <vector>
+
+// Only include nlohmann/json if available
+#ifdef HAS_NLOHMANN_JSON
 #include <nlohmann/json.hpp>
+#endif
 
 namespace phantomdb {
 namespace core {
@@ -15,53 +18,32 @@ public:
     QueryExecutor(Database& db);
     ~QueryExecutor() = default;
     
-    /**
-     * @brief Execute a JSON-based query
-     * 
-     * @param queryJson The JSON query to execute
-     * @return nlohmann::json The result of the query execution
-     */
-    nlohmann::json executeQuery(const nlohmann::json& queryJson);
+    // Execute a JSON-based query
+    #ifdef HAS_NLOHMANN_JSON
+    nlohmann::json executeQuery(const nlohmann::json& query);
+    #else
+    // Fallback implementation when JSON library is not available
+    std::string executeQuery(const std::string& query);
+    #endif
     
+    // Helper functions for query building
+    #ifdef HAS_NLOHMANN_JSON
+    nlohmann::json createSelectQuery(const std::string& database, const std::string& table,
+                                   const std::unordered_map<std::string, std::string>& conditions = {});
+    nlohmann::json createInsertQuery(const std::string& database, const std::string& table,
+                                   const std::unordered_map<std::string, std::string>& data);
+    nlohmann::json createUpdateQuery(const std::string& database, const std::string& table,
+                                   const std::unordered_map<std::string, std::string>& data,
+                                   const std::unordered_map<std::string, std::string>& conditions = {});
+    nlohmann::json createDeleteQuery(const std::string& database, const std::string& table,
+                                   const std::unordered_map<std::string, std::string>& conditions = {});
+    #endif
+
 private:
     Database& database_;
     
-    /**
-     * @brief Execute a SELECT query
-     */
-    nlohmann::json executeSelect(const nlohmann::json& query);
-    
-    /**
-     * @brief Execute an INSERT query
-     */
-    nlohmann::json executeInsert(const nlohmann::json& query);
-    
-    /**
-     * @brief Execute an UPDATE query
-     */
-    nlohmann::json executeUpdate(const nlohmann::json& query);
-    
-    /**
-     * @brief Execute a DELETE query
-     */
-    nlohmann::json executeDelete(const nlohmann::json& query);
-    
-    /**
-     * @brief Convert conditions to string format
-     */
-    std::string conditionsToString(const nlohmann::json& conditions);
-    
-    /**
-     * @brief Build error response
-     */
-    nlohmann::json buildErrorResponse(const std::string& message);
-    
-    /**
-     * @brief Build success response
-     */
-    nlohmann::json buildSuccessResponse(const nlohmann::json& data = nlohmann::json::array(), 
-                                       int count = 0, 
-                                       const std::string& message = "Operation completed successfully");
+    // Helper functions
+    std::string buildConditionString(const std::unordered_map<std::string, std::string>& conditions);
 };
 
 } // namespace core

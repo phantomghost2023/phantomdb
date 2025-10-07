@@ -1,4 +1,8 @@
 # Tools module CMakeLists.txt
+# This directory is for internal tools and utilities
+
+# Add subdirectories for different tools
+# Currently empty as we're focusing on the CLI tool in the top-level tools directory
 
 # This is a Python module, so we don't need to build anything with CMake
 # But we can add installation rules for the Python files

@@ -1,0 +1,4 @@
+D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\transaction\transaction_manager.cpp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\transaction\transaction.dir\Release\transaction_manager.obj
+D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\transaction\mvcc_manager.cpp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\transaction\transaction.dir\Release\mvcc_manager.obj
+D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\transaction\lock_manager.cpp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\transaction\transaction.dir\Release\lock_manager.obj
+D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\transaction\isolation_manager.cpp;D:\PhantomGhost\Storage\Media\Media\Projects\MyProjects\PhantomDB\src\transaction\transaction.dir\Release\isolation_manager.obj

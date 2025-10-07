@@ -80,6 +80,12 @@ public:
         int transactionId = nextTransactionId_++;
         auto transaction = std::make_shared<Transaction>(transactionId, isolation);
         transactions_[transactionId] = transaction;
+        
+        // For SNAPSHOT isolation, create a snapshot
+        if (isolation == IsolationLevel::SNAPSHOT) {
+            isolationManager_->createSnapshot(transactionId);
+        }
+        
         std::cout << "Started transaction " << transactionId << std::endl;
         return transaction;
     }
@@ -96,6 +102,13 @@ public:
         auto it = transactions_.find(transactionId);
         if (it == transactions_.end()) {
             std::cerr << "Transaction " << transactionId << " not found" << std::endl;
+            return false;
+        }
+        
+        // Check for conflicts based on isolation level
+        IsolationLevel isolation = transaction->getIsolationLevel();
+        if (mvccManager_ && mvccManager_->hasConflicts(transactionId, isolation)) {
+            std::cerr << "Transaction " << transactionId << " has conflicts, cannot commit" << std::endl;
             return false;
         }
         
@@ -157,6 +170,28 @@ public:
         return nullptr;
     }
     
+    bool readData(std::shared_ptr<Transaction> transaction, const std::string& key, std::string& data) {
+        if (!transaction || !mvccManager_) {
+            return false;
+        }
+        
+        int transactionId = transaction->getId();
+        IsolationLevel isolation = transaction->getIsolationLevel();
+        
+        return mvccManager_->readData(transactionId, key, data, isolation);
+    }
+    
+    bool writeData(std::shared_ptr<Transaction> transaction, const std::string& key, const std::string& data) {
+        if (!transaction || !mvccManager_) {
+            return false;
+        }
+        
+        int transactionId = transaction->getId();
+        IsolationLevel isolation = transaction->getIsolationLevel();
+        
+        return mvccManager_->writeData(transactionId, key, data, isolation);
+    }
+    
     MVCCManager* getMVCCManager() const {
         return mvccManager_.get();
     }
@@ -208,6 +243,26 @@ bool TransactionManager::rollbackTransaction(std::shared_ptr<Transaction> transa
 
 std::shared_ptr<Transaction> TransactionManager::getTransaction(int id) const {
     return pImpl->getTransaction(id);
+}
+
+bool TransactionManager::readData(std::shared_ptr<Transaction> transaction, const std::string& key, std::string& data) {
+    return pImpl->readData(transaction, key, data);
+}
+
+bool TransactionManager::writeData(std::shared_ptr<Transaction> transaction, const std::string& key, const std::string& data) {
+    return pImpl->writeData(transaction, key, data);
+}
+
+MVCCManager* TransactionManager::getMVCCManager() const {
+    return pImpl->getMVCCManager();
+}
+
+LockManager* TransactionManager::getLockManager() const {
+    return pImpl->getLockManager();
+}
+
+IsolationManager* TransactionManager::getIsolationManager() const {
+    return pImpl->getIsolationManager();
 }
 
 } // namespace transaction

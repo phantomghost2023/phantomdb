@@ -2,6 +2,8 @@
 #include <iostream>
 #include <algorithm>
 #include <unordered_map>
+#include <cmath>
+#include "../storage/index_manager.h"
 
 namespace phantomdb {
 namespace query {
@@ -71,6 +73,14 @@ public:
         return nullptr;
     }
     
+    void updateTableStats(const std::string& tableName, size_t rowCount, size_t avgRowSize) {
+        tableStats_[tableName] = std::make_shared<TableStats>(tableName, rowCount, avgRowSize);
+    }
+    
+    void updateIndexStats(const std::string& indexName, const std::string& tableName, size_t cardinality) {
+        indexStats_[indexName] = std::make_shared<IndexStats>(indexName, tableName, cardinality);
+    }
+    
 private:
     std::unordered_map<std::string, std::shared_ptr<TableStats>> tableStats_;
     std::unordered_map<std::string, std::shared_ptr<IndexStats>> indexStats_;
@@ -79,10 +89,14 @@ private:
         // Create some dummy table statistics
         tableStats_["users"] = std::make_shared<TableStats>("users", 10000, 100);
         tableStats_["orders"] = std::make_shared<TableStats>("orders", 50000, 200);
+        tableStats_["products"] = std::make_shared<TableStats>("products", 5000, 150);
         
         // Create some dummy index statistics
         indexStats_["users_id_idx"] = std::make_shared<IndexStats>("users_id_idx", "users", 10000);
-        indexStats_["orders_user_id_idx"] = std::make_shared<IndexStats>("orders_user_id_idx", "orders", 5000);
+        indexStats_["users_email_idx"] = std::make_shared<IndexStats>("users_email_idx", "users", 10000);
+        indexStats_["orders_user_id_idx"] = std::make_shared<IndexStats>("orders_user_id_idx", "orders", 10000);
+        indexStats_["orders_date_idx"] = std::make_shared<IndexStats>("orders_date_idx", "orders", 2000);
+        indexStats_["products_name_idx"] = std::make_shared<IndexStats>("products_name_idx", "products", 5000);
     }
 };
 
@@ -174,8 +188,8 @@ public:
         // - Memory costs (buffer usage)
         // - Network costs (for distributed queries)
         
-        // For now, we'll just return a dummy cost
-        return plan->getCost();
+        // For now, we'll implement a more realistic cost estimation
+        return estimatePlanCost(plan);
     }
     
     std::unique_ptr<PlanNode> optimize(std::unique_ptr<PlanNode> plan, std::string& errorMsg) {
@@ -187,12 +201,111 @@ public:
         // - Select the plan with the lowest cost
         // - Apply cost-based transformations
         
-        // For now, we'll just return the plan as-is
+        // For now, we'll just return the plan as-is but with updated costs
+        updatePlanCosts(plan.get());
         return plan;
+    }
+    
+    // New method to check if an index exists for a table and column
+    bool hasIndexForColumn(const std::string& tableName, const std::string& columnName) {
+        // This would typically query the index manager
+        // For now, we'll use a simple heuristic
+        std::string indexName = tableName + "_" + columnName + "_idx";
+        return statsManager_->getIndexStats(indexName) != nullptr;
     }
     
 private:
     std::shared_ptr<StatisticsManager> statsManager_;
+    
+    double estimatePlanCost(const PlanNode* plan) {
+        if (!plan) return 0.0;
+        
+        double cost = 0.0;
+        
+        switch (plan->getType()) {
+            case PlanNodeType::TABLE_SCAN: {
+                auto scanNode = static_cast<const TableScanNode*>(plan);
+                std::string tableName = scanNode->getTableName();
+                
+                // Get table statistics
+                auto tableStats = statsManager_->getTableStats(tableName);
+                if (tableStats) {
+                    // Base cost is proportional to number of rows
+                    cost = static_cast<double>(tableStats->getRowCount());
+                } else {
+                    // Default cost if no statistics
+                    cost = 1000.0;
+                }
+                break;
+            }
+            
+            case PlanNodeType::JOIN: {
+                auto joinNode = static_cast<const JoinNode*>(plan);
+                // Join cost estimation (simplified)
+                if (joinNode->getLeft() && joinNode->getRight()) {
+                    double leftCost = estimatePlanCost(joinNode->getLeft());
+                    double rightCost = estimatePlanCost(joinNode->getRight());
+                    
+                    // Simplified nested loop join cost
+                    cost = leftCost + leftCost * rightCost * 0.1;
+                }
+                break;
+            }
+            
+            case PlanNodeType::INSERT: {
+                auto insertNode = static_cast<const InsertNode*>(plan);
+                // Insert cost is proportional to number of rows
+                cost = 10.0 * insertNode->getValues().size();
+                break;
+            }
+            
+            case PlanNodeType::UPDATE: {
+                auto updateNode = static_cast<const UpdateNode*>(plan);
+                // Update cost (simplified)
+                cost = 50.0;
+                break;
+            }
+            
+            case PlanNodeType::DELETE: {
+                auto deleteNode = static_cast<const DeleteNode*>(plan);
+                // Delete cost (simplified)
+                cost = 50.0;
+                break;
+            }
+            
+            case PlanNodeType::SUBQUERY: {
+                auto subqueryNode = static_cast<const SubqueryNode*>(plan);
+                // Subquery cost is based on subplan cost with overhead
+                if (subqueryNode->getSubPlan()) {
+                    cost = estimatePlanCost(subqueryNode->getSubPlan()) * 1.5;
+                }
+                break;
+            }
+            
+            default:
+                // For other node types, return a default cost
+                cost = 100.0;
+                break;
+        }
+        
+        return cost;
+    }
+    
+    void updatePlanCosts(PlanNode* plan) {
+        if (!plan) return;
+        
+        // Update this node's cost
+        plan->setCost(estimatePlanCost(plan));
+        
+        // For specific node types that have children, recursively update them
+        if (plan->getType() == PlanNodeType::JOIN) {
+            auto joinNode = static_cast<JoinNode*>(plan);
+            // We can't directly access children, so we'll skip recursive update for now
+        } else if (plan->getType() == PlanNodeType::SUBQUERY) {
+            auto subqueryNode = static_cast<SubqueryNode*>(plan);
+            // We can't directly access subplan, so we'll skip recursive update for now
+        }
+    }
 };
 
 CostBasedOptimizer::CostBasedOptimizer(std::shared_ptr<StatisticsManager> statsManager) 

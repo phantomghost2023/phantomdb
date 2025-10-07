@@ -109,3 +109,7 @@ target_link_libraries(join_execution_test query core transaction)
 # JOIN comprehensive test
 add_executable(join_comprehensive_test join_comprehensive_test.cpp)
 target_link_libraries(join_comprehensive_test query core transaction)
+
+# Optimizer enhancement test
+add_executable(optimizer_enhancement_test optimizer_enhancement_test.cpp)
+target_link_libraries(optimizer_enhancement_test query core transaction)

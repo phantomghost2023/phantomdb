@@ -4,6 +4,9 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include <unordered_map>
+#include <mutex>
+#include <atomic>
 
 namespace phantomdb {
 namespace transaction {
@@ -42,6 +45,10 @@ private:
     TransactionState state_;
 };
 
+class MVCCManager;
+class LockManager;
+class IsolationManager;
+
 class TransactionManager {
 public:
     TransactionManager();
@@ -64,6 +71,17 @@ public:
     
     // Get transaction by ID
     std::shared_ptr<Transaction> getTransaction(int id) const;
+    
+    // Read data through MVCC
+    bool readData(std::shared_ptr<Transaction> transaction, const std::string& key, std::string& data);
+    
+    // Write data through MVCC
+    bool writeData(std::shared_ptr<Transaction> transaction, const std::string& key, const std::string& data);
+    
+    // Get internal managers for direct access (for testing)
+    MVCCManager* getMVCCManager() const;
+    LockManager* getLockManager() const;
+    IsolationManager* getIsolationManager() const;
     
 private:
     class Impl;

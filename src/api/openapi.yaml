@@ -1,0 +1,589 @@
+openapi: 3.0.3
+info:
+  title: PhantomDB REST API
+  description: RESTful API for PhantomDB - A distributed SQL database
+  version: 1.0.0
+  contact:
+    name: PhantomDB Team
+    url: https://github.com/PhantomDB/PhantomDB
+  license:
+    name: MIT
+    url: https://github.com/PhantomDB/PhantomDB/blob/main/LICENSE
+
+servers:
+  - url: http://localhost:8080/api/v1
+    description: Local development server
+  - url: https://api.phantomdb.com/v1
+    description: Production server
+
+paths:
+  /databases:
+    get:
+      summary: List all databases
+      description: Retrieve a list of all databases in the system
+      operationId: listDatabases
+      tags:
+        - Databases
+      responses:
+        '200':
+          description: A list of databases
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  databases:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Database'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    
+    post:
+      summary: Create a new database
+      description: Create a new database with the specified name
+      operationId: createDatabase
+      tags:
+        - Databases
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                  description: The name of the database to create
+                options:
+                  type: object
+                  description: Database creation options
+      responses:
+        '201':
+          description: Database created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Database'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /databases/{databaseName}:
+    get:
+      summary: Get database information
+      description: Retrieve information about a specific database
+      operationId: getDatabase
+      tags:
+        - Databases
+      parameters:
+        - name: databaseName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Database information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Database'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    
+    delete:
+      summary: Delete a database
+      description: Delete a specific database and all its contents
+      operationId: deleteDatabase
+      tags:
+        - Databases
+      parameters:
+        - name: databaseName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Database deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /databases/{databaseName}/tables:
+    get:
+      summary: List tables in database
+      description: Retrieve a list of all tables in a specific database
+      operationId: listTables
+      tags:
+        - Tables
+      parameters:
+        - name: databaseName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of tables
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tables:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Table'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    
+    post:
+      summary: Create a new table
+      description: Create a new table in the specified database
+      operationId: createTable
+      tags:
+        - Tables
+      parameters:
+        - name: databaseName
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - columns
+              properties:
+                name:
+                  type: string
+                  description: The name of the table to create
+                columns:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Column'
+                options:
+                  type: object
+                  description: Table creation options
+      responses:
+        '201':
+          description: Table created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Table'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /databases/{databaseName}/tables/{tableName}:
+    get:
+      summary: Get table information
+      description: Retrieve information about a specific table
+      operationId: getTable
+      tags:
+        - Tables
+      parameters:
+        - name: databaseName
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: tableName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Table information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Table'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    
+    delete:
+      summary: Delete a table
+      description: Delete a specific table and all its contents
+      operationId: deleteTable
+      tags:
+        - Tables
+      parameters:
+        - name: databaseName
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: tableName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Table deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /databases/{databaseName}/tables/{tableName}/rows:
+    get:
+      summary: Query table rows
+      description: Retrieve rows from a table with optional filtering and sorting
+      operationId: queryRows
+      tags:
+        - Rows
+      parameters:
+        - name: databaseName
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: tableName
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: where
+          in: query
+          required: false
+          schema:
+            type: string
+          description: SQL WHERE clause for filtering
+        - name: orderBy
+          in: query
+          required: false
+          schema:
+            type: string
+          description: SQL ORDER BY clause for sorting
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 10000
+          description: Maximum number of rows to return
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+          description: Number of rows to skip
+      responses:
+        '200':
+          description: Query results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rows:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+                  count:
+                    type: integer
+                    description: Total number of rows matching the query
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    
+    post:
+      summary: Insert rows
+      description: Insert one or more rows into a table
+      operationId: insertRows
+      tags:
+        - Rows
+      parameters:
+        - name: databaseName
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: tableName
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                rows:
+                  type: array
+                  items:
+                    type: object
+                    additionalProperties: true
+                options:
+                  type: object
+                  description: Insert options
+      responses:
+        '201':
+          description: Rows inserted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  inserted:
+                    type: integer
+                    description: Number of rows inserted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /databases/{databaseName}/query:
+    post:
+      summary: Execute SQL query
+      description: Execute a SQL query against the specified database
+      operationId: executeQuery
+      tags:
+        - Query
+      parameters:
+        - name: databaseName
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - query
+              properties:
+                query:
+                  type: string
+                  description: The SQL query to execute
+                parameters:
+                  type: array
+                  items:
+                    oneOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                      - type: object
+                      - type: array
+                  description: Query parameters for prepared statements
+      responses:
+        '200':
+          description: Query results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  columns:
+                    type: array
+                    items:
+                      type: string
+                  rows:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        oneOf:
+                          - type: string
+                          - type: number
+                          - type: boolean
+                          - type: object
+                          - type: array
+                          - type: 'null'
+                  rowCount:
+                    type: integer
+                  affectedRows:
+                    type: integer
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+components:
+  schemas:
+    Database:
+      type: object
+      properties:
+        name:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        tables:
+          type: array
+          items:
+            $ref: '#/components/schemas/Table'
+        size:
+          type: integer
+          description: Database size in bytes
+    
+    Table:
+      type: object
+      properties:
+        name:
+          type: string
+        columns:
+          type: array
+          items:
+            $ref: '#/components/schemas/Column'
+        rowCount:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        indexes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Index'
+    
+    Column:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        nullable:
+          type: boolean
+        primaryKey:
+          type: boolean
+        defaultValue:
+          oneOf:
+            - type: string
+            - type: number
+            - type: boolean
+            - type: 'null'
+    
+    Index:
+      type: object
+      properties:
+        name:
+          type: string
+        columns:
+          type: array
+          items:
+            type: string
+        type:
+          type: string
+          enum: [B_TREE, HASH, LSM_TREE]
+        unique:
+          type: boolean
+    
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
+
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    
+    Conflict:
+      description: Resource conflict
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - bearerAuth: []

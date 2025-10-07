@@ -1,0 +1,10 @@
+^D:\PHANTOMGHOST\STORAGE\MEDIA\MEDIA\PROJECTS\MYPROJECTS\PHANTOMDB\CMAKEFILES\043AD57C3601772B978E626A8EB14825\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB -BD:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/PhantomGhost/Storage/Media/Media/Projects/MyProjects/PhantomDB/PhantomDB.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

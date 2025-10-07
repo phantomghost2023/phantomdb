@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+  - name: 'PhantomDB Dashboards'
+    orgId: 1
+    folder: 'PhantomDB'
+    type: file
+    disableDeletion: false
+    editable: true
+    options:
+      path: /etc/grafana/dashboards

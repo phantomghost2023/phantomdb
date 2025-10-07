@@ -25,7 +25,7 @@ public:
     }
     
     bool createVersion(int transactionId, const std::string& key, const std::string& data) {
-        std::lock_guard<std::mutex> lock(mutex_);
+        std::lock_guard<std::shared_mutex> lock(rwMutex_);
         
         // Create a new version with current timestamp
         Timestamp timestamp = getCurrentTimestamp();
@@ -39,12 +39,15 @@ public:
     }
     
     bool readData(int transactionId, const std::string& key, std::string& data, IsolationLevel isolation) {
-        std::lock_guard<std::mutex> lock(mutex_);
+        std::shared_lock<std::shared_mutex> lock(rwMutex_);
         
         // Check if read is allowed under this isolation level
         if (!isolationManager_->isReadAllowed(isolation, key)) {
             return false;
         }
+        
+        // Register the read operation
+        isolationManager_->registerRead(transactionId, key);
         
         // Prevent phantom reads for SERIALIZABLE isolation
         isolationManager_->preventPhantomReads(isolation, transactionId, key);
@@ -70,8 +73,30 @@ public:
         return false;
     }
     
+    bool writeData(int transactionId, const std::string& key, const std::string& data, IsolationLevel isolation) {
+        std::unique_lock<std::shared_mutex> lock(rwMutex_);
+        
+        // Check if write is allowed under this isolation level
+        if (!isolationManager_->isWriteAllowed(isolation, key)) {
+            return false;
+        }
+        
+        // Register the write operation
+        isolationManager_->registerWrite(transactionId, key);
+        
+        // Create a new version
+        Timestamp timestamp = getCurrentTimestamp();
+        DataVersion version(transactionId, timestamp, data, false);
+        
+        // Add the version to the version chain for this key
+        versionChains_[key].push_back(std::move(version));
+        
+        std::cout << "Wrote version for key " << key << " in transaction " << transactionId << std::endl;
+        return true;
+    }
+    
     bool commitTransaction(int transactionId) {
-        std::lock_guard<std::mutex> lock(mutex_);
+        std::unique_lock<std::shared_mutex> lock(rwMutex_);
         
         // Mark all versions created by this transaction as committed
         for (auto& pair : versionChains_) {
@@ -87,7 +112,7 @@ public:
     }
     
     bool abortTransaction(int transactionId) {
-        std::lock_guard<std::mutex> lock(mutex_);
+        std::unique_lock<std::shared_mutex> lock(rwMutex_);
         
         // Remove all versions created by this transaction
         for (auto& pair : versionChains_) {
@@ -109,8 +134,21 @@ public:
         return std::chrono::high_resolution_clock::now();
     }
     
+    bool hasConflicts(int transactionId, IsolationLevel isolation) const {
+        std::shared_lock<std::shared_mutex> lock(rwMutex_);
+        
+        // For READ_COMMITTED and below, no conflict detection is needed
+        if (isolation == IsolationLevel::READ_UNCOMMITTED || 
+            isolation == IsolationLevel::READ_COMMITTED) {
+            return false;
+        }
+        
+        // Check for write conflicts
+        return isolationManager_->hasWriteConflict(transactionId, "");
+    }
+    
 private:
-    mutable std::mutex mutex_;
+    mutable std::shared_mutex rwMutex_;
     std::unordered_map<std::string, std::vector<DataVersion>> versionChains_;
     std::unique_ptr<IsolationManager> isolationManager_;
 };
@@ -135,6 +173,10 @@ bool MVCCManager::readData(int transactionId, const std::string& key, std::strin
     return pImpl->readData(transactionId, key, data, isolation);
 }
 
+bool MVCCManager::writeData(int transactionId, const std::string& key, const std::string& data, IsolationLevel isolation) {
+    return pImpl->writeData(transactionId, key, data, isolation);
+}
+
 bool MVCCManager::commitTransaction(int transactionId) {
     return pImpl->commitTransaction(transactionId);
 }
@@ -145,6 +187,10 @@ bool MVCCManager::abortTransaction(int transactionId) {
 
 Timestamp MVCCManager::getCurrentTimestamp() const {
     return pImpl->getCurrentTimestamp();
+}
+
+bool MVCCManager::hasConflicts(int transactionId, IsolationLevel isolation) const {
+    return pImpl->hasConflicts(transactionId, isolation);
 }
 
 } // namespace transaction
