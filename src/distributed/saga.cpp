@@ -113,15 +113,14 @@ bool SagaCoordinator::executeSaga(const std::string& sagaId) {
     return true;
 }
 
+// Get saga status
 SagaStatus SagaCoordinator::getSagaStatus(const std::string& sagaId) const {
     std::lock_guard<std::mutex> lock(coordinatorMutex_);
-    
     auto it = sagas_.find(sagaId);
-    if (it == sagas_.end()) {
-        return SagaStatus::FAILED; // Saga not found, consider it failed
+    if (it != sagas_.end()) {
+        return it->second->status.load();
     }
-    
-    return it->second->status.load();
+    return SagaStatus::FAILED;
 }
 
 std::vector<SagaStep> SagaCoordinator::getSteps(const std::string& sagaId) const {
@@ -159,7 +158,7 @@ std::chrono::milliseconds SagaCoordinator::getSagaTimeout() const {
 bool SagaCoordinator::executeStep(SagaStep& step) {
     std::cout << "Executing step " << step.id << " with action " << step.action << " on participant " << step.participantId << std::endl;
     
-    step.status.store(SagaStepStatus::EXECUTING);
+    step.status = SagaStepStatus::EXECUTING;
     
     // Call action callback
     bool success = false;
@@ -170,10 +169,10 @@ bool SagaCoordinator::executeStep(SagaStep& step) {
     }
     
     if (success) {
-        step.status.store(SagaStepStatus::COMPLETED);
+        step.status = SagaStepStatus::COMPLETED;
         std::cout << "Step " << step.id << " completed successfully" << std::endl;
     } else {
-        step.status.store(SagaStepStatus::FAILED);
+        step.status = SagaStepStatus::FAILED;
         std::cout << "Step " << step.id << " failed" << std::endl;
     }
     

@@ -20,6 +20,8 @@ struct ShardInfo {
     int port;
     std::vector<std::string> tables;
     
+    ShardInfo() : id(""), address(""), port(0) {}
+    
     ShardInfo(const std::string& shardId, const std::string& addr, int p)
         : id(shardId), address(addr), port(p) {}
 };
@@ -31,6 +33,8 @@ struct QueryResult {
     bool success;
     std::string errorMessage;
     std::chrono::steady_clock::time_point executionTime;
+    
+    QueryResult() : shardId(""), success(false), executionTime(std::chrono::steady_clock::now()) {}
     
     QueryResult(const std::string& id) 
         : shardId(id), success(false), executionTime(std::chrono::steady_clock::now()) {}

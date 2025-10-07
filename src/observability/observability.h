@@ -88,8 +88,8 @@ public:
     
     void observe(double value);
     const std::vector<double>& getBuckets() const { return buckets_; }
-    const std::vector<std::atomic<uint64_t>>& getBucketCounts() const { return bucket_counts_; }
-    uint64_t getCount() const { return count_.load(); }
+    const std::vector<std::atomic<long long>>& getBucketCounts() const { return bucket_counts_; }
+    uint64_t getCount() const { return static_cast<uint64_t>(count_.load()); }
     double getSum() const { return sum_.load(); }
     
     std::string serialize() const override;
@@ -98,8 +98,8 @@ public:
     
 private:
     std::vector<double> buckets_;
-    std::vector<std::atomic<uint64_t>> bucket_counts_;
-    std::atomic<uint64_t> count_;
+    std::vector<std::atomic<long long>> bucket_counts_;
+    std::atomic<long long> count_;
     std::atomic<double> sum_;
     mutable std::mutex mutex_;
 };

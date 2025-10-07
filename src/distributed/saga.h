@@ -40,11 +40,14 @@ enum class SagaStatus {
 struct SagaStep {
     std::string id;
     SagaStepType type;
-    std::atomic<SagaStepStatus> status;
+    SagaStepStatus status;  // Changed from atomic to regular enum for copyability
     std::string action;
     std::string compensation;
     std::string participantId;
     std::string data;
+    
+    SagaStep() : id(""), type(SagaStepType::ACTION), status(SagaStepStatus::PENDING),
+          action(""), compensation(""), participantId(""), data("") {}
     
     SagaStep(const std::string& stepId, const std::string& actionCmd, const std::string& compCmd, 
              const std::string& participant, const std::string& stepData = "")
@@ -101,7 +104,7 @@ private:
     struct SagaInfo {
         std::string sagaId;
         std::vector<SagaStep> steps;
-        std::atomic<SagaStatus> status;
+        std::atomic<SagaStatus> status;  // Keep atomic for thread safety
         std::chrono::steady_clock::time_point startTime;
         
         SagaInfo(const std::string& id) 
@@ -122,6 +125,7 @@ private:
     
     // Mutex for thread safety
     mutable std::mutex coordinatorMutex_;
+    mutable std::mutex sagaInfoMutex_;  // Additional mutex for SagaInfo access
     
     // Internal methods
     bool executeStep(SagaStep& step);

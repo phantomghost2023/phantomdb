@@ -18,7 +18,13 @@ Counter::Counter(const std::string& name, const std::string& description)
 }
 
 void Counter::increment(double value) {
-    value_.fetch_add(value);
+    // Use exchange loop for atomic double operations
+    double current = value_.load();
+    double expected;
+    do {
+        expected = current;
+        current = value_.exchange(expected + value);
+    } while (current != expected);
 }
 
 double Counter::getValue() const {
@@ -43,11 +49,23 @@ void Gauge::set(double value) {
 }
 
 void Gauge::increment(double value) {
-    value_.fetch_add(value);
+    // Use exchange loop for atomic double operations
+    double current = value_.load();
+    double expected;
+    do {
+        expected = current;
+        current = value_.exchange(expected + value);
+    } while (current != expected);
 }
 
 void Gauge::decrement(double value) {
-    value_.fetch_sub(value);
+    // Use exchange loop for atomic double operations
+    double current = value_.load();
+    double expected;
+    do {
+        expected = current;
+        current = value_.exchange(expected - value);
+    } while (current != expected);
 }
 
 double Gauge::getValue() const {
@@ -80,10 +98,22 @@ void Histogram::observe(double value) {
     std::lock_guard<std::mutex> lock(mutex_);
     
     // Increment the count
-    count_.fetch_add(1);
+    // Use exchange loop for atomic operations
+    long long current = count_.load();
+    long long expected;
+    do {
+        expected = current;
+        current = count_.exchange(expected + 1);
+    } while (current != expected);
     
     // Add to sum
-    sum_.fetch_add(value);
+    // Use exchange loop for atomic double operations
+    double current_sum = sum_.load();
+    double expected_sum;
+    do {
+        expected_sum = current_sum;
+        current_sum = sum_.exchange(expected_sum + value);
+    } while (current_sum != expected_sum);
     
     // Find the appropriate bucket
     auto it = std::upper_bound(buckets_.begin(), buckets_.end(), value);
@@ -91,7 +121,13 @@ void Histogram::observe(double value) {
     
     // Increment the bucket count
     if (bucket_index < bucket_counts_.size()) {
-        bucket_counts_[bucket_index].fetch_add(1);
+        // Use exchange loop for atomic operations
+        long long current_bucket = bucket_counts_[bucket_index].load();
+        long long expected_bucket;
+        do {
+            expected_bucket = current_bucket;
+            current_bucket = bucket_counts_[bucket_index].exchange(expected_bucket + 1);
+        } while (current_bucket != expected_bucket);
     }
 }
 

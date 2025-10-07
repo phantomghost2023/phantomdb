@@ -25,6 +25,8 @@ struct ShardInfo {
     std::string keyRangeStart;
     std::string keyRangeEnd;
     
+    ShardInfo() : id("") {}
+    
     ShardInfo(const std::string& shardId) : id(shardId) {}
 };
 

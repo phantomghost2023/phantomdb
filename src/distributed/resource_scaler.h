@@ -24,6 +24,10 @@ struct ResourceMetrics {
     size_t queryRate;     // Queries per second
     size_t transactionRate; // Transactions per second
     
+    ResourceMetrics() : nodeId(""), cpuUsage(0.0), memoryUsage(0.0), 
+          diskUsage(0.0), networkUsage(0.0), 
+          queryRate(0), transactionRate(0) {}
+    
     ResourceMetrics(const std::string& id) 
         : nodeId(id), cpuUsage(0.0), memoryUsage(0.0), 
           diskUsage(0.0), networkUsage(0.0), 

@@ -48,6 +48,8 @@ struct RebalancingNodeInfo {
     size_t usedSpace;  // Used space
     size_t availableSpace;  // Available space
     
+    RebalancingNodeInfo() : id(""), capacity(0), usedSpace(0), availableSpace(0) {}
+    
     RebalancingNodeInfo(const std::string& nodeId) 
         : id(nodeId), capacity(0), usedSpace(0), availableSpace(0) {}
 };

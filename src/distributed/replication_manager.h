@@ -27,6 +27,8 @@ struct RegionInfo {
     int port;
     bool isPrimary;
     
+    RegionInfo() : id(""), address(""), port(0), isPrimary(false) {}
+    
     RegionInfo(const std::string& regionId, const std::string& addr, int p, bool primary = false)
         : id(regionId), address(addr), port(p), isPrimary(primary) {}
 };
@@ -38,6 +40,8 @@ struct ReplicationStatus {
     uint64_t lastReplicatedIndex;
     std::chrono::steady_clock::time_point lastHeartbeat;
     std::string errorMessage;
+    
+    ReplicationStatus() : regionId(""), isConnected(false), lastReplicatedIndex(0) {}
     
     ReplicationStatus(const std::string& region) 
         : regionId(region), isConnected(false), lastReplicatedIndex(0) {}

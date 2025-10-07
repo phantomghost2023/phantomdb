@@ -38,6 +38,9 @@ struct NodeStatus {
     size_t memoryUsage;  // Percentage
     size_t diskUsage;  // Percentage
     
+    NodeStatus() : id(""), isActive(false), dataShards(0), 
+          cpuUsage(0), memoryUsage(0), diskUsage(0) {}
+    
     NodeStatus(const std::string& nodeId) 
         : id(nodeId), isActive(false), dataShards(0), 
           cpuUsage(0), memoryUsage(0), diskUsage(0) {}
